@@ -1,0 +1,126 @@
+<script type="text/javascript" src="../../Resource/js/jquery-1.3.2.min.js" ></script>
+<!--<script type="text/javascript" src="../../Resource/js/user/user_nav.js"></script>-->
+<script>
+    $(document).ready(function(){
+        //左侧导航手风琴效果
+        $("#nav_deal").click(function(){
+            //隐藏状态
+            var temp=$(this).attr("title");
+            if($.trim(temp)==1){
+                $(this).css("background-position","-88px -209px");
+                $(this).parent().siblings().css("display","none");
+                $(this).parent().parent().css("height","40px")
+                $(this).attr("title","0");
+            }
+            //展开状态
+            if($.trim(temp)==0){
+                $(this).css("background-position","-71px -209px");
+                $(this).parent().siblings().css("display","block");
+                $(this).parent().parent().css("height","103px")
+                $(this).attr("title","1");
+            }
+        });
+        $("#nav_asset").click(function(){
+            //隐藏状态
+            var temp1=$(this).attr("title");
+            if($.trim(temp1)==1){
+                $(this).css("background-position","-88px -209px");
+                $(this).parent().siblings().css("display","none");
+                $(this).parent().parent().css("height","40px")
+                $(this).attr("title","0");
+            }
+            //展开状态
+            if($.trim(temp1)==0){
+                $(this).css("background-position","-71px -209px");
+                $(this).parent().siblings().css("display","block");
+                $(this).parent().parent().css("height","210px")
+                $(this).attr("title","1");
+            }
+        });
+        $("#nav_account").click(function(){
+            //隐藏状态
+            var temp2=$(this).attr("title");
+            if($.trim(temp2)==1){
+                $(this).css("background-position","-88px -209px");
+                $(this).parent().siblings().css("display","none");
+                $(this).parent().parent().css("height","40px")
+                $(this).attr("title","0");
+            }
+            //展开状态
+            if($.trim(temp2)==0){
+                $(this).css("background-position","-71px -209px");
+                $(this).parent().siblings().css("display","block");
+                $(this).parent().parent().css("height","129px")
+                $(this).attr("title","1");
+            }
+        });
+    });
+</script>
+<!--
+    作者：邓宁
+    时间：2018-09-19
+    描述：--用户主页
+-->
+<div class="nav_left">
+    <dl class="my_deal">
+        <dt>
+            <i id="nav_deal" title="1"></i>
+            <a href="">我的交易</a>
+        </dt>
+        <dd>
+            <a href="">订单管理</a>
+        </dd>
+        <dd>
+            <a href="">退换/售后</a>
+        </dd>
+        <dd>
+            <a href="">收货地址</a>
+        </dd>
+    </dl>
+    <dl class="my_asset" >
+        <dt>
+            <i id="nav_asset" title="1"></i>
+            <a href="">我的资产</a>
+        </dt>
+        <dd>
+            <a href="">零钱</a>
+        </dd>
+        <dd>
+            <a href="">唯品金融</a>
+        </dd>
+        <dd>
+            <a href="">银行卡</a>
+        </dd>
+        <dd>
+            <a href="">联名卡</a>
+        </dd>
+        <dd>
+            <a href="">唯品卡</a>
+        </dd>
+        <dd>
+            <a href="">优惠券</a>
+        </dd>
+        <dd>
+            <a href="">唯品币</a>
+        </dd>
+    </dl>
+    <dl class="my_account">
+        <dt>
+            <i id="nav_account" title="1"></i>
+            <a href="">我的账户</a>
+        </dt>
+        <dd>
+            <a href="user_message.html">我的资料</a>
+        </dd>
+        <dd>
+            <a href="">分享账户</a>
+        </dd>
+        <dd>
+            <a href="">爱心账户</a>
+        </dd>
+        <dd>
+            <a href="">消息订阅</a>
+        </dd>
+    </dl>
+</div>
+

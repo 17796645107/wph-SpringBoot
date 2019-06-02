@@ -1,0 +1,91 @@
+/*footer*/
+footer{
+	width: 100%;
+	height: 457px;
+	background: rgb(252,252,252);
+}
+.footer_main{
+	width: 1000px;
+	height: 100%;
+	margin: 0 auto;
+}
+.footer_icon{
+	width: 100%;
+	height: 75px;
+	padding-top: 30px;
+}
+.footer_icon>ul{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.footer_icon>ul>li{
+	width: 100px;
+	height: 100%;
+}
+.footer_icon li>i{
+	width: 58px;
+	height: 100%;
+	display: inline-block;
+	background: url(../../image/user/footer_vip_iconsv_0705-hash-728f749a.png)0 0;
+}
+.footer_service{
+	width: 100%;
+	height:160px;
+	margin: 40px 0;
+	overflow: hidden;
+}
+.footer_service dt{
+	margin-bottom: 10px;
+}
+.footer_service>dl{
+	width: 166.666px;
+	height: 148px;
+	float: left;
+}
+.footer_service>dl>dd{
+	background: url(../../image/user/footer-hash-3de6f1ae.png) no-repeat -6px -494px;
+}
+.footer_service dd>a{
+	margin-left: 10px;
+	color: grey;
+	font-size: 12px;
+}
+.aboutUS{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	background: rgb(215,35,126);
+	text-align: center;
+	color: white;
+}
+.aboutUS>a{
+	color: white;
+	font-size: 12px;
+}
+.footer_context{
+	width: 100%;
+	height: 57px;
+	margin: 15px 0 0;
+}
+.footer_context>p{
+	text-align: center;
+	font-size: 14px;
+	color: #999;
+}
+.pay_list{
+	width: 100%;
+	height: 40px;
+	background: white;
+}
+.pay_list>ul{
+	width: 650px;
+	height: 100%;
+	margin: 0 auto;
+}
+.pay_list>ul>li>a{
+	width: 105px;
+	height: 40px;
+	display: inline-block;
+	background: url(../../image/user/footer-hash-3de6f1ae.png);
+}

@@ -1,0 +1,278 @@
+<script type="text/javascript" src="../../Resource/js/jquery-1.3.2.min.js" ></script>
+<script type="text/javascript" src="../../Resource/js/json2.js"></script>
+<script type="text/javascript" src="../../Resource/js/vue.min.js"></script>
+<script>
+    //搜索框下拉列表
+    $('#search').click(function(){
+        $("#search_history").css("visibility","visible");
+    });
+    $("#search_history").blur(function(){
+        $("#search_history").css("visibility","hidden");
+    });
+
+    //搜索历史记录
+    findAllSearchHistory();
+
+    //搜索按钮
+    $("#search_go").click(function () {
+        if($("#search").val().trim()==0){
+            return;
+        }
+        $.ajax({
+            type:"post",
+            url:"/wph/user/search",
+            async:true, //异步请求
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data:JSON.stringify({search_title:$("#search").val(),user_id:1}),
+            success:function (message) {
+                //成功
+                if (message["code"]==1){
+                    //查询所有搜索历史
+                    findAllSearchHistory();
+                }
+                else{
+                    alert("查询失败");
+                }
+            },
+            error:function (message) {
+                alert("提交失败"+message);
+            }
+        });
+    });
+
+    $("#delete_searchHistory").click(function () {
+        delete_searchHistory();
+    });
+
+    //查询所有搜索历史
+    function findAllSearchHistory(){
+        $.ajax({
+            type:"get",
+            url:"/wph/user/findAllSearchHistory/1",
+            async:false, //异步请求
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            /*data:JSON.stringify({user_id:1}),*/
+            success:function (result) {
+                new Vue({
+                    el: '#search_main',
+                    data: {
+                        rows: result["data"]
+                    }
+                });
+            },
+            error:function (message) {
+                alert("提交失败"+message);
+            }
+        });
+    }
+
+    //清除所有搜索历史记录
+    function delete_searchHistory() {
+        $.ajax({
+            type:"post",
+            url:"/wph/user/deleteAllSearchHistory/1",
+            async:true, //异步请求
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            /*data:JSON.stringify({user_id:1}),*/
+            success:function (result) {
+
+            },
+            error:function (message) {
+                alert("提交失败"+message);
+            }
+        });
+
+    }
+
+</script>
+<!--
+    作者：邓宁
+    时间：2018-09-19
+    描述：用户主页
+-->
+<nav class="top_nav">
+	<div class="top_nav_main">
+		<div class="now_address" id="now_address">
+			<span>郑州市</span><i></i>
+			<div class="now_address_hidden">
+				<div class="now_address_H_title">
+					<p>请选择你所在的收货地区</p>
+				</div>
+			</div>
+		</div>
+		<ul class="top_nav_list">
+			<li class="nav_list_login">
+				<a href="../user/user_login.html">请登录</a>
+				<div class="login_hidden">
+					<div class="login_msg">
+						<div class="login_icon"></div>
+						<a href="../user/user_login.html">欢迎回来 [请登录]</a>
+					</div>
+					<div class="user_msg">
+						<table border="0">
+							<tr>
+								<td><a href="">我的收藏</a></td>
+								<td><a href="">我的订单</a></td>
+							</tr>
+							<tr>
+								<td><a href="">零钱</a></td>
+								<td><a href="">我的优惠券</a></td>
+							</tr>
+							<tr>
+								<td><a href="">我的唯品币</a></td>
+								<td><a href="">唯品金融</a></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</li>
+			<li class="nav_list_register">
+				<a href="../user/user_register.html">注册</a>
+			</li>
+			<li class="nav_list_sign">
+				<i></i><a href="">签到有礼</a>
+				<!--
+                	作者：1058156924@qq.com
+                	时间：2018-11-10
+                	描述：用户签到功能，待完善
+                -->
+				<!--<div class="sign_hidden">
+					
+				</div>-->
+			</li>
+			<li class="nav_list_order">
+				<a href="">我的订单</a>
+			</li>
+			<li class="nav_list_sale">
+				<a href="">我的特卖</a>
+				<div class="sale_hidden">
+					<span><a href="">品牌收藏(0)</a></span>
+					<span><a href="">商品收藏(0)</a></span>
+					<span><a href="">我的足迹(0)</a></span>
+				</div>
+			</li>
+			<li class="nav_list_vip">
+				<a href="">会员俱乐部</a>
+				<div class="vip_hidden">
+					<ul>
+						<li><a href="">俱乐部首页</a></li>
+						<li><a href="">唯品币兑换</a></li>
+						<li><a href="">免费抽大奖</a></li>
+					</ul>
+				</div>
+			</li>
+			<li class="nav_list_service">
+				<a href="">客户服务</a>
+				<div class="service_hidden">
+					<ul>
+						<li><a href="">联系客服</a></li>
+						<li><a href="">帮助中心</a></li>
+						<li><a href="">服务中心</a></li>
+						<li><a href="">知识产权起诉</a></li>
+					</ul>
+				</div>
+			</li>
+			<li class="nav_list_phone">
+				<i></i><a href="">手机版</a>
+				<div class="phone_hidden">
+					<img src="../../Resource/image/index/1466134037230.jpg">
+				</div>
+			</li>
+			<li class="nav_list_more">
+				<a href="">更多</a>
+				<div class="more_hidden">
+					<div class="zone">
+						<h3>合作专区</h3>
+						<ul>
+							<li><a href="">联名卡申请</a></li>
+							<li><a href="">唯品卡</a></li>
+							<li><a href="">支付专区</a></li>
+						</ul>
+					</div>
+					<div class="aboutMe">
+						<h3>关于我们</h3>
+						<ul>
+							<li><a href="">sell on vip</a></li>
+							<li><a href="">品牌招商</a></li>
+							<li><a href="">官方博客</a></li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class="head_logo">
+	<img src="../../Resource/image/index/logo.png" alt="唯品会" />
+	<img src="../../Resource/image/index/logoService.png" alt="7天放心退" />
+	<div class="goodCart">
+		<i></i><span>购物车</span><span class="cart_number">0</span>
+		<div class="goodCart_hidden">
+			
+		</div>
+	</div>
+	<div class="search">
+		<input type="search" placeholder="&nbsp;大家都在搜：连衣裙" id="search"/>
+		<a href="javascript:void(0)" id="search_go"></a>
+		<div class="search_history" id="search_history">
+            <div class="search_ul" id="search_main">
+                <div class="search_title">
+                    搜索历史
+                    <i title="清除搜索历史" id="delete_searchHistory"></i>
+                </div>
+                <ul id="search_ul">
+                    <li v-for="search_li in rows">
+                        <span>{{search_li}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="recommend">
+
+            </div>
+		</div>
+	</div>
+</div>
+<nav class="main_nav" id="main_nav">
+	<ul>
+		<li>
+			<a href="../../view/index/index.html">首页</a>
+		</li>
+		<li class="super">
+			<img src="../../Resource/image/index/hot.gif"><a href="">超级预付</a>
+		</li>
+		<li>
+			<a href="">女装</a>
+		</li>
+		<li>
+			<a href="">母婴</a>
+		</li>
+		<li>
+			<a href="">家电</a>
+		</li>
+		<li>
+			<a href="">国际</a>
+		</li>
+		<li>
+			<a href="">美妆</a>
+		</li>
+		<li>
+			<a href="">鞋包</a>
+		</li>
+		<li>
+			<a href="">男装</a>
+		</li>
+		<li>
+			<a href="">运动</a>
+		</li>
+		<li>
+			<a href="">更多</a>
+		</li>
+		<li>
+			<a href="">预告</a>
+		</li>
+		
+	</ul>
+</nav>
