@@ -1,5 +1,6 @@
 package hhxy.dn.wph.mapper;
 
+import hhxy.dn.wph.domain.SellerAccount;
 import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.service.impl.SellerServiceImplTest;
 import hhxy.dn.wph.util.DateUtil;
@@ -25,6 +26,9 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SellerMapperTest {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(SellerMapperTest.class);
+
     @Autowired
     private SellerMapper sellerMapper;
 
@@ -118,5 +122,14 @@ public class SellerMapperTest {
                 sellerMapper.saveProductNum(productNum);
             });
         });
+    }
+
+    @Test
+    public void findSellerAccount() {
+        SellerAccount sellerAccount = new SellerAccount();
+        sellerAccount.setSellerUsername("seller1");
+        sellerAccount.setSellerPassword("123456");
+        int seller_id = sellerMapper.findSellerAccount(sellerAccount);
+        LOGGER.info("sellerid = {}",seller_id);
     }
 }

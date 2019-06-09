@@ -33,16 +33,16 @@ public class HttpAspect {
         //获取HttpServletRequest
         HttpServletRequest request=attributes.getRequest();
         //url
-            logger.info("url={}",request.getRequestURL());
+        logger.info("url={}",request.getRequestURL());
         //action
-            logger.info("action={}",request.getMethod());
+        logger.info("action={}",request.getMethod());
         //ip
-            logger.info("ip={}",request.getRemoteAddr());
+        logger.info("ip={}",request.getRemoteAddr());
         //method
-            logger.info("method={}",joinPoint.getSignature().getDeclaringTypeName() +"."+
+        logger.info("method={}",joinPoint.getSignature().getDeclaringTypeName() +"."+
                     joinPoint.getSignature().getName());
         //params
-            logger.info("params={}",joinPoint.getArgs());
+        logger.info("params={}",joinPoint.getArgs());
     }
 
     /*@After("log()")

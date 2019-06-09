@@ -1,18 +1,22 @@
 package hhxy.dn.wph.controller;
 
+import hhxy.dn.wph.domain.SellerAccount;
 import hhxy.dn.wph.entity.Result;
 import hhxy.dn.wph.entity.Seller;
 import hhxy.dn.wph.service.SellerService;
+import hhxy.dn.wph.util.CookieUtil;
+import hhxy.dn.wph.util.JsonUtil;
+import hhxy.dn.wph.util.RedisUtil;
 import hhxy.dn.wph.util.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * @Author: 邓宁
@@ -23,6 +27,9 @@ import javax.annotation.Resource;
 public class SellerController {
 
     private final Logger logger = LoggerFactory.getLogger(SellerController.class);
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Autowired
     private SellerService sellerService;
@@ -55,5 +62,14 @@ public class SellerController {
         return ResultUtil.success(result);
     }
 
+    @PostMapping("/login")
+    public Result sellerLogin(@RequestBody SellerAccount sellerAccount,
+                              HttpServletRequest request,HttpServletResponse response){
+        Seller seller = sellerService.login(sellerAccount);
+        String token = UUID.randomUUID().toString();
+        redisUtil.set("token", JsonUtil.objectToJson(seller));
+        CookieUtil.setCookie(request,response,"SellerToken",token,60*60*24*7);
+        return ResultUtil.success(seller);
+    }
 
 }

@@ -1,7 +1,10 @@
 package hhxy.dn.wph.service.impl;
 
 import hhxy.dn.wph.domain.ProductAttributeRelation;
+import hhxy.dn.wph.domain.SellerAccount;
 import hhxy.dn.wph.entity.*;
+import hhxy.dn.wph.enums.SellerExceptionEnum;
+import hhxy.dn.wph.exception.SellerException;
 import hhxy.dn.wph.mapper.SellerMapper;
 import hhxy.dn.wph.service.SellerService;
 import hhxy.dn.wph.util.JsonUtil;
@@ -38,13 +41,34 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public Seller getSellerById(Integer sellerId) {
-        return sellerMapper.getSellerById(sellerId);
+        if (redisUtil.hasKey("SellerById:"+ sellerId)){
+            String seller = (String) redisUtil.get("SellerById:"+ sellerId);
+            return JsonUtil.jsonToPojo(seller,Seller.class);
+        }
+        Seller seller = sellerMapper.getSellerById(sellerId);
+        redisUtil.set("SellerById:"+ sellerId,JsonUtil.objectToJson(seller));
+        return seller;
     }
 
     @Override
     public int getSellerCollectNum(Integer sellerId) {
         int result = sellerMapper.getSellerCollectNum(sellerId);
         return result;
+    }
+
+    @Override
+    public Seller login(SellerAccount sellerAccount) {
+        Integer seller_id = sellerMapper.findSellerAccount(sellerAccount);
+        if (seller_id == null){
+            throw new SellerException(SellerExceptionEnum.accountError);
+        }
+        if (redisUtil.hasKey("SellerById:"+ seller_id)){
+            String seller = (String) redisUtil.get("SellerById:"+ seller_id);
+            return JsonUtil.jsonToPojo(seller,Seller.class);
+        }
+        Seller seller = sellerMapper.getSellerById(seller_id);
+        redisUtil.set("SellerById:"+ seller_id,JsonUtil.objectToJson(seller));
+        return seller;
     }
 
     public int saveOneProduct(Product product){

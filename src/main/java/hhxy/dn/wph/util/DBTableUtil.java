@@ -50,5 +50,7 @@ public class DBTableUtil {
     public static final String PRODUCT_ATTRIBUTE_RELATION = " tb_product_attribute_relation ";
     //品牌表
     public static final String BRAND = " tb_brand ";
+    //商户账号表
+    public static final String SELLER_ACCOUNT = " tb_seller_account ";
 
 }

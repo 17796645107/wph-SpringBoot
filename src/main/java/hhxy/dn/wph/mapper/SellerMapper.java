@@ -2,6 +2,7 @@ package hhxy.dn.wph.mapper;
 
 import hhxy.dn.wph.domain.Brand;
 import hhxy.dn.wph.domain.ProductAttributeRelation;
+import hhxy.dn.wph.domain.SellerAccount;
 import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.mapper.provider.SellerProvider;
 import org.apache.ibatis.annotations.*;
@@ -73,4 +74,8 @@ public interface SellerMapper {
     int saveProductNum(ProductNum productNum);
 
     int saveProductAttributeRelation(ProductAttributeRelation productAttributeRelation);
+
+    @Select("select seller_id from"+ SELLER_ACCOUNT +
+            "where seller_username = #{sellerUsername} and seller_password = #{sellerPassword}")
+    Integer findSellerAccount(SellerAccount sellerAccount);
 }

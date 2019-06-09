@@ -2,7 +2,7 @@ server:
   servlet:
     #项目访问路径
     context-path: /wph
-  port: 8086
+  port: 8088
   #提供HTTPS服务
 #  ssl:
 #    key-store: C:\Users\Administrator\mykeys.jks

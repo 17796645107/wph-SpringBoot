@@ -1,5 +1,6 @@
 package hhxy.dn.wph.service;
 
+import hhxy.dn.wph.domain.SellerAccount;
 import hhxy.dn.wph.entity.Seller;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface SellerService {
     Seller getSellerById(Integer sellerId);
 
     int getSellerCollectNum(Integer sellerId);
+
+    Seller login(SellerAccount sellerAccount);
 }

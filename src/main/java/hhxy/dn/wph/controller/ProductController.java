@@ -163,4 +163,7 @@ public class ProductController {
         List<ProductAttribute> attributeList = productService.getProductAttributeByCategoryId(categoryId);
         return ResultUtil.success(attributeList);
     }
+
+
+
 }
