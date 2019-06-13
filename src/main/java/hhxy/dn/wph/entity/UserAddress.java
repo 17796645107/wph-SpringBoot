@@ -1,5 +1,7 @@
 package hhxy.dn.wph.entity;
 
+import hhxy.dn.wph.util.DateUtil;
+
 import java.util.Date;
 
 /**
@@ -17,11 +19,10 @@ public class UserAddress {
     private String area;//详细地址
     private String postcode;//邮政编码
     private String telephone;//手机号码
-    private Integer is_default;//是否默认收货地址a
-    private Integer status;//状态
-    private String created;//创建时间
+    private Integer is_default = 0;//是否默认收货地址a
+    private Integer status = 1;//状态
+    private String created = DateUtil.getDate();//创建时间
     private String updated;//更新时间
-
 
     public Integer getAddress_id() {
         return address_id;

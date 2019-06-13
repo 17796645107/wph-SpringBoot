@@ -3,8 +3,11 @@ package hhxy.dn.wph.service.impl;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import hhxy.dn.wph.entity.*;
+import hhxy.dn.wph.enums.GeneralExceptionEnum;
 import hhxy.dn.wph.enums.UserExceptionEnum;
+import hhxy.dn.wph.exception.GeneralException;
 import hhxy.dn.wph.exception.UserException;
+import hhxy.dn.wph.mapper.RoleMapper;
 import hhxy.dn.wph.mapper.UserMapper;
 import hhxy.dn.wph.service.UserService;
 import hhxy.dn.wph.util.*;
@@ -13,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,6 +44,7 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl implements UserService {
 
+    //用户上传头像存储地址
     @Value("${UPLOAD_URL}")
     private String UPLOAD_URL;
 
@@ -48,37 +54,54 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
     private RedisUtil redisUtil;
 
     //用户注册
     @Override
     @Transactional
-    public void userRegister(String telephone,String password,String telephoneCode) {
-        //从Redis中获取手机验证码
-        String code = (String) redisUtil.get(telephone);
-        //手机验证码错误||验证码为空
-        if(!StringUtils.equals(telephoneCode,code) || StringUtils.isBlank(telephoneCode) || StringUtils.isBlank(code)){
-            throw new UserException(UserExceptionEnum.CODE_ERROR);
-        }
+    public void userRegister(UserRegister userRegister) {
+        //校验手机验证码
+        validateTelephoneCode(userRegister.getTelephone(),userRegister.getTelephoneCode());
+
         User user = new User();
-        user.setTelephone(telephone);
-        user.setCreated(DateUtil.getDate());
+        user.setTelephone(userRegister.getTelephone());
         //注册用户基本信息
-        int result = userMapper.userRegister(user);
+        Integer result = userMapper.userRegister(user);
+        if (result < 1){
+            //异常时销毁Redis中短信验证码
+            redisUtil.del(userRegister.getTelephone());
+            throw new UserException(UserExceptionEnum.REGISTER_ERROR);
+        }
         //获取自增主键ID
-        Integer user_id = user.getUser_id();
+        Integer user_no = user.getUser_no();
         //创建用户密码对象
         UserPassword userPwd = new UserPassword();
-        userPwd.setUser_id(user_id);
-        //MD5加密密码
-        userPwd.setPassword(MD5Util.getMD5(password));
+        userPwd.setUser_no(user_no);
+        userPwd.setPassword(userRegister.getPassword());
         //注册用户密码
         int resultUserPwd = userMapper.userPasswordRegister(userPwd);
         //注册失败,抛出异常
-        if (result != 1 || resultUserPwd !=1){
+        if (resultUserPwd < 1){
             //异常时销毁Redis中短信验证码
-            redisUtil.del(telephone);
+            redisUtil.del(userRegister.getTelephone());
             throw new UserException(UserExceptionEnum.REGISTER_ERROR);
+        }
+    }
+
+    //校验手机验证码
+    public void validateTelephoneCode(String telephone,String code){
+        //缓存中不存在手机验证码
+        if (!redisUtil.hasKey(telephone)){
+            throw new UserException(UserExceptionEnum.CODE_ERROR);
+        }
+        //从Redis中根据手机号获取手机验证码
+        String codeCache = (String) redisUtil.get(telephone);
+        //手机验证码错误
+        if(!StringUtils.equals(codeCache,code)){
+            throw new UserException(UserExceptionEnum.CODE_ERROR);
         }
     }
 
@@ -86,12 +109,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userLogin(String telephone,String password) {
         //查询用户基本信息
-        User user = userMapper.getUser(telephone);
+        User user = userMapper.getUserByTelephone(telephone);
         if (user == null){
             throw new UserException(UserExceptionEnum.LOGIN_ERROR);
         }
         //查询用户加密之后的密码
-        String userPwd =userMapper.getUserPassword(user.getUser_id());
+        String userPwd =userMapper.getUserPassword(user.getUser_no());
         if (!MD5Util.getMD5(password).equals(userPwd)){
             throw new UserException(UserExceptionEnum.LOGIN_ERROR);
         }
@@ -100,16 +123,18 @@ public class UserServiceImpl implements UserService {
 
     //查询手机号是否注册
     @Override
-    public String userCheckTelephone(String telephone) {
-
-        return userMapper.userCheckTelephone(telephone);
+    public void userCheckTelephone(String telephone) {
+        String result = userMapper.userCheckTelephone(telephone);
+        if (result == null){
+            throw new UserException(UserExceptionEnum.telehpne_error);
+        }
     }
 
     //发送短信验证码
     @Override
-    public String userSendCode(String telephone,HttpSession session) throws ClientException {
+    public void userSendCode(String telephone) throws ClientException {
         //生成随机验证码
-        String code=SendCodeUtil.getRandomCode();
+        String code = SendCodeUtil.getRandomCode();
         //判断Redis中是否已经存在了此手机号码的验证码,
         if(redisUtil.get(telephone) != null){
             //如果存在则删除
@@ -118,12 +143,12 @@ public class UserServiceImpl implements UserService {
         //发送验证码
         SendSmsResponse response=SendCodeUtil.sendSms(telephone,code);
         //验证返回信息
-        if(response.getCode() != null && "OK".equals(response.getCode())){
+        if("OK".equals(response.getCode())){
             //放入Redis,(手机号码,验证码),time(s):超时时间:5分钟
             redisUtil.set(telephone,code,60*5);
-            return response.getCode();
         }
         else{
+            LOGGER.info("手机验证码发送错误 = {}",response.getMessage());
             throw new UserException(UserExceptionEnum.SENDCODE_ERROR);
         }
     }
@@ -159,36 +184,26 @@ public class UserServiceImpl implements UserService {
         response.getOutputStream().flush();
     }
 
-    //添加用户信息
-    @Override
-    public int saveUser(User user) {
-        return userMapper.saveUser(user);
-    }
-
     //更新用户信息
     @Override
-    public int updateUser(User user,String token) {
-        if (!redisUtil.hasKey(token)){
-            throw new UserException(UserExceptionEnum.Unqualified);
-        }
+    public void updateUser(User user,String token) {
         int result = userMapper.updateUser(user);
         if (result != 1){
             throw new UserException(UserExceptionEnum.updateUserError);
+        }else{
+            //删除缓存
+            redisUtil.del(token);
         }
-        //删除缓存
-        redisUtil.del(token);
-        return result;
     }
 
     //添加用户收货地址
     @Override
     public int saveUserAddress(UserAddress address) {
-        //设置用户地址创建时间
-        address.setCreated(DateUtil.getDate());
         int result = userMapper.saveUserAddress(address);
         if (result != 1){
             throw new UserException(UserExceptionEnum.saveUserAddressError);
         }
+        //清除缓存
         redisUtil.del("UserAddress:"+address.getUser_id());
         return result;
     }
@@ -196,27 +211,32 @@ public class UserServiceImpl implements UserService {
     //更新用户收货地址
     @Override
     public int updateUserAddress(UserAddress address) {
-        //设置用户更新时间
-        address.setUpdated(DateUtil.getDate());
-        return userMapper.updateUserAddress(address);
+        int result = userMapper.updateUserAddress(address);
+        if (result != 1){
+            throw new UserException(UserExceptionEnum.saveUserAddressError);
+        }
+        //清除缓存
+        redisUtil.del("UserAddress:"+address.getUser_id());
+        return result;
     }
 
     //更新默认收货地址
     @Override
-    @Transactional//异常回滚
-    public int updateDefaultUserAddress(Integer address_id) {
-        //先查询用户ID
-        Integer user_id=userMapper.findUserIdByAddressId(address_id);
+    //异常回滚
+    @Transactional
+    public int updateDefaultUserAddress(Integer user_id,Integer address_id) {
         //把此用户的所有收货地址都重置为非默认收货地址
-        int result1=userMapper.updateAllUserAddress(user_id);
+        Integer result1 = userMapper.updateAllUserAddress(user_id);
+        if (result1 == null){
+            throw new UserException(UserExceptionEnum.updateAddressError);
+        }
         //更新默认收货地址
-        int result2=userMapper.updateDefaultUserAddress(address_id);
-        if(result1 > 0 && result2 >0){
-            return 1;
+        Integer result2 = userMapper.updateDefaultUserAddress(address_id);
+        if (result2 == null){
+            throw new UserException(UserExceptionEnum.updateAddressError);
         }
-        else{
-            return 0;
-        }
+        redisUtil.del("UserAddress:"+ user_id);
+        return 0;
     }
 
     //删除收货地址
@@ -226,53 +246,51 @@ public class UserServiceImpl implements UserService {
         if (result != 1){
             throw new UserException(UserExceptionEnum.deleteAddressError);
         }
-        redisUtil.del("UserAddress:"+userId);
+        redisUtil.del("UserAddress:"+ userId);
         return result;
     }
 
     //查询用户所有收货地址
     @Override
     public List<UserAddress> findAllUserAddress(Integer user_id) {
-        //读取缓存
-        String userAddress = (String) redisUtil.get("UserAddress:"+user_id);
-        if (userAddress != null){
+        if (redisUtil.hasKey("UserAddress:"+ user_id)){
+            //读取缓存
+            String userAddress = (String) redisUtil.get("UserAddress:"+ user_id);
             return JsonUtil.jsonToList(userAddress,UserAddress.class);
         }
         //缓存没有,则查询数据库
         List<UserAddress> addressList = userMapper.findAllUserAddress(user_id);
+        if (addressList.size() == 0){
+            throw new GeneralException(GeneralExceptionEnum.notFound);
+        }
         redisUtil.set("UserAddress:"+user_id,JsonUtil.objectToJson(addressList));
         return addressList;
     }
 
-    //用户搜索商品关键词
-    @Override
-    @Transactional
-    public int saveSearchHistory(String search_title,Integer user_id) {
-        int result = userMapper.saveSearchHistory(search_title,user_id);
-        if (result < 1){
-            throw new UserException(UserExceptionEnum.CODE_ERROR);
-        }
-
-        return result;
-    }
-
-    //查询搜索历史记录
+    //查询用户搜索历史记录
     @Override
     public List<String> findAllSearchHistory(Integer user_id) {
-        String searchHistorys = (String) redisUtil.get("SearchHistory:"+user_id);
-        if (searchHistorys != null){
+        if (redisUtil.hasKey("SearchHistory:"+ user_id)){
+            String searchHistorys = (String) redisUtil.get("SearchHistory:"+user_id);
             return JsonUtil.jsonToList(searchHistorys,String.class);
         }
         List<String> searchHostoryList = userMapper.findAllSearchHistory(user_id);
-        redisUtil.set("SearchHistory:"+user_id,JsonUtil.objectToJson(searchHostoryList));
+        if (searchHostoryList.size() == 0){
+            throw new GeneralException(GeneralExceptionEnum.notFound);
+        }
+        redisUtil.set("SearchHistory:"+ user_id,JsonUtil.objectToJson(searchHostoryList));
         return searchHostoryList;
     }
 
     //用户清除搜索历史记录
     @Override
     public int deleteAllSearchHistory(Integer user_id) {
+        Integer result = userMapper.deleteAllSearchHistory(user_id);
+        if (result == null){
+            throw new UserException(UserExceptionEnum.deleteAllSearchHistoryError);
+        }
         redisUtil.del("SearchHistory:"+user_id);
-        return userMapper.deleteAllSearchHistory(user_id);
+        return result;
     }
 
     //用户关注商铺
@@ -282,30 +300,33 @@ public class UserServiceImpl implements UserService {
         if (result != 1){
             throw new UserException(UserExceptionEnum.collectSellerError);
         }
-        Integer id = collect.getUser_id();
         //清除缓存
-        redisUtil.del("CollectSeller:"+id);
-
+        redisUtil.del("CollectSeller:"+ collect.getUser_id());
     }
 
-    //用户查询关注的商铺
+    //获取用户查询关注的商铺
     @Override
     public List<Seller> getCollectSellerByUserId(Integer userId) {
-        String sellers = (String) redisUtil.get("CollectSeller:"+userId);
-        if (sellers != null){
+        if (redisUtil.hasKey("CollectSeller:"+userId)){
+            String sellers = (String) redisUtil.get("CollectSeller:"+userId);
             return JsonUtil.jsonToList(sellers,Seller.class);
         }
         List<Seller> sellerList = userMapper.getCollectSellerByUserId(userId);
+        if (sellerList.size() == 0){
+            throw new GeneralException(GeneralExceptionEnum.notFound);
+        }
         redisUtil.set("CollectSeller:"+userId, JsonUtil.objectToJson(sellerList));
         return sellerList;
     }
 
+    //根据用户编号获取用户信息
     @Override
-    public User getUserDetail(String telephone) {
-        User user = userMapper.getUser(telephone);
+    public User getUserDetail(Integer user_no) {
+        User user = userMapper.getUserByNo(user_no);
         return user;
     }
 
+    //上传用户头像
     @Override
     public void saveUserHeadIcon(MultipartFile file,String token,Integer userId) {
         //上传图片
@@ -314,19 +335,31 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.updateUserHeadIcon(file.getOriginalFilename(),userId);
         if (result != 1){
             throw new UserException(UserExceptionEnum.UpdateUserHeadIconError);
+        }else{
+            //删除缓存
+            redisUtil.del(token);
         }
-        //删除缓存
-        redisUtil.del(token);
     }
 
+    //查询用户是否收藏了该商户
     @Override
     public String selectUserCollectSeller(Integer sellerId, Integer userId) {
         UserCollectSeller collect = userMapper.selectUserCollectSeller(sellerId,userId);
-        if (collect != null) {
-            return "true";
+        return collect == null ? "false" : "true";
+    }
+
+    //根据手机号码加载用户
+    @Override
+    public UserDetails loadUserByUsername(String telephone) throws UsernameNotFoundException {
+        User user = userMapper.getUserByTelephone(telephone);
+        if (user == null){
+            throw new UsernameNotFoundException("没有该用户");
         }
-        else {
-            return "false";
-        }
+        //获取人员的权限
+        List<Role> roleList = roleMapper.findRolesByPeopleId(user.getUser_id());
+        UserLogin userLogin = new UserLogin();
+        userLogin.setTelephone(telephone);
+        userLogin.setRoles(roleList);
+        return userLogin;
     }
 }

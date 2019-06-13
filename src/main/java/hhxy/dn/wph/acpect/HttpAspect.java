@@ -16,33 +16,34 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Aspect
 @Component
-//Aop切面类
+//用户方法调用记录切面类
 public class HttpAspect {
 
-    /*日志记录*/
+    /*日志*/
     private static final Logger logger= LoggerFactory.getLogger(HttpAspect.class);
 
+    //切点
     @Pointcut("execution(public * hhxy.dn.wph.controller.UserController.*(..))")
-    public void log(){ }
+    public static void log(){ }
 
-    @Before("log()")
     //在方法之前调用
+    @Before("log()")
     public void logBefore(JoinPoint joinPoint){
         ////获取ServletRequest
         ServletRequestAttributes attributes= (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         //获取HttpServletRequest
         HttpServletRequest request=attributes.getRequest();
         //url
-        logger.info("url={}",request.getRequestURL());
+        logger.info("url = {}",request.getRequestURL());
         //action
-        logger.info("action={}",request.getMethod());
+        logger.info("action = {}",request.getMethod());
         //ip
-        logger.info("ip={}",request.getRemoteAddr());
+        logger.info("ip = {}",request.getRemoteAddr());
         //method
-        logger.info("method={}",joinPoint.getSignature().getDeclaringTypeName() +"."+
+        logger.info("method = {}",joinPoint.getSignature().getDeclaringTypeName() +"."+
                     joinPoint.getSignature().getName());
         //params
-        logger.info("params={}",joinPoint.getArgs());
+        logger.info("params = {}",joinPoint.getArgs());
     }
 
     /*@After("log()")
@@ -54,6 +55,6 @@ public class HttpAspect {
     //获取返回信息
     @AfterReturning(returning = "object",pointcut = "log()")
     public void logAfterReturning(Object object){
-        logger.info("response={}",object);
+        logger.info("response = {}",object);
     }
 }

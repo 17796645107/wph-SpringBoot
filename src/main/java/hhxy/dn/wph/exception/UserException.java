@@ -18,7 +18,12 @@ public class UserException extends RuntimeException {
         this.code=userExceptionEnum.getCode();
     }
 
-    public UserException(){}
+    public UserException(String messgae,Integer code){
+        super(messgae);
+        this.code = code;
+    }
+
+    public UserException(){ }
 
     public Integer getCode() {
         return code;

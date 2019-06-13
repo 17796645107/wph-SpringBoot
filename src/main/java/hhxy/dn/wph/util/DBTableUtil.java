@@ -52,5 +52,13 @@ public class DBTableUtil {
     public static final String BRAND = " tb_brand ";
     //商户账号表
     public static final String SELLER_ACCOUNT = " tb_seller_account ";
+    //人员-角色表
+    public static final String PEOPLE_ROLE = " tb_people_role ";
+    //角色表
+    public static final String ROLE = " tb_role ";
+    //资源表
+    public static final String RESOURCE = " tb_resource ";
+    //角色-资源表
+    public static final String ROLE_RESOURCE = " tb_role_resource ";
 
 }

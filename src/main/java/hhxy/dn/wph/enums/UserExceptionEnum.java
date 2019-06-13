@@ -16,9 +16,12 @@ public enum UserExceptionEnum {
     updateUserError(1007,"更新用户信息错误：操作数据库失败！"),
     saveUserAddressError(1008,"添加用户收货地址错误：操作数据库失败！"),
     deleteAddressError(1008,"删除用户收货地址错误：操作数据库失败！"),
+    updateAddressError(1013,"更新用户收货地址错误：操作数据库失败！"),
     NullPointerError(1009,"文件为空，请重新上传!"),
     UploadFileError(1010,"文件上传异常!"),
-    UpdateUserHeadIconError(1011,"更新用户头像错误：操作数据库失败！")
+    UpdateUserHeadIconError(1011,"更新用户头像错误：操作数据库失败！"),
+    telehpne_error(1012,"手机号已经注册"),
+    deleteAllSearchHistoryError(1013,"删除搜索记录失败"),
     ;
 
     private Integer code;//返回码

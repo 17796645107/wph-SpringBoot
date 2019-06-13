@@ -2,8 +2,6 @@ package hhxy.dn.wph.mapper;
 
 import hhxy.dn.wph.domain.SellerAccount;
 import hhxy.dn.wph.entity.*;
-import hhxy.dn.wph.service.impl.SellerServiceImplTest;
-import hhxy.dn.wph.util.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -11,13 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import static org.junit.Assert.*;
 
 /**
  * @Author: 邓宁

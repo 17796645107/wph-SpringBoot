@@ -17,10 +17,8 @@ import hhxy.dn.wph.mapper.ProductMapper;
 import hhxy.dn.wph.service.OrderService;
 import hhxy.dn.wph.util.DateUtil;
 import hhxy.dn.wph.util.JsonUtil;
-import hhxy.dn.wph.util.OrderIDUtil;
+import hhxy.dn.wph.util.IDUtil;
 import hhxy.dn.wph.util.RedisUtil;
-import javafx.scene.effect.SepiaTone;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -64,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
         checkProductNum(order);
 
         //创建订单
-        order.setOrder_id(OrderIDUtil.createOrderID());//生成订单号
+        order.setOrder_id(IDUtil.createOrderID());//生成订单号
         order.setStatus(1);//订单状态
         order.setCreated(DateUtil.getDate());//创建订单时间
         int result = orderMapper.createOrder(order);

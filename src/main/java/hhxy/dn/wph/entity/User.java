@@ -1,5 +1,7 @@
 package hhxy.dn.wph.entity;
 
+import hhxy.dn.wph.util.DateUtil;
+import hhxy.dn.wph.util.IDUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,12 +18,11 @@ import java.util.List;
  * @Date: Created in 13:38 2018/11/12
  */
 //用户表
-public class User implements UserDetails {
-    private Integer user_id;//用户ID
-    private String nickname;//昵称ID
-    @NotNull
+public class User{
+    private Integer user_no;//自动编号
+    private String user_id;//用户ID
+    private String nickname;//昵称
     private String telephone;//手机号
-    @NotNull
     private String name;//真实姓名
     private String sex;//性别
     private String birthday;//生日
@@ -29,61 +30,34 @@ public class User implements UserDetails {
     private String vip;//会员等级
     private String headImage;//头像-图片路径
     private Integer status;//状态
-    private List<Role> roles;//用户角色
     private String created;//创建时间
     private String updated;//更新时间
+    private List<Role> roles;//用户角色
 
-    //重写UserDetails接口的方法
-    @Override
-    //获取当前用户所具有的角色
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        /*List<GrantedAuthority> authorityList = new ArrayList<>();
-        for (Role role : roles) {
-            //构造SimpleGrantedAuthority
-            authorityList.add(new SimpleGrantedAuthority(role.getName()));
-        }
-        return authorityList;*/
-        return null;
+
+    public User(){
+        //默认值
+        this.user_id = IDUtil.createPeopleID("U");
+        this.nickname = "唯品会会员";
+        this.status = 1;
+        this.vip = "青铜";
+        this.headImage = "avatar_89373029_1496285287409.jpg";
+        this.created = DateUtil.getDate();
     }
 
-    @Override
-    //获取用户名
-    public String getUsername() {
-        return null;
+    public Integer getUser_no() {
+        return user_no;
     }
 
-    @Override
-    public String getPassword() {
-        return null;
+    public void setUser_no(Integer user_no) {
+        this.user_no = user_no;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
-    //getter,setter方法
-
-    public Integer getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Integer user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 

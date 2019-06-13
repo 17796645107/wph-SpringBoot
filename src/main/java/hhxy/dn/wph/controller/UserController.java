@@ -16,12 +16,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,48 +53,68 @@ public class UserController {
     private RedisUtil redisUtil;
 
     //日志
-    private static final Logger LOGGER=LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     /*
      * @Description:用户注册
-     * @param: [telephone, password, telephoneCode]
-     * @return: hhxy.dn.wph.entity.Result
+     * @param:[user]用户注册信息,[result]参数验证结果
+     * @return:
      */
     @PostMapping(value = "/register")
-    public Result userRegister(
-            @RequestParam("telephone") String telephone,
-            @RequestParam("password") String password,
-            @RequestParam("code") String telephoneCode){
-        userService.userRegister(telephone,password,telephoneCode);
+    public Result userRegister(@Valid @RequestBody UserRegister userRegister, BindingResult result){
+        //参数验证
+        this.valid(result);
+        userService.userRegister(userRegister);
         return ResultUtil.success();
+    }
+
+    //SpringMVC参数验证
+    public void valid(BindingResult result){
+        if (result.hasFieldErrors()){
+            //获取错误信息
+            List<FieldError> errorList = result.getFieldErrors();
+            //通过断言抛出参数不合法的异常
+            errorList.stream().forEach(item -> Assert.isTrue(false,item.getDefaultMessage()));
+        }
     }
 
     /*
      * @Description:用户登录
-     * @param: [telephone, password]
+     * @param: [userLogin, result]
      * @return: hhxy.dn.wph.entity.Result
      */
     @PostMapping("/login")
-    public Result userLogin(
-            @RequestParam("telephone") String telephone,
-            @RequestParam("password") String password,
+    public Result userLogin(@Valid @RequestBody UserLogin userLogin,BindingResult result,
             HttpServletRequest request,HttpServletResponse response){
-        User user = userService.userLogin(telephone,password);
-        //从Cookie中获取Token
-        String tokenCookie = CookieUtil.getCookieValue(request,"token");
-        //判断Rdis中是否存此Token,
-        if (redisUtil.get(tokenCookie) != null){
-            //删除原来的令牌
-            redisUtil.del(tokenCookie);
+        //判断Token是否存在--->自动登录
+        String userCache = this.cookieHasToken(request);
+        if (userCache != null){
+            User user = JsonUtil.jsonToPojo(userCache,User.class);
+            return ResultUtil.success(user);
         }
-        //将用户信息存储到Redis,并生成Token
-        String token = setUserToRedis(user);
-        //将Token存入Cookie
-        CookieUtil.setCookie(request,response,"token",token,60*60*24*7);
+        //校验请求参数
+        this.valid(result);
+        //验证账号密码
+        User user = userService.userLogin(userLogin.getTelephone(),userLogin.getPassword());
+        //生成Token,存入Cookie
+        CookieUtil.setCookie(request,response,"token",this.setUserToRedis(user),60*60*24*7);
         return ResultUtil.success(user);
     }
 
-    private String setUserToRedis(User user){
+    //Cookie中是否存在Token,
+    String cookieHasToken(HttpServletRequest request){
+        //从Cookie中获取Token
+        String tokenCookie = CookieUtil.getCookieValue(request,"token");
+        //判断Rdis中是否存此Token,
+        if (redisUtil.hasKey(tokenCookie)){
+            //根据Token返回Redie中用户信息
+            return redisUtil.get(tokenCookie).toString();
+        }
+        return null;
+    }
+
+    //将用户信息存储到Redis,并生成Token
+    String setUserToRedis(User user){
         //生成Token令牌
         String token = UUID.randomUUID().toString();
         //将用户信息转成JSON格式写入Redis,超时时间:7天
@@ -114,14 +139,9 @@ public class UserController {
      * @return: hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/sendCode")
-    public Result userSendCode(@RequestBody User user,HttpSession session) throws ClientException {
-        String result = userService.userSendCode(user.getTelephone(),session);
-        if("OK".equals(result)){
-            return ResultUtil.success("验证码发送成功");
-        }
-        else{
-            return ResultUtil.error(-1,"验证码发送失败！错误原因："+result);
-        }
+    public Result userSendCode(@RequestBody User user) throws ClientException {
+        this.userService.userSendCode(user.getTelephone());
+        return ResultUtil.success();
     }
 
     /*
@@ -131,10 +151,7 @@ public class UserController {
      */
     @RequestMapping("/checkTelephone")
     public Result userCheckTelephone(@RequestBody User user){
-        String Telephone=userService.userCheckTelephone(user.getTelephone());
-        if(Telephone != null){
-            return ResultUtil.error(-1,"手机号已被注册");
-        }
+        userService.userCheckTelephone(user.getTelephone());
         return ResultUtil.success("手机号可以使用");
     }
 
@@ -149,33 +166,13 @@ public class UserController {
     }
 
     /*
-     * @Description:添加用户信息
-     * @param: [user]
-     * @return: hhxy.dn.wph.entity.Result
-     */
-    @PostMapping(value = "/saveUser")
-    public Result saveUser(@RequestBody User user){
-        int result=userService.saveUser(user);
-        if(result>0){
-            return ResultUtil.success();
-        }
-        else{
-            return ResultUtil.error(-1,"添加用户信息失败");
-        }
-    }
-
-    /*
      * @Description:获取用户信息
-     * @param: [u, request, response]
+     * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @RequestMapping("/getUserDetail")
-    @Transactional
-    public Result getUserDetail(@RequestBody User u,HttpServletRequest request,HttpServletResponse response){
-        User user = userService.getUserDetail(u.getTelephone());
-        String token = setUserToRedis(user);
-        CookieUtil.deleteCookie(request,response,"token");
-        CookieUtil.setCookie(request,response,"token",token,60*60*24*7);
+    @RequestMapping("/findUserById/{user_no}")
+    public Result getUserDetail(@PathVariable Integer user_no){
+        User user = userService.getUserDetail(user_no);
         return ResultUtil.success(user);
     }
 
@@ -222,13 +219,8 @@ public class UserController {
      */
     @PostMapping("/updateUserAddress")
     public Result updateUserAddress(@RequestBody UserAddress address){
-        int result = userService.updateUserAddress(address);
-        if (result > 0){
-            return ResultUtil.success();
-        }
-        else{
-            return ResultUtil.error(-1,"更新收货地址失败");
-        }
+        userService.updateUserAddress(address);
+        return ResultUtil.success();
     }
 
     /*
@@ -236,15 +228,10 @@ public class UserController {
      * @param: [address_id]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @GetMapping("/updateDefaultUserAddress")
-    public Result updateDefaultUserAddress(Integer address_id){
-        int result=userService.updateDefaultUserAddress(address_id);
-        if (result>0){
-            return ResultUtil.success();
-        }
-        else{
-            return ResultUtil.error(-1,"设置默认收货地址失败");
-        }
+    @GetMapping("/updateDefaultUserAddress/{userId}/{address_id}")
+    public Result updateDefaultUserAddress(@PathVariable Integer user_id,@PathVariable Integer address_id){
+        userService.updateDefaultUserAddress(user_id,address_id);
+        return ResultUtil.success();
     }
 
     /*
@@ -256,7 +243,6 @@ public class UserController {
     public Result deleteUserAddressByAddressID(@PathVariable Integer userId,@PathVariable Integer address_id){
         userService.deleteUserAddressByAddressID(userId,address_id);
         return ResultUtil.success();
-
     }
 
     /*
@@ -266,24 +252,8 @@ public class UserController {
      */
     @GetMapping("/findAllUserAddress/{user_id}")
     public Result findAllUserAddress(@PathVariable Integer user_id){
-        List<UserAddress>addressList=userService.findAllUserAddress(user_id);
+        List<UserAddress>addressList = userService.findAllUserAddress(user_id);
         return ResultUtil.success(addressList);
-    }
-
-    /*
-     * @Description:用户输入关键词搜索商品
-     * @param: [search]
-     * @return: hhxy.dn.wph.entity.Result
-     */
-    @PostMapping("/searchProduct")
-    public Result searchProduct(@RequestBody Search search){
-        int result=userService.saveSearchHistory(search.getSearch_title(),search.getUser_id());
-        if (result>0){
-            return ResultUtil.success();
-        }
-        else {
-            return ResultUtil.error(-1,"搜索失败");
-        }
     }
 
     /*
@@ -293,7 +263,7 @@ public class UserController {
      */
     @GetMapping("/findAllSearchHistory/{user_id}")
     public Result findAllSearchHistory(@PathVariable Integer user_id){
-        List<String>searchHistory=userService.findAllSearchHistory(user_id);
+        List<String>searchHistory = userService.findAllSearchHistory(user_id);
         return ResultUtil.success(searchHistory);
     }
 
@@ -324,7 +294,7 @@ public class UserController {
      * @param: [userId]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @GetMapping("/getCollectSellerByUserId/{userId}")
+    @GetMapping("/findCollectSellerById/{userId}")
     public Result getCollectSellerByUserId(@PathVariable Integer userId){
         List<Seller> sellerList = userService.getCollectSellerByUserId(userId);
         return ResultUtil.success(sellerList);
@@ -335,14 +305,10 @@ public class UserController {
      * @param: [sellerId, userId]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @GetMapping("/selectUserCollectSeller/{sellerId}/{userId}")
+    @GetMapping("/findUserCollectSeller/{sellerId}/{userId}")
     public Result selectUserCollectSeller(@PathVariable Integer sellerId,@PathVariable Integer userId){
         String result = userService.selectUserCollectSeller(sellerId,userId);
         return ResultUtil.success(result);
     }
 
-    @GetMapping("/getProductCollectNum/{productId}")
-    public Result getProductCollectNum(){
-        return ResultUtil.success();
-    }
 }

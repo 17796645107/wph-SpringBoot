@@ -12,58 +12,25 @@ import static hhxy.dn.wph.util.DBTableUtil.*;
 //用户动态SQL类
 public class UserProvider {
 
-    //用户登录
-    public String userLogin(String telephone){
-        return new SQL(){
-            {
-                SELECT("user_id,nickname,telephone,sex,birthday,email,vip,headImage");
-                FROM(USER);
-                WHERE("telephone=#{telephone}");
-            }
-        }.toString();
-
-    }
-
-    //完善用户信息
-    public  String saveUser(User user){
-        return new SQL(){
-            {
-                INSERT_INTO(USER);
-                if (user.getNickname()!=null){
-                    VALUES("nickname","#{nickname}");
-                }
-                if (user.getSex()!=null){
-                    VALUES("sex","#{sex}");
-                }
-                if (user.getBirthday()!=null){
-                    VALUES("birthday","#{birthday}");
-                }
-                if (user.getEmail()!=null){
-                    VALUES("email","#{email}");
-                }
-            }
-        }.toString();
-    }
-
     //更新用户信息
     public String updateUser(User user){
         return new SQL(){
             {
                 UPDATE(USER);
-                if (user.getNickname()!=null){
-                    SET("nickname=#{nickname}");
+                if (user.getNickname() != null){
+                    SET("nickname = #{nickname}");
                 }
-                if (user.getSex()!=null){
-                    SET("sex=#{sex}");
+                if (user.getSex() != null){
+                    SET("sex = #{sex}");
                 }
-                if (user.getBirthday()!=null){
-                    SET("birthday=#{birthday}");
+                if (user.getBirthday() != null){
+                    SET("birthday = #{birthday}");
                 }
-                if (user.getEmail()!=null){
-                    SET("email=#{email}");
+                if (user.getEmail() != null){
+                    SET("email = #{email}");
                 }
-                WHERE("user_id=#{user_id}");
-
+                WHERE("user_no = #{user_no}");
+                WHERE("status = 1");
             }
         }.toString();
     }
@@ -81,8 +48,8 @@ public class UserProvider {
                 VALUES("area","#{area}");
                 VALUES("postcode","#{postcode}");
                 VALUES("telephone","#{telephone}");
-                VALUES("status","1");
-                VALUES("is_default","0");
+                VALUES("status","#{status}");
+                VALUES("is_default","#{is_default}");
                 VALUES("created","#{created}");
             }
         }.toString();
@@ -93,26 +60,26 @@ public class UserProvider {
         return new SQL(){
             {
                 UPDATE(USER_ADDRESS);
-                if(address.getName()!=null){
-                    SET("name=#{name}");
+                if(address.getName() != null){
+                    SET("name = #{name}");
                 }
-                if(address.getProvince()!=null){
-                    SET("province=#{province}");
+                if(address.getProvince() != null){
+                    SET("province = #{province}");
                 }
-                if(address.getCity()!=null){
-                    SET("city=#{city}");
+                if(address.getCity() != null){
+                    SET("city = #{city}");
                 }
-                if(address.getArea()!=null){
-                    SET("town=#{town}");
+                if(address.getArea() != null){
+                    SET("town = #{town}");
                 }
-                if(address.getPostcode()!=null){
-                    SET("postcode=#{postcode}");
+                if(address.getPostcode() != null){
+                    SET("postcode = #{postcode}");
                 }
-                if(address.getTelephone()!=null){
-                    SET("telephone=#{telephone}");
+                if(address.getTelephone() != null){
+                    SET("telephone = #{telephone}");
                 }
-                SET("updated=#{updated}");//更新时间
-                WHERE("address_id=#{address_id}");
+                SET("updated = #{updated}");//更新时间
+                WHERE("address_id = #{address_id}");
             }
         }.toString();
     }
@@ -123,8 +90,8 @@ public class UserProvider {
             {
                 SELECT("address_id,name,province,city,town,area,postcode,telephone,is_default");
                 FROM(USER_ADDRESS);
-                WHERE("user_id=#{user_id}");
-                WHERE("status=1");
+                WHERE("user_id = #{user_id}");
+                WHERE("status = 1");
             }
         }.toString();
     }

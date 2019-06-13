@@ -1,6 +1,5 @@
 package hhxy.dn.wph.service.impl;
 
-import hhxy.dn.wph.domain.ProductAttributeRelation;
 import hhxy.dn.wph.domain.SellerAccount;
 import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.enums.SellerExceptionEnum;
@@ -9,7 +8,6 @@ import hhxy.dn.wph.mapper.SellerMapper;
 import hhxy.dn.wph.service.SellerService;
 import hhxy.dn.wph.util.JsonUtil;
 import hhxy.dn.wph.util.RedisUtil;
-import hhxy.dn.wph.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
