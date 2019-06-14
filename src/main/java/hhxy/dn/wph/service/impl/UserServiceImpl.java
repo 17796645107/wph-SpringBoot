@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setTelephone(userRegister.getTelephone());
         //注册用户基本信息
-        Integer result = userMapper.userRegister(user);
+        Integer result = userMapper.saveUser(user);
         if (result < 1){
             //异常时销毁Redis中短信验证码
             redisUtil.del(userRegister.getTelephone());
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
         userPwd.setUser_no(user_no);
         userPwd.setPassword(userRegister.getPassword());
         //注册用户密码
-        int resultUserPwd = userMapper.userPasswordRegister(userPwd);
+        int resultUserPwd = userMapper.saveUserPassword(userPwd);
         //注册失败,抛出异常
         if (resultUserPwd < 1){
             //异常时销毁Redis中短信验证码
@@ -109,12 +109,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userLogin(String telephone,String password) {
         //查询用户基本信息
-        User user = userMapper.getUserByTelephone(telephone);
+        User user = userMapper.findUserByTelephone(telephone);
         if (user == null){
             throw new UserException(UserExceptionEnum.LOGIN_ERROR);
         }
         //查询用户加密之后的密码
-        String userPwd =userMapper.getUserPassword(user.getUser_no());
+        String userPwd = userMapper.findUserPasswordByNo(user.getUser_no());
         if (!MD5Util.getMD5(password).equals(userPwd)){
             throw new UserException(UserExceptionEnum.LOGIN_ERROR);
         }
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
     //查询手机号是否注册
     @Override
     public void userCheckTelephone(String telephone) {
-        String result = userMapper.userCheckTelephone(telephone);
+        String result = userMapper.findTelephone(telephone);
         if (result == null){
             throw new UserException(UserExceptionEnum.telehpne_error);
         }
@@ -204,19 +204,19 @@ public class UserServiceImpl implements UserService {
             throw new UserException(UserExceptionEnum.saveUserAddressError);
         }
         //清除缓存
-        redisUtil.del("UserAddress:"+address.getUser_id());
+        redisUtil.del("UserAddress:"+address.getUser_no());
         return result;
     }
 
     //更新用户收货地址
     @Override
     public int updateUserAddress(UserAddress address) {
-        int result = userMapper.updateUserAddress(address);
+        int result = userMapper.updateUserAddressById(address);
         if (result != 1){
             throw new UserException(UserExceptionEnum.saveUserAddressError);
         }
         //清除缓存
-        redisUtil.del("UserAddress:"+address.getUser_id());
+        redisUtil.del("UserAddress:"+address.getUser_no());
         return result;
     }
 
@@ -224,25 +224,25 @@ public class UserServiceImpl implements UserService {
     @Override
     //异常回滚
     @Transactional
-    public int updateDefaultUserAddress(Integer user_id,Integer address_id) {
+    public int updateDefaultUserAddress(Integer user_no,Integer address_id) {
         //把此用户的所有收货地址都重置为非默认收货地址
-        Integer result1 = userMapper.updateAllUserAddress(user_id);
+        Integer result1 = userMapper.updateAllUserAddressByNo(user_no);
         if (result1 == null){
             throw new UserException(UserExceptionEnum.updateAddressError);
         }
         //更新默认收货地址
-        Integer result2 = userMapper.updateDefaultUserAddress(address_id);
+        Integer result2 = userMapper.updateDefaultUserAddressByID(address_id);
         if (result2 == null){
             throw new UserException(UserExceptionEnum.updateAddressError);
         }
-        redisUtil.del("UserAddress:"+ user_id);
+        redisUtil.del("UserAddress:"+ user_no);
         return 0;
     }
 
     //删除收货地址
     @Override
     public int deleteUserAddressByAddressID(Integer userId,Integer address_id) {
-        int result = userMapper.deleteUserAddressByAddressID(address_id);
+        int result = userMapper.deleteUserAddressByID(address_id);
         if (result != 1){
             throw new UserException(UserExceptionEnum.deleteAddressError);
         }
@@ -259,7 +259,7 @@ public class UserServiceImpl implements UserService {
             return JsonUtil.jsonToList(userAddress,UserAddress.class);
         }
         //缓存没有,则查询数据库
-        List<UserAddress> addressList = userMapper.findAllUserAddress(user_id);
+        List<UserAddress> addressList = userMapper.findAddressListByUserNo(user_id);
         if (addressList.size() == 0){
             throw new GeneralException(GeneralExceptionEnum.notFound);
         }
@@ -296,12 +296,12 @@ public class UserServiceImpl implements UserService {
     //用户关注商铺
     @Override
     public void collectSeller(UserCollectSeller collect) {
-        int result = userMapper.collectSeller(collect);
+        int result = userMapper.saveCollectSeller(collect);
         if (result != 1){
             throw new UserException(UserExceptionEnum.collectSellerError);
         }
         //清除缓存
-        redisUtil.del("CollectSeller:"+ collect.getUser_id());
+        redisUtil.del("CollectSeller:"+ collect.getUser_no());
     }
 
     //获取用户查询关注的商铺
@@ -311,7 +311,7 @@ public class UserServiceImpl implements UserService {
             String sellers = (String) redisUtil.get("CollectSeller:"+userId);
             return JsonUtil.jsonToList(sellers,Seller.class);
         }
-        List<Seller> sellerList = userMapper.getCollectSellerByUserId(userId);
+        List<Seller> sellerList = userMapper.findCollectSellerById(userId);
         if (sellerList.size() == 0){
             throw new GeneralException(GeneralExceptionEnum.notFound);
         }
@@ -322,7 +322,7 @@ public class UserServiceImpl implements UserService {
     //根据用户编号获取用户信息
     @Override
     public User getUserDetail(Integer user_no) {
-        User user = userMapper.getUserByNo(user_no);
+        User user = userMapper.findUserByNo(user_no);
         return user;
     }
 
@@ -344,14 +344,14 @@ public class UserServiceImpl implements UserService {
     //查询用户是否收藏了该商户
     @Override
     public String selectUserCollectSeller(Integer sellerId, Integer userId) {
-        UserCollectSeller collect = userMapper.selectUserCollectSeller(sellerId,userId);
+        UserCollectSeller collect = userMapper.findUserCollectSellerById(sellerId,userId);
         return collect == null ? "false" : "true";
     }
 
     //根据手机号码加载用户
     @Override
     public UserDetails loadUserByUsername(String telephone) throws UsernameNotFoundException {
-        User user = userMapper.getUserByTelephone(telephone);
+        User user = userMapper.findUserByTelephone(telephone);
         if (user == null){
             throw new UsernameNotFoundException("没有该用户");
         }

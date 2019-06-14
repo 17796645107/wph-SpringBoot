@@ -23,7 +23,7 @@ public class UserValidatorAspect {
     @Pointcut("execution(public * hhxy.dn.wph.controller.UserController.*(..))")
     public void validator(){ }
 
-    //在产生异常之后调用
+    //异常通知
     @AfterThrowing(pointcut = "validator()",throwing = "e")
     public void afterThrowing(Exception e) throws Throwable {
         //捕获参数验证异常

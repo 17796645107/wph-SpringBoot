@@ -20,6 +20,9 @@ public class UserProvider {
                 if (user.getNickname() != null){
                     SET("nickname = #{nickname}");
                 }
+                if (user.getTelephone() != null){
+                    SET("telephone = #{telephone}");
+                }
                 if (user.getSex() != null){
                     SET("sex = #{sex}");
                 }
@@ -28,6 +31,9 @@ public class UserProvider {
                 }
                 if (user.getEmail() != null){
                     SET("email = #{email}");
+                }
+                if (user.getHeadImage() != null){
+                    SET("headImage = #{headImage}");
                 }
                 WHERE("user_no = #{user_no}");
                 WHERE("status = 1");
@@ -40,7 +46,7 @@ public class UserProvider {
         return new SQL(){
             {
                 INSERT_INTO(USER_ADDRESS);
-                VALUES("user_id","#{user_id}");
+                VALUES("user_no","#{user_no}");
                 VALUES("name","#{name}");
                 VALUES("province","#{province}");
                 VALUES("city","#{city}");
@@ -69,8 +75,11 @@ public class UserProvider {
                 if(address.getCity() != null){
                     SET("city = #{city}");
                 }
-                if(address.getArea() != null){
+                if(address.getTown() != null){
                     SET("town = #{town}");
+                }
+                if(address.getArea() != null){
+                    SET("area = #{area}");
                 }
                 if(address.getPostcode() != null){
                     SET("postcode = #{postcode}");
@@ -80,6 +89,7 @@ public class UserProvider {
                 }
                 SET("updated = #{updated}");//更新时间
                 WHERE("address_id = #{address_id}");
+                WHERE("status = 1");
             }
         }.toString();
     }
@@ -88,9 +98,9 @@ public class UserProvider {
     public String findAllUserAddress(Integer user_id){
         return new SQL(){
             {
-                SELECT("address_id,name,province,city,town,area,postcode,telephone,is_default");
+                SELECT("address_id,user_no,name,province,city,town,area,postcode,telephone,is_default");
                 FROM(USER_ADDRESS);
-                WHERE("user_id = #{user_id}");
+                WHERE("user_no = #{user_no}");
                 WHERE("status = 1");
             }
         }.toString();

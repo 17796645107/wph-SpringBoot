@@ -156,4 +156,24 @@ public class User{
     public void setUpdated(String updated) {
         this.updated = updated;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_no=" + user_no +
+                ", user_id='" + user_id + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", email='" + email + '\'' +
+                ", vip='" + vip + '\'' +
+                ", headImage='" + headImage + '\'' +
+                ", status=" + status +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }

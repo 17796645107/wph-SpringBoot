@@ -7,7 +7,7 @@ package hhxy.dn.wph.entity;
 //搜索记录
 public class Search {
     private Integer search_id;//编号
-    private Integer user_id;//用户ID
+    private Integer user_no;//用户ID
     private String search_title;//搜索词
 
     public Integer getSearch_id() {
@@ -18,12 +18,12 @@ public class Search {
         this.search_id = search_id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUser_no() {
+        return user_no;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser_no(Integer user_no) {
+        this.user_no = user_no;
     }
 
     public String getSearch_title() {

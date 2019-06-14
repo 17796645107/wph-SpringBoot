@@ -9,12 +9,13 @@ import hhxy.dn.wph.util.DateUtil;
  */
 //商户信息表
 public class Seller {
-    private Integer seller_id;
+    private String seller_no;//自动编号
+    private String seller_id;//商户ID
     private String name;//店铺名称
     private String show_image;//店铺展示图
     private Integer type;//店铺类型 category_id
-    private Integer status;
-    private String created;
+    private Integer status = 1;//状态
+    private String created = DateUtil.getDate();//创建时间
     private String updated;
     private Brand brand;//品牌
 
@@ -23,11 +24,19 @@ public class Seller {
         this.created = DateUtil.getDate();
     }
 
-    public Integer getSeller_id() {
+    public String getSeller_no() {
+        return seller_no;
+    }
+
+    public void setSeller_no(String seller_no) {
+        this.seller_no = seller_no;
+    }
+
+    public String getSeller_id() {
         return seller_id;
     }
 
-    public void setSeller_id(Integer seller_id) {
+    public void setSeller_id(String seller_id) {
         this.seller_id = seller_id;
     }
 

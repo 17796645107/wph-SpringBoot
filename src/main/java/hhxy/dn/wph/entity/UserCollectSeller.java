@@ -6,24 +6,24 @@ package hhxy.dn.wph.entity;
  */
 //用户关注商家实体类
 public class UserCollectSeller {
-    private Integer user_id;
-    private Integer seller_id;
+    private Integer user_no;
+    private Integer seller_no;
     private Seller seller;
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUser_no() {
+        return user_no;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser_no(Integer user_no) {
+        this.user_no = user_no;
     }
 
-    public Integer getSeller_id() {
-        return seller_id;
+    public Integer getSeller_no() {
+        return seller_no;
     }
 
-    public void setSeller_id(Integer seller_id) {
-        this.seller_id = seller_id;
+    public void setSeller_no(Integer seller_no) {
+        this.seller_no = seller_no;
     }
 
     public Seller getSeller() {

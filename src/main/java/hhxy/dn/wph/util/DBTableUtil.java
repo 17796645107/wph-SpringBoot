@@ -13,7 +13,7 @@ public class DBTableUtil {
     //用户收货地址表
     public static final String USER_ADDRESS=" tb_user_address ";
     //用户搜索历史表
-    public static final String SEARCH_HISTORY=" tb_search_history ";
+    public static final String SEARCH_HISTORY=" tb_user_search_history ";
     //商品一级分类目录表
     public static final String PRIMARY_CATEGORY=" tb_primary_category ";
     //商品二级分类目录表

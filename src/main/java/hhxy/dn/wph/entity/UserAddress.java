@@ -11,7 +11,7 @@ import java.util.Date;
 //用户收货地址表
 public class UserAddress {
     private Integer address_id;//地址ID
-    private Integer user_id;//用户ID
+    private Integer user_no;//用户ID
     private String name;//收货人姓名
     private String province;//省份
     private String city;//市区
@@ -32,12 +32,12 @@ public class UserAddress {
         this.address_id = address_id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUser_no() {
+        return user_no;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser_no(Integer user_no) {
+        this.user_no = user_no;
     }
 
     public String getName() {
@@ -126,5 +126,24 @@ public class UserAddress {
 
     public void setUpdated(String updated) {
         this.updated = updated;
+    }
+
+    @Override
+    public String toString() {
+        return "UserAddress{" +
+                "address_id=" + address_id +
+                ", user_no=" + user_no +
+                ", name='" + name + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", town='" + town + '\'' +
+                ", area='" + area + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", is_default=" + is_default +
+                ", status=" + status +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                '}';
     }
 }
