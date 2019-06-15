@@ -44,9 +44,9 @@ public class SellerController {
      * @param: [sellerId]商户ID
      * @return: hhxy.dn.wph.entity.Result
      */
-    @RequestMapping("/getSellerById/{sellerId}")
-    public Result getSellerById(@PathVariable Integer sellerId){
-        Seller seller = sellerService.getSellerById(sellerId);
+    @RequestMapping("/getSellerById/{sellerNo}")
+    public Result getSellerById(@PathVariable Integer sellerNo){
+        Seller seller = sellerService.getSellerById(sellerNo);
         return ResultUtil.success(seller);
     }
 

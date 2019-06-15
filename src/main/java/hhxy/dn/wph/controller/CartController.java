@@ -38,9 +38,9 @@ public class CartController {
      * @param: [userId]用户ID
      * @return: hhxy.dn.wph.entity.Result
      */
-    @RequestMapping("/getGoodCart/{userId}")
-    public Result getGoodCart(@PathVariable Integer userId){
-        List<GoodCart> goodCartList = goodCartService.getGoodCart(userId);
+    @RequestMapping("/getGoodCart/{userNo}")
+    public Result getGoodCart(@PathVariable Integer userNo){
+        List<GoodCart> goodCartList = goodCartService.getGoodCart(userNo);
         return ResultUtil.success(goodCartList);
     }
 
@@ -60,9 +60,9 @@ public class CartController {
      * @param: [userId]用户ID
      * @return: hhxy.dn.wph.entity.Result
      */
-    @RequestMapping("/getCartCount/{userId}")
-    public Result getCartCount(@PathVariable Integer userId){
-        Integer cartCount = goodCartService.getCartCount(userId);
+    @RequestMapping("/getCartCount/{userNo}")
+    public Result getCartCount(@PathVariable Integer userNo){
+        Integer cartCount = goodCartService.getCartCount(userNo);
         return ResultUtil.success(cartCount);
     }
 

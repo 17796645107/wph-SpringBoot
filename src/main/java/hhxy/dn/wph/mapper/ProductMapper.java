@@ -16,7 +16,7 @@ import java.util.Set;
  * @Date: Created in 21:49 2018/11/4
  */
 public interface ProductMapper {
-    final String product_field = " product_id,seller_id,category_id,title,detail,price,collect,is_hot,is_new ";
+    final String product_field = " product_id,seller_no,category_id,title,detail,price,collect,is_hot,is_new ";
     final String productAttribute_field = " attr_id,attr_name ";
     final String categort_field = " category_id,category_name,category_sort,parent_id,admin_id ";
 
@@ -31,7 +31,7 @@ public interface ProductMapper {
                             fetchType = FetchType.EAGER
                     )
             ),
-            @Result(property = "seller",column = "seller_id",javaType = Seller.class,
+            @Result(property = "seller",column = "seller_no",javaType = Seller.class,
                     one = @One(
                             select = "hhxy.dn.wph.mapper.SellerMapper.getSellerById",
                             fetchType = FetchType.EAGER

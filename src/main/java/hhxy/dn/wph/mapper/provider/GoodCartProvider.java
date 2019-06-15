@@ -15,7 +15,7 @@ public class GoodCartProvider {
         return new SQL(){
             {
                 INSERT_INTO(CART);
-                VALUES("user_id","#{user_id}");
+                VALUES("user_no","#{userNo}");
                 VALUES("product_id","#{product_id}");
                 VALUES("product_number","#{product_number}");
                 VALUES("product_color","#{product_color}");

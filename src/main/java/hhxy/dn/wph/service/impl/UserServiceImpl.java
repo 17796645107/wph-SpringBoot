@@ -103,6 +103,8 @@ public class UserServiceImpl implements UserService {
         if(!StringUtils.equals(codeCache,code)){
             throw new UserException(UserExceptionEnum.CODE_ERROR);
         }
+        //程序执行到这里说明验证码正确,从缓存中删除
+        redisUtil.del(telephone);
     }
 
     //用户登录
@@ -125,7 +127,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void userCheckTelephone(String telephone) {
         String result = userMapper.findTelephone(telephone);
-        if (result == null){
+        if (result != null){
             throw new UserException(UserExceptionEnum.telehpne_error);
         }
     }
@@ -241,55 +243,55 @@ public class UserServiceImpl implements UserService {
 
     //删除收货地址
     @Override
-    public int deleteUserAddressByAddressID(Integer userId,Integer address_id) {
+    public int deleteUserAddressByAddressID(Integer user_no,Integer address_id) {
         int result = userMapper.deleteUserAddressByID(address_id);
         if (result != 1){
             throw new UserException(UserExceptionEnum.deleteAddressError);
         }
-        redisUtil.del("UserAddress:"+ userId);
+        redisUtil.del("UserAddress:"+ user_no);
         return result;
     }
 
     //查询用户所有收货地址
     @Override
-    public List<UserAddress> findAllUserAddress(Integer user_id) {
-        if (redisUtil.hasKey("UserAddress:"+ user_id)){
+    public List<UserAddress> findAllUserAddress(Integer user_no) {
+        if (redisUtil.hasKey("UserAddress:"+ user_no)){
             //读取缓存
-            String userAddress = (String) redisUtil.get("UserAddress:"+ user_id);
+            String userAddress = (String) redisUtil.get("UserAddress:"+ user_no);
             return JsonUtil.jsonToList(userAddress,UserAddress.class);
         }
         //缓存没有,则查询数据库
-        List<UserAddress> addressList = userMapper.findAddressListByUserNo(user_id);
+        List<UserAddress> addressList = userMapper.findAddressListByUserNo(user_no);
         if (addressList.size() == 0){
             throw new GeneralException(GeneralExceptionEnum.notFound);
         }
-        redisUtil.set("UserAddress:"+user_id,JsonUtil.objectToJson(addressList));
+        redisUtil.set("UserAddress:"+user_no,JsonUtil.objectToJson(addressList));
         return addressList;
     }
 
     //查询用户搜索历史记录
     @Override
-    public List<String> findAllSearchHistory(Integer user_id) {
-        if (redisUtil.hasKey("SearchHistory:"+ user_id)){
-            String searchHistorys = (String) redisUtil.get("SearchHistory:"+user_id);
+    public List<String> findAllSearchHistory(Integer user_no) {
+        if (redisUtil.hasKey("SearchHistory:"+ user_no)){
+            String searchHistorys = (String) redisUtil.get("SearchHistory:"+user_no);
             return JsonUtil.jsonToList(searchHistorys,String.class);
         }
-        List<String> searchHostoryList = userMapper.findAllSearchHistory(user_id);
+        List<String> searchHostoryList = userMapper.findAllSearchHistory(user_no);
         if (searchHostoryList.size() == 0){
             throw new GeneralException(GeneralExceptionEnum.notFound);
         }
-        redisUtil.set("SearchHistory:"+ user_id,JsonUtil.objectToJson(searchHostoryList));
+        redisUtil.set("SearchHistory:"+ user_no,JsonUtil.objectToJson(searchHostoryList));
         return searchHostoryList;
     }
 
     //用户清除搜索历史记录
     @Override
-    public int deleteAllSearchHistory(Integer user_id) {
-        Integer result = userMapper.deleteAllSearchHistory(user_id);
+    public int deleteAllSearchHistory(Integer user_no) {
+        Integer result = userMapper.deleteAllSearchHistory(user_no);
         if (result == null){
             throw new UserException(UserExceptionEnum.deleteAllSearchHistoryError);
         }
-        redisUtil.del("SearchHistory:"+user_id);
+        redisUtil.del("SearchHistory:"+user_no);
         return result;
     }
 

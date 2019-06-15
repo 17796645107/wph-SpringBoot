@@ -2,7 +2,9 @@ package hhxy.dn.wph.service.impl;
 
 import hhxy.dn.wph.domain.SellerAccount;
 import hhxy.dn.wph.entity.*;
+import hhxy.dn.wph.enums.GeneralExceptionEnum;
 import hhxy.dn.wph.enums.SellerExceptionEnum;
+import hhxy.dn.wph.exception.GeneralException;
 import hhxy.dn.wph.exception.SellerException;
 import hhxy.dn.wph.mapper.SellerMapper;
 import hhxy.dn.wph.service.SellerService;
@@ -38,13 +40,16 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public Seller getSellerById(Integer sellerId) {
-        if (redisUtil.hasKey("SellerById:"+ sellerId)){
-            String seller = (String) redisUtil.get("SellerById:"+ sellerId);
+    public Seller getSellerById(Integer sellerNo) {
+        if (redisUtil.hasKey("SellerByNo:"+ sellerNo)){
+            String seller = (String) redisUtil.get("SellerByNo:"+ sellerNo);
             return JsonUtil.jsonToPojo(seller,Seller.class);
         }
-        Seller seller = sellerMapper.getSellerById(sellerId);
-        redisUtil.set("SellerById:"+ sellerId,JsonUtil.objectToJson(seller));
+        Seller seller = sellerMapper.getSellerById(sellerNo);
+        if (seller == null){
+            throw new GeneralException(GeneralExceptionEnum.notFound);
+        }
+        redisUtil.set("SellerByNo:"+ sellerNo,JsonUtil.objectToJson(seller));
         return seller;
     }
 

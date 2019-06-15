@@ -45,34 +45,34 @@ public interface UserService extends UserDetailsService {
     int updateUserAddress(UserAddress address);
 
     //更新默认收货地址
-    int updateDefaultUserAddress(Integer user_id,Integer address_id);
+    int updateDefaultUserAddress(Integer user_no,Integer address_id);
 
     //删除收货地址
     int deleteUserAddressByAddressID(Integer userId,Integer address_id);
 
     //查收用户所有收货地址
-    List<UserAddress> findAllUserAddress(Integer user_id);
+    List<UserAddress> findAllUserAddress(Integer user_no);
 
     //查询搜索历史记录
-    List<String> findAllSearchHistory(Integer user_id);
+    List<String> findAllSearchHistory(Integer user_no);
 
     //用户清除搜索历史记录
-    int deleteAllSearchHistory(Integer user_id);
+    int deleteAllSearchHistory(Integer user_no);
 
     //收藏商户
     void collectSeller(UserCollectSeller collect);
 
     //根据用户ID获取收藏的商户
-    List<Seller> getCollectSellerByUserId(Integer userId);
+    List<Seller> getCollectSellerByUserId(Integer user_no);
 
     //获取用户信息
     User getUserDetail(Integer user_no);
 
     //用户上传头像
-    void saveUserHeadIcon(MultipartFile file,String token,Integer userId);
+    void saveUserHeadIcon(MultipartFile file,String token,Integer user_no);
 
     //查询用户是否收藏了商户
-    String selectUserCollectSeller(Integer sellerId, Integer userId);
+    String selectUserCollectSeller(Integer seller_no, Integer user_no);
 
     //根据手机号码加载用户
     @Override

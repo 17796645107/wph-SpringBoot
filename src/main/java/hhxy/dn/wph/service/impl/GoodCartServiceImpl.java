@@ -35,7 +35,6 @@ public class GoodCartServiceImpl implements GoodCartService {
             Integer result = goodCartMapper.updateGoodCartNumber(cart_id,goodCart.getProduct_number());
         }else{
             //不存在,将商品添加到购物车
-            goodCart.setCreated(DateUtil.getDate());
             Integer result = goodCartMapper.insert(goodCart);
             if (result != 1){
                 throw new GoodCartException(GoodCartExceptionEnum.GOODCART_ADD_EXCEPTION);
@@ -49,8 +48,8 @@ public class GoodCartServiceImpl implements GoodCartService {
      * @return: java.util.List<hhxy.dn.wph.entity.GoodCart>
      */
     @Override
-    public List<GoodCart> getGoodCart(Integer userId){
-        return goodCartMapper.getGoodCart(userId);
+    public List<GoodCart> getGoodCart(Integer userNo){
+        return goodCartMapper.getGoodCart(userNo);
     }
 
     /*
@@ -72,8 +71,8 @@ public class GoodCartServiceImpl implements GoodCartService {
      * @return: java.lang.Integer
      */
     @Override
-    public Integer getCartCount(Integer userId) {
-        return goodCartMapper.getCartCount(userId);
+    public Integer getCartCount(Integer userNo) {
+        return goodCartMapper.getCartCount(userNo);
     }
 
     /*

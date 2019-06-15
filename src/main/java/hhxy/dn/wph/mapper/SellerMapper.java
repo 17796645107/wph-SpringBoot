@@ -48,12 +48,12 @@ public interface SellerMapper {
     //根据商户ID获取商户信息
     @Select("select"+ seller_field +
             "from"+ SELLER +
-            "where seller_id = #{sellerId} and status=1")
+            "where seller_no = #{sellerNo} and status = 1")
     @ResultMap(value = "SellerMap")
-    Seller getSellerById(Integer sellerId);
+    Seller getSellerById(Integer sellerNo);
 
     //获取商品收藏量
-    @Select("select count(seller_id) from" + USER_COLLECT_SELLER + "where seller_id = #{sellerId}")
+    @Select("select count(seller_id) from"+ USER_COLLECT_SELLER +"where seller_id = #{sellerId}")
     int getSellerCollectNum(Integer sellerId);
 
     //添加一个商品

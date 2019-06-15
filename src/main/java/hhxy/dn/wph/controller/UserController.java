@@ -95,7 +95,7 @@ public class UserController {
         //校验请求参数
         this.valid(result);
         //验证账号密码
-        User user = userService.userLogin(userLogin.getTelephone(),userLogin.getPassword());
+        User user = userService.userLogin(userLogin.getTelephone(),userLogin.getPwd());
         //生成Token,存入Cookie
         CookieUtil.setCookie(request,response,"token",this.setUserToRedis(user),60*60*24*7);
         return ResultUtil.success(user);
@@ -105,10 +105,12 @@ public class UserController {
     String cookieHasToken(HttpServletRequest request){
         //从Cookie中获取Token
         String tokenCookie = CookieUtil.getCookieValue(request,"token");
-        //判断Rdis中是否存此Token,
-        if (redisUtil.hasKey(tokenCookie)){
-            //根据Token返回Redie中用户信息
-            return redisUtil.get(tokenCookie).toString();
+        if (StringUtils.isNotBlank(tokenCookie)){
+            //判断Rdis中是否存此Token,
+            if (redisUtil.hasKey(tokenCookie)){
+                //根据Token返回Redie中用户信息
+                return redisUtil.get(tokenCookie).toString();
+            }
         }
         return null;
     }
@@ -229,8 +231,8 @@ public class UserController {
      * @return: hhxy.dn.wph.entity.Result
      */
     @GetMapping("/updateDefaultUserAddress/{userId}/{address_id}")
-    public Result updateDefaultUserAddress(@PathVariable Integer user_id,@PathVariable Integer address_id){
-        userService.updateDefaultUserAddress(user_id,address_id);
+    public Result updateDefaultUserAddress(@PathVariable Integer user_no,@PathVariable Integer address_id){
+        userService.updateDefaultUserAddress(user_no,address_id);
         return ResultUtil.success();
     }
 
@@ -247,34 +249,34 @@ public class UserController {
 
     /*
      * @Description:查询用户收货地址
-     * @param: [user_id]
+     * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @GetMapping("/findAllUserAddress/{user_id}")
-    public Result findAllUserAddress(@PathVariable Integer user_id){
-        List<UserAddress>addressList = userService.findAllUserAddress(user_id);
+    @GetMapping("/findAllUserAddress/{user_no}")
+    public Result findAllUserAddress(@PathVariable Integer user_no){
+        List<UserAddress>addressList = userService.findAllUserAddress(user_no);
         return ResultUtil.success(addressList);
     }
 
     /*
      * @Description:查询搜索历史记录
-     * @param: [user_id]
+     * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @GetMapping("/findAllSearchHistory/{user_id}")
-    public Result findAllSearchHistory(@PathVariable Integer user_id){
-        List<String>searchHistory = userService.findAllSearchHistory(user_id);
+    @GetMapping("/findAllSearchHistory/{user_no}")
+    public Result findAllSearchHistory(@PathVariable Integer user_no){
+        List<String>searchHistory = userService.findAllSearchHistory(user_no);
         return ResultUtil.success(searchHistory);
     }
 
     /*
      * @Description:用户清除搜索历史记录
-     * @param: [user_id]
+     * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @GetMapping("/deleteAllSearchHistoryByUser_id/{user_id}")
-    public Result deleteAllSearchHistory(@PathVariable Integer user_id){
-        userService.deleteAllSearchHistory(user_id);
+    @GetMapping("/deleteSearchHistoryByNo/{user_no}")
+    public Result deleteSearchHistoryByNo(@PathVariable Integer user_no){
+        userService.deleteAllSearchHistory(user_no);
         return ResultUtil.success();
     }
 

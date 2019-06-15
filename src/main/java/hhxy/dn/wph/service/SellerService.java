@@ -14,7 +14,8 @@ public interface SellerService {
 
     List<Seller> getSellerByPrimaryCategoryId(Integer primaryId);
 
-    Seller getSellerById(Integer sellerId);
+    //根据编号获取商户信息
+    Seller getSellerById(Integer sellerNo);
 
     int getSellerCollectNum(Integer sellerId);
 

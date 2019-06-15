@@ -36,7 +36,7 @@ import java.io.PrintWriter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
+    /*@Autowired
     UserServiceImpl userDetailsService;//用户业务接口
     @Autowired
     UserLoginInterceptor userLoginInterceptor;//UrlFilterI
@@ -44,31 +44,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UrlAccessDecisionManager urlAccessDecisionManager;//UrlManager
     @Autowired
     UserAccessDeniedHandle userAccessDeniedHandle;//用户登录权限异常捕获类
-
+*/
     //用户登录不拦截的路径
-//    private String[] excludePath = {"/user/**","/product/**"};
+    private String[] excludePath = {"/user/**","/product/**"};
 
     /*定义认证用户信息获取来源，密码校验规则等*/
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //注入userDetailsService，需要实现userDetailsService接口
-        auth.userDetailsService(userDetailsService);
+//        auth.userDetailsService(userDetailsService);
     }
 
     /*定义安全策略*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http
+        http
             .authorizeRequests()//配置安全策略
                 .anyRequest().permitAll()
                 .and().exceptionHandling().accessDeniedPage("/security/accessDenied")//没有权限返回的请求URL
                 .and().logout().permitAll()//定义logout不需要验证
                 //防止跨站请求伪造
                 .and().cors()
-                .and().csrf().disable();*/
-                //.antMatchers(excludePath).permitAll()//定义请求不需要验证
-                //.anyRequest().authenticated()//其余的所有请求都需要验证
-        http.authorizeRequests()       //配置安全策略
+                .and().csrf().disable();
+        /*http.authorizeRequests()       //配置安全策略
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <Obj extends FilterSecurityInterceptor> Obj postProcess(Obj obj) {
@@ -108,7 +106,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                         httpServletResponse.setContentType("application/json;charset=utf-8");
                         PrintWriter out = httpServletResponse.getWriter();
-//                        ObjectMapper objectMapper = new ObjectMapper();
                         String s = "{\"status\":\"success\",\"msg\":"  + "}";
                         out.write(s);
                         out.flush();
@@ -122,7 +119,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .exceptionHandling()
-                .accessDeniedHandler(userAccessDeniedHandle);
+                .accessDeniedHandler(userAccessDeniedHandle);*/
 
     }
 

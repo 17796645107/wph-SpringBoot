@@ -1,9 +1,11 @@
 package hhxy.dn.wph.entity;
 
+import hhxy.dn.wph.util.AccountValidatorUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,8 +16,11 @@ import java.util.List;
  */
 
 public class UserLogin implements UserDetails {
-    private String telephone;
-    private String password;
+
+    @Pattern(regexp = AccountValidatorUtil.REGEX_MOBILE,message = "手机号码格式不正确")//验证手机号
+    private String telephone;//手机号
+    @Pattern(regexp = AccountValidatorUtil.REGEX_PASSWORD,message = "密码格式不正确")//验证密码
+    private String pwd;//密码
     private List<Role> roles;
 
     //返回用户所有角色的封装，一个Role对应一个GrantedAuthority
@@ -30,12 +35,12 @@ public class UserLogin implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.getPwd();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.getTelephone();
     }
 
     @Override
@@ -66,8 +71,12 @@ public class UserLogin implements UserDetails {
         this.telephone = telephone;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public List<Role> getRoles() {

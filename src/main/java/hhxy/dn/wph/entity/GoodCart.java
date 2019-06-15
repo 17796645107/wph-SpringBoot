@@ -1,19 +1,20 @@
 package hhxy.dn.wph.entity;
 
 import hhxy.dn.wph.entity.Product;
+import hhxy.dn.wph.util.DateUtil;
 
 import java.io.Serializable;
 
 public class GoodCart implements Serializable {
 
     private Integer cart_id;
-    private Integer user_id;
+    private Integer userNo;
     private Integer product_id;
     private Integer product_number;
     private String product_color;
     private String product_size;
-    private Integer state;
-    private String created;
+    private Integer state = 1;
+    private String created = DateUtil.getDate();
     private String updated;
     private Product product;//商品信息,一对一
 
@@ -25,12 +26,12 @@ public class GoodCart implements Serializable {
         this.cart_id = cart_id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserNo() {
+        return userNo;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserNo(Integer userNo) {
+        this.userNo = userNo;
     }
 
     public Integer getProduct_id() {

@@ -13,11 +13,12 @@ public interface GoodCartService {
 
     void saveGoodCart(GoodCart goodCart);
 
-    List<GoodCart> getGoodCart(Integer userId);
+    //查询购物车列表
+    List<GoodCart> getGoodCart(Integer userNo);
 
     void deleteGoodCartById(Integer id);
 
-    Integer getCartCount(Integer userId);
+    Integer getCartCount(Integer userNo);
 
     List<GoodCart> getGoodCartByIdList(int[] idList);
 
