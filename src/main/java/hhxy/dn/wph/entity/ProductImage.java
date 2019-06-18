@@ -2,31 +2,24 @@ package hhxy.dn.wph.entity;
 
 import hhxy.dn.wph.util.DateUtil;
 
+import java.util.Date;
+
 /**
  * @Author: 邓宁
  * @Date: Created in 19:41 2019/4/8
  */
-
+//商品图片类
 public class ProductImage {
-    private Integer image_id;
-    private Integer product_id;
-    private String image;
-    private Integer color_id;
-    private Integer status;
-    private String created;
-    private String updated;
+    private Integer id;
+    private Integer product_id;//商品ID
+    private String image;//图片URL
+    private Integer color_id;//颜色ID
+    private Integer status;//状态
+    private Date create;//
+    private Date updated;
 
     public ProductImage() {
         this.status = 1;
-        this.created = DateUtil.getDate();
-    }
-
-    public Integer getImage_id() {
-        return image_id;
-    }
-
-    public void setImage_id(Integer image_id) {
-        this.image_id = image_id;
     }
 
     public Integer getProduct_id() {
@@ -61,19 +54,27 @@ public class ProductImage {
         this.status = status;
     }
 
-    public String getCreated() {
-        return created;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getUpdated() {
+    public Date getCreate() {
+        return create;
+    }
+
+    public void setCreate(Date create) {
+        this.create = create;
+    }
+
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 }

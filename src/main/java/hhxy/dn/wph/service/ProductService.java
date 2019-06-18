@@ -1,8 +1,8 @@
 package hhxy.dn.wph.service;
 
-import hhxy.dn.wph.domain.Brand;
-import hhxy.dn.wph.domain.Category;
-import hhxy.dn.wph.domain.ProductAttribute;
+import hhxy.dn.wph.entity.Brand;
+import hhxy.dn.wph.entity.Category;
+import hhxy.dn.wph.entity.ProductAttribute;
 import hhxy.dn.wph.entity.*;
 
 import java.util.List;

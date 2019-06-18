@@ -2,66 +2,70 @@ package hhxy.dn.wph.entity;
 
 import hhxy.dn.wph.util.DateUtil;
 
+import java.util.Date;
+
 /**
  * @Author: 邓宁
  * @Date: Created in 12:45 2018/11/16
  */
 //商品基本信息表
 public class Product {
-    private Integer product_id;//商品ID(主键)
-    private Integer category_id;//二级分类ID
-    private Integer seller_id;//商户ID
-    private Integer brand_id;//品牌ID
+    private Integer id;//商品ID(主键)
+    private String productNo;
+    private Integer categoryId;//二级分类ID
+    private Integer sellerId;//商户ID
+    private Integer brandId;//品牌ID
     private String title;//商品名称
     private String detail;//商品描述
     private Integer price;//商品价格
     private Integer collect;//商品收藏量
-    private ProductImage default_image;//商品默认展示的图片
-    private Integer is_hot;//是否热门商品。1：是；0：否
-    private Integer is_new;//是否新品。1：是；0：否
+    private Integer isHot;//是否热门商品。1：是；0：否
+    private Integer isNew;//是否新品。1：是；0：否
     private Integer status;//状态。1：正常；0：删除
-    private String created;//创建时间
+    private Date create;//创建时间
+    private Date updated;//更新时间
+    private ProductImage defaultImage;//商品默认展示的图片
     private Seller seller;//所属商户
 
-    //初始化操作
-    public Product(){
-        this.collect = 0;
-        this.is_hot = 0;
-        this.is_new = 1;
-        this.status = 1;
-        this.created = DateUtil.getDate();
+
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public String getProductNo() {
+        return productNo;
     }
 
-    public Integer getCategory_id() {
-        return category_id;
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
     }
 
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-   public Integer getSeller_id() {
-        return seller_id;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public void setSeller_id(Integer seller_id) {
-        this.seller_id = seller_id;
+    public Integer getSellerId() {
+        return sellerId;
     }
 
-    public Integer getBrand_id() {
-        return brand_id;
+    public void setSellerId(Integer sellerId) {
+        this.sellerId = sellerId;
     }
 
-    public void setBrand_id(Integer brand_id) {
-        this.brand_id = brand_id;
+    public Integer getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
     }
 
     public String getTitle() {
@@ -96,28 +100,20 @@ public class Product {
         this.collect = collect;
     }
 
-    public ProductImage getDefault_image() {
-        return default_image;
+    public Integer getIsHot() {
+        return isHot;
     }
 
-    public void setDefault_image(ProductImage default_image) {
-        this.default_image = default_image;
+    public void setIsHot(Integer isHot) {
+        this.isHot = isHot;
     }
 
-    public Integer getIs_hot() {
-        return is_hot;
+    public Integer getIsNew() {
+        return isNew;
     }
 
-    public void setIs_hot(Integer is_hot) {
-        this.is_hot = is_hot;
-    }
-
-    public Integer getIs_new() {
-        return is_new;
-    }
-
-    public void setIs_new(Integer is_new) {
-        this.is_new = is_new;
+    public void setIsNew(Integer isNew) {
+        this.isNew = isNew;
     }
 
     public Integer getStatus() {
@@ -128,12 +124,28 @@ public class Product {
         this.status = status;
     }
 
-    public String getCreated() {
-        return created;
+    public Date getCreate() {
+        return create;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setCreate(Date create) {
+        this.create = create;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
+    public ProductImage getDefaultImage() {
+        return defaultImage;
+    }
+
+    public void setDefaultImage(ProductImage defaultImage) {
+        this.defaultImage = defaultImage;
     }
 
     public Seller getSeller() {
@@ -147,19 +159,21 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "product_id=" + product_id +
-                ", category_id=" + category_id +
-                ", seller_id=" + seller_id +
-                ", brand_id=" + brand_id +
+                "id=" + id +
+                ", productNo='" + productNo + '\'' +
+                ", categoryId=" + categoryId +
+                ", sellerId=" + sellerId +
+                ", brandId=" + brandId +
                 ", title='" + title + '\'' +
                 ", detail='" + detail + '\'' +
                 ", price=" + price +
                 ", collect=" + collect +
-                ", default_image=" + default_image +
-                ", is_hot=" + is_hot +
-                ", is_new=" + is_new +
+                ", isHot=" + isHot +
+                ", isNew=" + isNew +
                 ", status=" + status +
-                ", created='" + created + '\'' +
+                ", create=" + create +
+                ", updated=" + updated +
+                ", defaultImage=" + defaultImage +
                 ", seller=" + seller +
                 '}';
     }

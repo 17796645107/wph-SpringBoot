@@ -1,11 +1,11 @@
 package hhxy.dn.wph.mapper.provider;
 
-import hhxy.dn.wph.entity.GoodCart;
+import hhxy.dn.wph.entity.Cart;
 import hhxy.dn.wph.entity.Order;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 /**
  * @Author: 邓宁
@@ -32,7 +32,7 @@ public class OrderProvider {
     }
 
     //订单商品详情,@Param对应OrderMapper接口的参数
-    public String saveOrderProductDetail(@Param("goodCart") GoodCart goodCart, @Param("order_no") Integer order_no){
+    public String saveOrderProductDetail(@Param("goodCart") Cart goodCart, @Param("order_no") Integer order_no){
         return new SQL(){
             {
                 INSERT_INTO(ORDER_PRODUCT);

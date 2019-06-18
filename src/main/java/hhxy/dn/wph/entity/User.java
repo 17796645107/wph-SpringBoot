@@ -19,8 +19,8 @@ import java.util.List;
  */
 //用户表
 public class User{
-    private Integer user_no;//自动编号
-    private String user_id;//用户ID
+    private Integer id;//自动编号
+    private String userNo;//用户ID
     private String nickname;//昵称
     private String telephone;//手机号
     private String name;//真实姓名
@@ -30,35 +30,23 @@ public class User{
     private String vip;//会员等级
     private String headImage;//头像-图片路径
     private Integer status;//状态
-    private String created;//创建时间
-    private String updated;//更新时间
-    private List<Role> roles;//用户角色
+    private Date create;//创建时间
+    private Date updated;//更新时间
 
-
-    public User(){
-        //默认值
-        this.user_id = IDUtil.createPeopleID("U");
-        this.nickname = "唯品会会员";
-        this.status = 1;
-        this.vip = "青铜";
-        this.headImage = "avatar_89373029_1496285287409.jpg";
-        this.created = DateUtil.getDate();
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getUser_no() {
-        return user_no;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setUser_no(Integer user_no) {
-        this.user_no = user_no;
+    public String getUserNo() {
+        return userNo;
     }
 
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
     }
 
     public String getNickname() {
@@ -133,35 +121,27 @@ public class User{
         this.status = status;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Date getCreate() {
+        return create;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setCreate(Date create) {
+        this.create = create;
     }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "user_no=" + user_no +
-                ", user_id='" + user_id + '\'' +
+                "id=" + id +
+                ", userNo='" + userNo + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", name='" + name + '\'' +
@@ -171,9 +151,8 @@ public class User{
                 ", vip='" + vip + '\'' +
                 ", headImage='" + headImage + '\'' +
                 ", status=" + status +
-                ", created='" + created + '\'' +
-                ", updated='" + updated + '\'' +
-                ", roles=" + roles +
+                ", create=" + create +
+                ", updated=" + updated +
                 '}';
     }
 }

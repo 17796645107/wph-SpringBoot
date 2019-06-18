@@ -1,14 +1,14 @@
 
 package hhxy.dn.wph.mapper;
 
-import hhxy.dn.wph.entity.GoodCart;
+import hhxy.dn.wph.entity.Cart;
 import hhxy.dn.wph.mapper.provider.GoodCartProvider;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
 
-import static hhxy.dn.wph.util.DBTableUtil.CART;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.CART;
 
 /**
  * @Author: 邓宁
@@ -32,17 +32,17 @@ public interface CartMapper {
                     ))
     })
     //根据ID查询单条购物车记录
-    GoodCart getOneGoodCart(Integer id);
+    Cart getOneGoodCart(Integer id);
 
     @InsertProvider(type = GoodCartProvider.class,method = "saveGoodCart")
     //生成一条购物车记录
-    int insert(GoodCart goodCart);
+    int insert(Cart goodCart);
 
     @Select("select cart_id from "+ CART +
             "where user_no = #{userNo} and product_id = #{product_id} " +
             "and  product_color = #{product_color} and product_size = #{product_size} and state = 1")
     //根据条件查询一条购物车记录
-    Integer selectGoodCart(GoodCart goodCart);
+    Integer selectGoodCart(Cart goodCart);
 
     @Update("update"+ CART +
             "set product_number = product_number + #{number} " +
@@ -54,7 +54,7 @@ public interface CartMapper {
     @Select("select"+ CoodCart_field +
             "from"+ CART +"where user_no = #{userNo} and state = 1")
     @ResultMap(value = "GoodCartMap")
-    List<GoodCart> getGoodCart(Integer userNo);
+    List<Cart> getGoodCart(Integer userNo);
 
     //根据ID删除一条购物车记录
     @Delete("delete FROM"+ CART +"where cart_id = #{id}")
@@ -68,5 +68,5 @@ public interface CartMapper {
     void updateStateGoodCartById(Integer id);
 
     @UpdateProvider(type = GoodCartProvider.class,method = "updateGoodCartById")
-    Integer updateGoodCartById(GoodCart goodCart);
+    Integer updateGoodCartById(Cart goodCart);
 }

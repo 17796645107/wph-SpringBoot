@@ -1,40 +1,42 @@
-package hhxy.dn.wph.domain;
+package hhxy.dn.wph.entity;
 
 import hhxy.dn.wph.util.DateUtil;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
-
+//商品属性类
 public class ProductAttribute implements Serializable {
-    private Integer attrId;
+    private Integer id;
 
-    private String attrName;
+    private String attrName;//属性名称
 
-    private int isSearch;
+    private int isSearch;//是否搜索
 
     private int status;
 
-    private Integer adminId;
+    private Date create;
 
-    private String createdTime;
-
-    private List<ProductAttributeValue> attributeValues;
+    private List<ProductAttributeValue> attributeValues;//属性值列表
 
     private static final long serialVersionUID = 1L;
 
-    public ProductAttribute() {
-        this.isSearch = 1;
-        this.status = 1;
-        this.adminId = 1;
-        this.createdTime = DateUtil.getDate();
+
+
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getAttrId() {
-        return attrId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setAttrId(Integer attrId) {
-        this.attrId = attrId;
+    public Date getCreate() {
+        return create;
+    }
+
+    public void setCreate(Date create) {
+        this.create = create;
     }
 
     public String getAttrName() {
@@ -59,22 +61,6 @@ public class ProductAttribute implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public Integer getAdminId() {
-        return adminId;
-    }
-
-    public void setAdminId(Integer adminId) {
-        this.adminId = adminId;
-    }
-
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
     }
 
     public List<ProductAttributeValue> getAttributeValues() {

@@ -1,28 +1,30 @@
 package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Author: 邓宁
  * @Date: Created in 14:11 2019/5/3
  */
 //订单商品详情
-public class Order_productDetail implements Serializable {
+public class OrderProduct implements Serializable {
 
-    private Integer detail_id;//自动编号
+    private Integer id;//自动编号
     private Integer product_id;//商品ID
     private Integer order_id;//订单编号
     private Integer product_number;//商品数量
     private Integer product_size;//商品尺寸
     private Integer product_color;//商品颜色
+    private Date create;
     private Product product;
 
-    public Integer getDetail_id() {
-        return detail_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDetail_id(Integer detail_id) {
-        this.detail_id = detail_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getProduct_id() {
@@ -63,6 +65,14 @@ public class Order_productDetail implements Serializable {
 
     public void setProduct_color(Integer product_color) {
         this.product_color = product_color;
+    }
+
+    public Date getCreate() {
+        return create;
+    }
+
+    public void setCreate(Date create) {
+        this.create = create;
     }
 
     public Product getProduct() {

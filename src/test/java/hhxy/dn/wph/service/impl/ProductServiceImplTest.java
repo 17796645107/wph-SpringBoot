@@ -1,6 +1,6 @@
 package hhxy.dn.wph.service.impl;
 
-import hhxy.dn.wph.domain.ProductAttributeRelation;
+import hhxy.dn.wph.entity.ProductAttributeRelation;
 import hhxy.dn.wph.entity.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * @Author: 邓宁

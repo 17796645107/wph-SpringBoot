@@ -1,9 +1,7 @@
 package hhxy.dn.wph.interceptor;
 
-import hhxy.dn.wph.domain.Resource;
-import hhxy.dn.wph.entity.Menu;
+import hhxy.dn.wph.entity.Resource;
 import hhxy.dn.wph.entity.Role;
-import hhxy.dn.wph.service.MenuService;
 import hhxy.dn.wph.service.ResourceService;
 import hhxy.dn.wph.service.RoleService;
 import org.slf4j.Logger;
@@ -14,7 +12,6 @@ import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.AntPathMatcher;
 
 import java.util.Collection;
 import java.util.List;
@@ -50,7 +47,7 @@ public class UserLoginInterceptor implements FilterInvocationSecurityMetadataSou
             return SecurityConfig.createList("ROLE_no");
         }
         //获取用户角色
-        List<Role> roles = roleService.findRolesByResourceId(resource.getResourceId());
+        List<Role> roles = roleService.findRolesByResourceId(resource.getId());
         int size = roles.size();
         String[] values = new String[size];
         for (int i = 0; i < size; i++) {

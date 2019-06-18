@@ -1,15 +1,15 @@
-package hhxy.dn.wph.domain;
+package hhxy.dn.wph.entity;
 
 import hhxy.dn.wph.entity.Role;
 
 import java.io.Serializable;
 import java.util.List;
-
+//人员-角色表
 public class RolePeople implements Serializable {
 
-    private Integer peopleId;
-    private Integer roleId;
-    private Role role;
+    private Integer peopleId;//人员ID
+    private Integer roleId;//角色ID
+    private Role role;//角色
 
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,7 @@
 package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,81 +11,72 @@ import java.util.List;
 //订单实体类
 public class Order implements Serializable {
 
-    private Integer order_no;//自动编号
-    private String order_id;//订单编号
-    private Integer user_id;//用户ID
-    private Integer address_id;//用户地址ID
-    private Double product_total;//商品总价
-    private Integer order_count;//订单商品数量
-    private Integer pay_channel;//订单支付渠道
-    private String pay_no;//第三方支付流水号
+    private Integer id;//自动编号
+    private String orderNo;//订单编号
+    private Integer userId;//用户ID
+    private Integer addressId;//用户地址ID
+    private Double productTotal;//商品总价
+    private Integer orderCount;//订单商品数量
+    private Integer payChannel;//订单支付渠道
     private Integer status;//订单状态
-    private String created;//创建时间
+    private String payNo;//第三方支付流水号
+    private Date create;//创建时间
+    private List<Cart> goodCartList;//商品详情
 
-    private List<GoodCart> goodCartList;//商品详情
-
-    public Integer getOrder_no() {
-        return order_no;
+    public Integer getId() {
+        return id;
     }
 
-    public void setOrder_no(Integer order_no) {
-        this.order_no = order_no;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getOrder_id() {
-        return order_id;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setOrder_id(String order_id) {
-        this.order_id = order_id;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer getAddress_id() {
-        return address_id;
+    public Integer getAddressId() {
+        return addressId;
     }
 
-    public void setAddress_id(Integer address_id) {
-        this.address_id = address_id;
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
-    public Double getProduct_total() {
-        return product_total;
+    public Double getProductTotal() {
+        return productTotal;
     }
 
-    public void setProduct_total(Double product_total) {
-        this.product_total = product_total;
+    public void setProductTotal(Double productTotal) {
+        this.productTotal = productTotal;
     }
 
-    public Integer getOrder_count() {
-        return order_count;
+    public Integer getOrderCount() {
+        return orderCount;
     }
 
-    public void setOrder_count(Integer order_count) {
-        this.order_count = order_count;
+    public void setOrderCount(Integer orderCount) {
+        this.orderCount = orderCount;
     }
 
-    public Integer getPay_channel() {
-        return pay_channel;
+    public Integer getPayChannel() {
+        return payChannel;
     }
 
-    public void setPay_channel(Integer pay_channel) {
-        this.pay_channel = pay_channel;
-    }
-
-    public String getPay_no() {
-        return pay_no;
-    }
-
-    public void setPay_no(String pay_no) {
-        this.pay_no = pay_no;
+    public void setPayChannel(Integer payChannel) {
+        this.payChannel = payChannel;
     }
 
     public Integer getStatus() {
@@ -95,19 +87,27 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public String getCreated() {
-        return created;
+    public String getPayNo() {
+        return payNo;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setPayNo(String payNo) {
+        this.payNo = payNo;
     }
 
-    public List<GoodCart> getGoodCartList() {
+    public Date getCreate() {
+        return create;
+    }
+
+    public void setCreate(Date create) {
+        this.create = create;
+    }
+
+    public List<Cart> getGoodCartList() {
         return goodCartList;
     }
 
-    public void setGoodCartList(List<GoodCart> goodCartList) {
+    public void setGoodCartList(List<Cart> goodCartList) {
         this.goodCartList = goodCartList;
     }
 }

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 /**
  * @Author: 邓宁

@@ -1,12 +1,12 @@
 package hhxy.dn.wph.mapper;
 
-import hhxy.dn.wph.entity.GoodCart;
+import hhxy.dn.wph.entity.Cart;
 import hhxy.dn.wph.entity.Order;
 import hhxy.dn.wph.mapper.provider.OrderProvider;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface OrderMapper {
     int createOrder(Order order);
 
     @InsertProvider(type = OrderProvider.class,method = "saveOrderProductDetail")
-    int saveOrderProductDetail(@Param("goodCart") GoodCart goodCart, @Param("order_no") Integer order_no);
+    int saveOrderProductDetail(@Param("goodCart") Cart goodCart, @Param("order_no") Integer order_no);
 
     @Select("select * from"+ORDER+" where user_id = #{userId}")
     @Results({
@@ -44,7 +44,7 @@ public interface OrderMapper {
             ))
     })
     @Select("select * from"+ORDER_PRODUCT+"where order_id = #{order_id}")
-    List<GoodCart> getProductDetailByOrderID(Integer order_id);
+    List<Cart> getProductDetailByOrderID(Integer order_id);
 
     @Select("select * from"+ORDER+"where order_no = #{orderNO}")
     Order getOrderByOrderNO(Integer orderNO);

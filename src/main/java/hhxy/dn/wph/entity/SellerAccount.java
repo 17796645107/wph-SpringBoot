@@ -1,7 +1,7 @@
-package hhxy.dn.wph.domain;
+package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
-
+//商户账户
 public class SellerAccount implements Serializable {
     private Integer sellerId;
 

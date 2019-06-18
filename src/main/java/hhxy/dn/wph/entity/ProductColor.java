@@ -2,38 +2,39 @@ package hhxy.dn.wph.entity;
 
 import hhxy.dn.wph.util.DateUtil;
 
+import java.util.Date;
+
 /**
  * @Author: 邓宁
  * @Date: Created in 12:15 2018/11/30
  */
-
+//商品颜色
 public class ProductColor {
-    private Integer color_id;
-    private Integer product_id;
-    private String color;
+    private Integer id;
+    private Integer productId;//商品ID
+    private String color;//颜色
     private Integer status;
-    private String created;
-    private String updated;
+    private Date create;
+    private Date updated;
 
     public ProductColor() {
         this.status = 1;
-        this.created = DateUtil.getDate();
     }
 
-    public Integer getColor_id() {
-        return color_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setColor_id(Integer color_id) {
-        this.color_id = color_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getColor() {
@@ -52,19 +53,19 @@ public class ProductColor {
         this.status = status;
     }
 
-    public String getCreated() {
-        return created;
+    public Date getCreate() {
+        return create;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setCreate(Date create) {
+        this.create = create;
     }
 
-    public String getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 }

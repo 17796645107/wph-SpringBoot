@@ -1,11 +1,9 @@
 package hhxy.dn.wph.controller;
 
-import hhxy.dn.wph.entity.GoodCart;
+import hhxy.dn.wph.entity.Cart;
 import hhxy.dn.wph.entity.Result;
 import hhxy.dn.wph.service.GoodCartService;
 import hhxy.dn.wph.util.ResultUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +26,8 @@ public class CartController {
      * @return: hhxy.dn.wph.entity.Result
      */
     @PostMapping("/saveGoodCart")
-    public Result saveGoodCart(@RequestBody GoodCart goodCart){
-        goodCartService.saveGoodCart(goodCart);
+    public Result saveCart(@RequestBody Cart cart){
+        goodCartService.saveGoodCart(cart);
         return ResultUtil.success();
     }
 
@@ -40,7 +38,7 @@ public class CartController {
      */
     @RequestMapping("/getGoodCart/{userNo}")
     public Result getGoodCart(@PathVariable Integer userNo){
-        List<GoodCart> goodCartList = goodCartService.getGoodCart(userNo);
+        List<Cart> goodCartList = goodCartService.getGoodCart(userNo);
         return ResultUtil.success(goodCartList);
     }
 
@@ -73,7 +71,7 @@ public class CartController {
      */
     @RequestMapping("/getGoodCartByIdList")
     public Result getGoodCartByIdList(@RequestParam("idList") int[] idList){
-        List<GoodCart> goodCartList = goodCartService.getGoodCartByIdList(idList);
+        List<Cart> goodCartList = goodCartService.getGoodCartByIdList(idList);
         return ResultUtil.success(goodCartList);
     }
 
@@ -83,7 +81,7 @@ public class CartController {
      * @return: hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/updateGoodCartById")
-    public Result updateGoodCartById(@RequestBody GoodCart goodCart){
+    public Result updateGoodCartById(@RequestBody Cart goodCart){
         goodCartService.updateGoodCartById(goodCart);
         return ResultUtil.success();
     }

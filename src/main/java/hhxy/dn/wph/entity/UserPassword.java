@@ -5,17 +5,26 @@ import hhxy.dn.wph.util.MD5Util;
 import java.io.Serializable;
 //用户密码表
 public class UserPassword implements Serializable {
-    private static final long serialVersionUID = 1L;
-
-    private Integer user_no;
+    private Integer id;
+    private Integer userId;
     private String password;
 
-    public Integer getUser_no() {
-        return user_no;
+    private static final long serialVersionUID = 1L;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setUser_no(Integer user_no) {
-        this.user_no = user_no;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {

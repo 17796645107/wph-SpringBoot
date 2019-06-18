@@ -11,7 +11,7 @@ import java.util.Date;
 //用户收货地址表
 public class UserAddress {
     private Integer address_id;//地址ID
-    private Integer user_no;//用户ID
+    private Integer user_id;//用户ID
     private String name;//收货人姓名
     private String province;//省份
     private String city;//市区
@@ -19,10 +19,10 @@ public class UserAddress {
     private String area;//详细地址
     private String postcode;//邮政编码
     private String telephone;//手机号码
-    private Integer is_default = 0;//是否默认收货地址a
-    private Integer status = 1;//状态
-    private String created = DateUtil.getDate();//创建时间
-    private String updated;//更新时间
+    private Integer isDefault;//是否默认收货地址a
+    private Integer status;//状态
+    private Date create;//创建时间
+    private Date updated;//更新时间
 
     public Integer getAddress_id() {
         return address_id;
@@ -32,12 +32,12 @@ public class UserAddress {
         this.address_id = address_id;
     }
 
-    public Integer getUser_no() {
-        return user_no;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setUser_no(Integer user_no) {
-        this.user_no = user_no;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {
@@ -96,12 +96,12 @@ public class UserAddress {
         this.telephone = telephone;
     }
 
-    public Integer getIs_default() {
-        return is_default;
+    public Integer getIsDefault() {
+        return isDefault;
     }
 
-    public void setIs_default(Integer is_default) {
-        this.is_default = is_default;
+    public void setIsDefault(Integer isDefault) {
+        this.isDefault = isDefault;
     }
 
     public Integer getStatus() {
@@ -112,19 +112,19 @@ public class UserAddress {
         this.status = status;
     }
 
-    public String getCreated() {
-        return created;
+    public Date getCreate() {
+        return create;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setCreate(Date create) {
+        this.create = create;
     }
 
-    public String getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 
@@ -132,7 +132,7 @@ public class UserAddress {
     public String toString() {
         return "UserAddress{" +
                 "address_id=" + address_id +
-                ", user_no=" + user_no +
+                ", user_id=" + user_id +
                 ", name='" + name + '\'' +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
@@ -140,10 +140,10 @@ public class UserAddress {
                 ", area='" + area + '\'' +
                 ", postcode='" + postcode + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", is_default=" + is_default +
+                ", isDefault=" + isDefault +
                 ", status=" + status +
-                ", created='" + created + '\'' +
-                ", updated='" + updated + '\'' +
+                ", create=" + create +
+                ", updated=" + updated +
                 '}';
     }
 }

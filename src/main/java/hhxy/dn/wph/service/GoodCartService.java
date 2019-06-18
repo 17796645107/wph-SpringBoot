@@ -1,6 +1,6 @@
 package hhxy.dn.wph.service;
 
-import hhxy.dn.wph.entity.GoodCart;
+import hhxy.dn.wph.entity.Cart;
 
 import java.util.List;
 
@@ -11,16 +11,17 @@ import java.util.List;
 
 public interface GoodCartService {
 
-    void saveGoodCart(GoodCart goodCart);
+    //添加一条购物车记录
+    void saveGoodCart(Cart goodCart);
 
     //查询购物车列表
-    List<GoodCart> getGoodCart(Integer userNo);
+    List<Cart> getGoodCart(Integer userNo);
 
     void deleteGoodCartById(Integer id);
 
     Integer getCartCount(Integer userNo);
 
-    List<GoodCart> getGoodCartByIdList(int[] idList);
+    List<Cart> getGoodCartByIdList(int[] idList);
 
-    void updateGoodCartById(GoodCart goodCart);
+    void updateGoodCartById(Cart goodCart);
 }

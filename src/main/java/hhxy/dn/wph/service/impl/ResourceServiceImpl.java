@@ -1,6 +1,6 @@
 package hhxy.dn.wph.service.impl;
 
-import hhxy.dn.wph.domain.Resource;
+import hhxy.dn.wph.entity.Resource;
 import hhxy.dn.wph.mapper.ResourceMapper;
 import hhxy.dn.wph.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;

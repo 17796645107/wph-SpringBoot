@@ -1,6 +1,5 @@
 package hhxy.dn.wph.entity;
 
-import hhxy.dn.wph.domain.Brand;
 import hhxy.dn.wph.util.DateUtil;
 
 /**
@@ -9,19 +8,31 @@ import hhxy.dn.wph.util.DateUtil;
  */
 //商户信息表
 public class Seller {
+    private String id;//商户ID
     private String seller_no;//自动编号
-    private String seller_id;//商户ID
     private String name;//店铺名称
-    private String show_image;//店铺展示图
+    private String showImage;//店铺展示图
     private Integer type;//店铺类型 category_id
-    private Integer status = 1;//状态
-    private String created = DateUtil.getDate();//创建时间
+    private Integer status;//状态
+    private String created;//创建时间
     private String updated;
     private Brand brand;//品牌
 
-    public Seller() {
-        this.status = 1;
-        this.created = DateUtil.getDate();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getShowImage() {
+        return showImage;
+    }
+
+    public void setShowImage(String showImage) {
+        this.showImage = showImage;
     }
 
     public String getSeller_no() {
@@ -30,14 +41,6 @@ public class Seller {
 
     public void setSeller_no(String seller_no) {
         this.seller_no = seller_no;
-    }
-
-    public String getSeller_id() {
-        return seller_id;
-    }
-
-    public void setSeller_id(String seller_id) {
-        this.seller_id = seller_id;
     }
 
     public String getName() {
@@ -54,14 +57,6 @@ public class Seller {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
-    }
-
-    public String getShow_image() {
-        return show_image;
-    }
-
-    public void setShow_image(String show_image) {
-        this.show_image = show_image;
     }
 
     public Integer getType() {

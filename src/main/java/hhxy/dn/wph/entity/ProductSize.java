@@ -2,6 +2,8 @@ package hhxy.dn.wph.entity;
 
 import hhxy.dn.wph.util.DateUtil;
 
+import java.util.Date;
+
 /**
  * @Author: 邓宁
  * @Date: Created in 12:15 2018/11/30
@@ -9,25 +11,19 @@ import hhxy.dn.wph.util.DateUtil;
 //商品尺寸表
 public class ProductSize {
 
-    private Integer size_id;//编号
+    private Integer id;//编号
     private Integer product_id;//商品编号
     private String size;//商品尺寸
     private Integer status;//状态。1：正常，0：删除
-    private String created;
-    private String updated;
+    private Date create;
+    private Date updated;
 
-    //初始化操作
-    public ProductSize(){
-        this.created = DateUtil.getDate();
-        this.status = 1;//默认为1：正常
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getSize_id() {
-        return size_id;
-    }
-
-    public void setSize_id(Integer size_id) {
-        this.size_id = size_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getProduct_id() {
@@ -54,19 +50,19 @@ public class ProductSize {
         this.status = status;
     }
 
-    public String getCreated() {
-        return created;
+    public Date getCreate() {
+        return create;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setCreate(Date create) {
+        this.create = create;
     }
 
-    public String getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 }

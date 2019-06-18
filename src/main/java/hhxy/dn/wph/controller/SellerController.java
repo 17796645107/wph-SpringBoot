@@ -1,6 +1,6 @@
 package hhxy.dn.wph.controller;
 
-import hhxy.dn.wph.domain.SellerAccount;
+import hhxy.dn.wph.entity.SellerAccount;
 import hhxy.dn.wph.entity.Result;
 import hhxy.dn.wph.entity.Seller;
 import hhxy.dn.wph.service.SellerService;

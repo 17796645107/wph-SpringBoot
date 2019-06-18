@@ -2,7 +2,7 @@ package hhxy.dn.wph.mapper.provider;
 
 import hhxy.dn.wph.entity.*;
 import org.apache.ibatis.jdbc.SQL;
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 /**
  * @Author: 邓宁

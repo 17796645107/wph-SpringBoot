@@ -1,6 +1,6 @@
 package hhxy.dn.wph.mapper;
 
-import hhxy.dn.wph.domain.SellerAccount;
+import hhxy.dn.wph.entity.SellerAccount;
 import hhxy.dn.wph.entity.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,14 +29,15 @@ public class SellerMapperTest {
     @Autowired
     private ProductMapper productMapper;
 
-    Integer p_id = 2019052810;
+    int p_id = 1;
+    String productNo = "2019052810";
     @Test
     public void saveOneProduct() {
         Product product = new Product();
-        product.setProduct_id(p_id);
-        product.setSeller_id(3);
-        product.setBrand_id(3);
-        product.setCategory_id(41);
+        product.setProductNo(productNo);
+        product.setSellerId(3);
+        product.setBrandId(3);
+        product.setCategoryId(41);
         product.setTitle("【100%桑蚕丝】索菲丝尔V领印花小衫女宽松真丝衬衫");
         product.setDetail("性感V领 创意印花 度假风");
         product.setPrice(1098);
@@ -64,7 +65,7 @@ public class SellerMapperTest {
     @Test
     public void saveProductColor() {
         ProductColor productColor = new ProductColor();
-        productColor.setProduct_id(p_id);
+        productColor.setProductId(p_id);
         ProductImage productImage = new ProductImage();
         productImage.setProduct_id(p_id);
 
@@ -93,7 +94,7 @@ public class SellerMapperTest {
         for (String color : colors) {
             productColor.setColor(color);
             sellerMapper.saveProductColor(productColor);
-            int color_id = productColor.getColor_id();
+            int color_id = productColor.getId();
             productImage.setColor_id(color_id);
             for (String image : images) {
                 productImage.setImage(image);

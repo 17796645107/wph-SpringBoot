@@ -1,33 +1,41 @@
-package hhxy.dn.wph.domain;
+package hhxy.dn.wph.entity;
 
 import hhxy.dn.wph.util.DateUtil;
 
 import java.io.Serializable;
-
+import java.util.Date;
+//商品属性值
 public class ProductAttributeValue implements Serializable {
-    private Integer valueId;
+    private Integer id;
 
-    private String value;
+    private String value;//属性值
 
     private Integer status;
 
-    private Integer attributeId;
+    private Integer attributeId;//属性ID
 
-    private String createdTime;
+    private Date create;
 
     public ProductAttributeValue() {
         this.status = 1;
-        this.createdTime = DateUtil.getDate();
     }
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getValueId() {
-        return valueId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setValueId(Integer valueId) {
-        this.valueId = valueId;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getCreate() {
+        return create;
+    }
+
+    public void setCreate(Date create) {
+        this.create = create;
     }
 
     public String getValue() {
@@ -54,11 +62,4 @@ public class ProductAttributeValue implements Serializable {
         this.attributeId = attributeId;
     }
 
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
 }

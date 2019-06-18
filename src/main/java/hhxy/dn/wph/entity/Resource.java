@@ -1,22 +1,22 @@
-package hhxy.dn.wph.domain;
+package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
-
+//url资源
 public class Resource implements Serializable {
-    private Integer resourceId;
+    private Integer id;
 
-    private String url;
+    private String url;//URL路径
 
-    private String resourceName;
+    private String resourceName;//资源名称
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getResourceId() {
-        return resourceId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUrl() {

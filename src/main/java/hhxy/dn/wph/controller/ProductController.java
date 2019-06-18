@@ -1,15 +1,11 @@
 package hhxy.dn.wph.controller;
 
-import hhxy.dn.wph.domain.Brand;
-import hhxy.dn.wph.domain.Category;
-import hhxy.dn.wph.domain.ProductAttribute;
+import hhxy.dn.wph.entity.Brand;
+import hhxy.dn.wph.entity.Category;
+import hhxy.dn.wph.entity.ProductAttribute;
 import hhxy.dn.wph.entity.*;
-import hhxy.dn.wph.enums.ProductExceptionEnum;
-import hhxy.dn.wph.exception.ProductException;
 import hhxy.dn.wph.service.ProductService;
 import hhxy.dn.wph.util.ResultUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,17 +1,13 @@
 package hhxy.dn.wph.mapper.provider;
 
-import hhxy.dn.wph.domain.ProductAttributeRelation;
+import hhxy.dn.wph.entity.ProductAttributeRelation;
 import hhxy.dn.wph.entity.Product;
 import hhxy.dn.wph.entity.ProductNum;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 /**
  * @Author: 邓宁

@@ -1,6 +1,6 @@
 package hhxy.dn.wph.service;
 
-import hhxy.dn.wph.domain.Resource;
+import hhxy.dn.wph.entity.Resource;
 
 /**
  * @Author: 邓宁

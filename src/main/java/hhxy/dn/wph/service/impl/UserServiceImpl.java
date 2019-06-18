@@ -76,10 +76,10 @@ public class UserServiceImpl implements UserService {
             throw new UserException(UserExceptionEnum.REGISTER_ERROR);
         }
         //获取自增主键ID
-        Integer user_no = user.getUser_no();
+        Integer userId = user.getId();
         //创建用户密码对象
         UserPassword userPwd = new UserPassword();
-        userPwd.setUser_no(user_no);
+        userPwd.setUserId(userId);
         userPwd.setPassword(userRegister.getPassword());
         //注册用户密码
         int resultUserPwd = userMapper.saveUserPassword(userPwd);
@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
             throw new UserException(UserExceptionEnum.LOGIN_ERROR);
         }
         //查询用户加密之后的密码
-        String userPwd = userMapper.findUserPasswordByNo(user.getUser_no());
+        String userPwd = userMapper.findUserPasswordByNo(user.getId());
         if (!MD5Util.getMD5(password).equals(userPwd)){
             throw new UserException(UserExceptionEnum.LOGIN_ERROR);
         }
@@ -206,7 +206,7 @@ public class UserServiceImpl implements UserService {
             throw new UserException(UserExceptionEnum.saveUserAddressError);
         }
         //清除缓存
-        redisUtil.del("UserAddress:"+address.getUser_no());
+        redisUtil.del("UserAddress:" + address.getUser_id());
         return result;
     }
 
@@ -218,7 +218,7 @@ public class UserServiceImpl implements UserService {
             throw new UserException(UserExceptionEnum.saveUserAddressError);
         }
         //清除缓存
-        redisUtil.del("UserAddress:"+address.getUser_no());
+        redisUtil.del("UserAddress:" + address.getUser_id());
         return result;
     }
 
@@ -226,14 +226,14 @@ public class UserServiceImpl implements UserService {
     @Override
     //异常回滚
     @Transactional
-    public int updateDefaultUserAddress(Integer user_no,Integer address_id) {
+    public int updateDefaultUserAddress(Integer user_no,Integer addressId) {
         //把此用户的所有收货地址都重置为非默认收货地址
         Integer result1 = userMapper.updateAllUserAddressByNo(user_no);
         if (result1 == null){
             throw new UserException(UserExceptionEnum.updateAddressError);
         }
         //更新默认收货地址
-        Integer result2 = userMapper.updateDefaultUserAddressByID(address_id);
+        Integer result2 = userMapper.updateDefaultUserAddressByID(addressId);
         if (result2 == null){
             throw new UserException(UserExceptionEnum.updateAddressError);
         }
@@ -303,7 +303,7 @@ public class UserServiceImpl implements UserService {
             throw new UserException(UserExceptionEnum.collectSellerError);
         }
         //清除缓存
-        redisUtil.del("CollectSeller:"+ collect.getUser_no());
+        redisUtil.del("CollectSeller:"+ collect.getUserID());
     }
 
     //获取用户查询关注的商铺
@@ -358,7 +358,7 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("没有该用户");
         }
         //获取人员的权限
-        List<Role> roleList = roleMapper.findRolesByPeopleId(user.getUser_id());
+        List<Role> roleList = roleMapper.findRolesByPeopleId(user.getUserNo());
         UserLogin userLogin = new UserLogin();
         userLogin.setTelephone(telephone);
         userLogin.setRoles(roleList);

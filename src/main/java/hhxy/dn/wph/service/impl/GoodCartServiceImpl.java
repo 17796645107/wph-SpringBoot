@@ -1,14 +1,12 @@
 package hhxy.dn.wph.service.impl;
 
-import hhxy.dn.wph.entity.GoodCart;
+import hhxy.dn.wph.entity.Cart;
 import hhxy.dn.wph.enums.GoodCartExceptionEnum;
 import hhxy.dn.wph.exception.GoodCartException;
 import hhxy.dn.wph.mapper.CartMapper;
 import hhxy.dn.wph.service.GoodCartService;
-import hhxy.dn.wph.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +24,13 @@ public class GoodCartServiceImpl implements GoodCartService {
 
     //添加商品到购物车
     @Override
-    public void saveGoodCart(GoodCart goodCart) {
+    public void saveGoodCart(Cart goodCart) {
         //判断购物车是否存在了这个商品
         Integer cart_id = goodCartMapper.selectGoodCart(goodCart);
         //存在
         if(cart_id != null){
             //只更新购物车数量
-            Integer result = goodCartMapper.updateGoodCartNumber(cart_id,goodCart.getProduct_number());
+            Integer result = goodCartMapper.updateGoodCartNumber(cart_id,goodCart.getProductNumber());
         }else{
             //不存在,将商品添加到购物车
             Integer result = goodCartMapper.insert(goodCart);
@@ -48,7 +46,7 @@ public class GoodCartServiceImpl implements GoodCartService {
      * @return: java.util.List<hhxy.dn.wph.entity.GoodCart>
      */
     @Override
-    public List<GoodCart> getGoodCart(Integer userNo){
+    public List<Cart> getGoodCart(Integer userNo){
         return goodCartMapper.getGoodCart(userNo);
     }
 
@@ -81,8 +79,8 @@ public class GoodCartServiceImpl implements GoodCartService {
      * @return: java.util.List<hhxy.dn.wph.entity.GoodCart>
      */
     @Override
-    public List<GoodCart> getGoodCartByIdList(int[] idList) {
-        List<GoodCart> goodCartList = new ArrayList<>();
+    public List<Cart> getGoodCartByIdList(int[] idList) {
+        List<Cart> goodCartList = new ArrayList<>();
         for (Integer id:idList) {
             goodCartList.add(goodCartMapper.getOneGoodCart(id));
         }
@@ -90,7 +88,7 @@ public class GoodCartServiceImpl implements GoodCartService {
     }
 
     @Override
-    public void updateGoodCartById(GoodCart goodCart) {
+    public void updateGoodCartById(Cart goodCart) {
         Integer result = goodCartMapper.updateGoodCartById(goodCart);
         if (result != 1){
             throw new GoodCartException(GoodCartExceptionEnum.GOODCART_UPDATE_EXCEPTION);

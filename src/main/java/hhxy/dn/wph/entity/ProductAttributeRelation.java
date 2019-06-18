@@ -1,17 +1,22 @@
-package hhxy.dn.wph.domain;
+package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
-
+import java.util.Date;
+//商品属性与属性值对应关系
 public class ProductAttributeRelation implements Serializable {
-    private Integer productId;
+    private Integer id;
 
-    private Integer attributeId;
+    private Integer productId;//商品ID
 
-    private Integer valueId;
+    private Integer attributeId;//属性ID
+
+    private Integer valueId;//属性值ID
 
     private Integer status;
 
-    private String created;
+    private Date create;
+
+    private Date updated;
 
     private static final long serialVersionUID = 1L;
 
@@ -47,11 +52,27 @@ public class ProductAttributeRelation implements Serializable {
         this.status = status;
     }
 
-    public String getCreated() {
-        return created;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getCreate() {
+        return create;
+    }
+
+    public void setCreate(Date create) {
+        this.create = create;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

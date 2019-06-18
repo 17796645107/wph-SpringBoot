@@ -2,7 +2,7 @@ package hhxy.dn.wph.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import hhxy.dn.wph.entity.GoodCart;
+import hhxy.dn.wph.entity.Cart;
 import hhxy.dn.wph.entity.Order;
 import hhxy.dn.wph.entity.ProductNum;
 import hhxy.dn.wph.enums.GoodCartExceptionEnum;
@@ -24,6 +24,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ import java.util.Set;
  * @Author: 邓宁
  * @Date: Created in 14:53 2019/5/3
  */
-
+//订单业务实现类
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -52,8 +53,6 @@ public class OrderServiceImpl implements OrderService {
 
     /*
      * @Description:创建订单
-     * @param: [order]
-     * @return: java.lang.Integer
      */
     @Override
     @Transactional
@@ -62,56 +61,56 @@ public class OrderServiceImpl implements OrderService {
         checkProductNum(order);
 
         //创建订单
-        order.setOrder_id(IDUtil.createOrderID());//生成订单号
+        order.setOrderNo(IDUtil.createOrderID());//生成订单号
         order.setStatus(1);//订单状态
-        order.setCreated(DateUtil.getDate());//创建订单时间
+        order.setCreate(new Date());//创建订单时间
         int result = orderMapper.createOrder(order);
         if (result != 1){
             throw new OrderException(OrderExceptionEnum.createOrder_error);
         }
 
         //生成订单详情
-        List<GoodCart> goodCarts = order.getGoodCartList();
-        for (GoodCart goodCart:goodCarts){
+        List<Cart> goodCarts = order.getGoodCartList();
+        for (Cart goodCart:goodCarts){
             //生成订单详情记录
-            int results = orderMapper.saveOrderProductDetail(goodCart,order.getOrder_no());
+            int results = orderMapper.saveOrderProductDetail(goodCart,order.getId());
             if (results != 1){
                 throw new OrderException(OrderExceptionEnum.createOrderProductDeatil_error);
             }
             //删除购物车的记录
-            int results1 = cartMapper.deleteGoodCartById(goodCart.getCart_id());
+            int results1 = cartMapper.deleteGoodCartById(goodCart.getId());
             if (results1 != 1){
                 throw new GoodCartException(GoodCartExceptionEnum.deleteCartById_error);
             }
             //更新商品库存
-            int results2 = productMapper.updateProductNum(goodCart.getProduct().getProduct_id(),goodCart.getProduct_color(),goodCart.getProduct_size(),goodCart.getProduct_number());
+            int results2 = productMapper.updateProductNum(goodCart.getProduct().getId(),goodCart.getProductColor(),goodCart.getProductSize(),goodCart.getProductNumber());
             if (results2 != 1){
                 throw new ProductException(ProductExceptionEnum.updateProductNum_error);
             }
         }
         //清除缓存
         //批量模糊删除
-        Set<String> keys = redisTemplate.keys("OrderList:"+order.getUser_id()+"*");
+        Set<String> keys = redisTemplate.keys("OrderList:" + order.getUserId() + "*");
         redisTemplate.delete(keys);
 
-        return order.getOrder_no();
+        return order.getId();
     }
 
     private  void checkProductNum(Order order){
-        List<GoodCart> goodList = order.getGoodCartList();
+        List<Cart> goodList = order.getGoodCartList();
         ProductNum productNum = new ProductNum();
         Integer num = 0;
-        for(GoodCart goodCart:goodList){
-            productNum.setProduct_color(goodCart.getProduct_color());
-            productNum.setProduct_size(goodCart.getProduct_size());
-            productNum.setProduct_id(goodCart.getProduct().getProduct_id());
+        for(Cart goodCart:goodList){
+            productNum.setProduct_color(goodCart.getProductColor());
+            productNum.setProduct_size(goodCart.getProductSize());
+            productNum.setProduct_id(goodCart.getProduct().getId());
             //查询库存
             List<Integer> numList = productMapper.findProductNum(productNum);
             for(Integer i:numList){
                 num += i;
             }
             //购买数量超出库存
-            if (goodCart.getProduct_number() > num){
+            if (goodCart.getProductNumber() > num){
                 throw new ProductException(ProductExceptionEnum.FIND_SECONDARTID_BY_PARENTID_ERROR);
             }
         }

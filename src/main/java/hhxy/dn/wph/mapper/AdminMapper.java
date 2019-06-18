@@ -1,10 +1,11 @@
 package hhxy.dn.wph.mapper;
 
-import hhxy.dn.wph.domain.*;
+import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.mapper.provider.AdminProvider;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Result;
 
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 /**
  * @Author: 邓宁
@@ -35,7 +36,7 @@ public interface AdminMapper {
 
     @Insert("insert into"+CATEGORY_ATTRIBUTE_RELATION
             +"(category_id,attribute_id)value(#{categoryId},#{attributeId})")
-    int saveCategoryAttributeRelation(CategoryAttributeRelation categoryAttributeRelation);
+    int saveCategoryAttributeRelation(CategoryAttribute categoryAttribute);
 
     @Select("select attr_id from"+ PRODUCT_ATTRIBUTE +"where attr_name = #{attr_name}")
     @Results({

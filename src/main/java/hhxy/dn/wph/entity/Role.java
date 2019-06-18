@@ -1,14 +1,25 @@
 package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by sang on 2017/12/28.
  */
+//角色
 public class Role implements Serializable {
-    private Long id;
-    private String name;
-    private String nameZh;
+    private Integer id;
+    private String name;//角色名称
+    private String nameZh;//角色
+    private Date create;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNameZh() {
         return nameZh;
@@ -18,13 +29,6 @@ public class Role implements Serializable {
         this.nameZh = nameZh;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

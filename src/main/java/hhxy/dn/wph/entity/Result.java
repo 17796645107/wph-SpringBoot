@@ -5,9 +5,7 @@ package hhxy.dn.wph.entity;
  * @Date: Created in 16:12 2018/11/9
  */
 /*
- * @Description:响应 最终返回信息
- * @param:
- * @return:json
+ * 响应 最终返回信息
  */
 public class Result<T>{
 

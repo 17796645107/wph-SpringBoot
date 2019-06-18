@@ -1,7 +1,7 @@
 package hhxy.dn.wph.mapper;
 
-import hhxy.dn.wph.domain.Category;
-import hhxy.dn.wph.domain.ProductAttribute;
+import hhxy.dn.wph.entity.Category;
+import hhxy.dn.wph.entity.ProductAttribute;
 import hhxy.dn.wph.util.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class AdminMapperTest {
             category.setCategorySort(0);
             category.setParentId(7);
             category.setAdminId(1);
-            category.setCreatedTime(DateUtil.getDate());
+            category.setCreate(new Date());
             category.setStatus(1);
             adminMapper.saveCategory(category);
         });
@@ -54,8 +55,8 @@ public class AdminMapperTest {
         list.forEach(s -> {
             attribute.setAttrName(s);
             attribute.setIsSearch(1);
-            attribute.setAdminId(1);
-            attribute.setCreatedTime(DateUtil.getDate());
+            attribute.setId(1);
+            attribute.setCreate(new Date());
             attribute.setStatus(1);
             adminMapper.saveAttribute(attribute);
         });

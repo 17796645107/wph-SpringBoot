@@ -1,12 +1,8 @@
 package hhxy.dn.wph.mapper;
 
-import hhxy.dn.wph.domain.RolePeople;
 import hhxy.dn.wph.entity.Role;
-import org.apache.ibatis.annotations.One;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 import java.util.List;
 
 /**

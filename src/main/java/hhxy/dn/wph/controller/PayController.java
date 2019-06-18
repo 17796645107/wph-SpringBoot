@@ -213,9 +213,9 @@ public class PayController {
             String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 
             Order order = new Order();
-            order.setOrder_id(out_trade_no);
-            order.setPay_no(trade_no);
-            order.setProduct_total(Double.valueOf(total_amount));
+            order.setOrderNo(out_trade_no);
+            order.setPayNo(trade_no);
+            order.setProductTotal(Double.valueOf(total_amount));
             return ResultUtil.success(order);
         }else {
             return ResultUtil.error(-2,"验签失败");

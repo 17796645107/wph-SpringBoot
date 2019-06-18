@@ -1,12 +1,11 @@
 package hhxy.dn.wph.mapper.provider;
 
-import hhxy.dn.wph.domain.Category;
-import hhxy.dn.wph.domain.ProductAttribute;
-import hhxy.dn.wph.domain.ProductAttributeRelation;
-import hhxy.dn.wph.domain.ProductAttributeValue;
-import hhxy.dn.wph.util.DateUtil;
+import hhxy.dn.wph.entity.Category;
+import hhxy.dn.wph.entity.ProductAttribute;
+import hhxy.dn.wph.entity.ProductAttributeRelation;
+import hhxy.dn.wph.entity.ProductAttributeValue;
 import org.apache.ibatis.jdbc.SQL;
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 /**
  * @Author: 邓宁
  * @Date: Created in 18:20 2019/5/14

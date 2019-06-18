@@ -1,6 +1,6 @@
 package hhxy.dn.wph.service.impl;
 
-import hhxy.dn.wph.domain.SellerAccount;
+import hhxy.dn.wph.entity.SellerAccount;
 import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.enums.GeneralExceptionEnum;
 import hhxy.dn.wph.enums.SellerExceptionEnum;
@@ -76,7 +76,7 @@ public class SellerServiceImpl implements SellerService {
 
     public int saveOneProduct(Product product){
         int result = sellerMapper.saveOneProduct(product);
-        return product.getProduct_id();
+        return product.getId();
     }
 
     /*public void saveProductSize(List<ProductSize> productSizeList){

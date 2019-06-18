@@ -1,15 +1,15 @@
 package hhxy.dn.wph.mapper;
 
-import hhxy.dn.wph.domain.Brand;
-import hhxy.dn.wph.domain.ProductAttributeRelation;
-import hhxy.dn.wph.domain.SellerAccount;
+import hhxy.dn.wph.entity.Brand;
+import hhxy.dn.wph.entity.ProductAttributeRelation;
+import hhxy.dn.wph.entity.SellerAccount;
 import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.mapper.provider.SellerProvider;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.mapping.FetchType;
 
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 import java.util.List;
 
 /**

@@ -1,9 +1,9 @@
 package hhxy.dn.wph.service.impl;
 
-import hhxy.dn.wph.domain.CategoryAttributeRelation;
-import hhxy.dn.wph.domain.ProductAttribute;
-import hhxy.dn.wph.domain.ProductAttributeRelation;
-import hhxy.dn.wph.domain.ProductAttributeValue;
+import hhxy.dn.wph.entity.CategoryAttribute;
+import hhxy.dn.wph.entity.ProductAttribute;
+import hhxy.dn.wph.entity.ProductAttributeRelation;
+import hhxy.dn.wph.entity.ProductAttributeValue;
 import hhxy.dn.wph.mapper.AdminMapper;
 import hhxy.dn.wph.util.DateUtil;
 import org.slf4j.Logger;
@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * @Author: 邓宁
@@ -33,12 +35,12 @@ public class AdminServiceImpl {
         if (r1 == null){
             LOGGER.info("添加商品属性-----------");
             attribute.setAttrName(params[0]);
-            attribute.setAdminId(1);
+            attribute.setId(1);
             attribute.setIsSearch(1);
-            attribute.setCreatedTime(DateUtil.getDate());
+            attribute.setCreate(new Date());
             attribute.setStatus(1);
             adminMapper.saveAttribute(attribute);
-            r1 = attribute.getAttrId();
+            r1 = attribute.getId();
         }
         Integer r2 = adminMapper.getAttributeValueId(params[1]);
         ProductAttributeValue attributeValue = new ProductAttributeValue();
@@ -47,18 +49,18 @@ public class AdminServiceImpl {
             attributeValue.setAttributeId(r1);
             attributeValue.setValue(params[1]);
             adminMapper.saveAttributeValue(attributeValue);
-            r2 = attributeValue.getValueId();
+            r2 = attributeValue.getId();
         }
         ProductAttributeRelation productAttributeRelation = new ProductAttributeRelation();
         productAttributeRelation.setProductId(2019050506);
         productAttributeRelation.setAttributeId(r1);
         productAttributeRelation.setValueId(r2);
         productAttributeRelation.setStatus(1);
-        productAttributeRelation.setCreated(DateUtil.getDate());
+        productAttributeRelation.setCreate(new Date());
         int result = adminMapper.saveProductAttributeValueRelation(productAttributeRelation);
     }
 
-    public void saveCategoryAttributeRelation(CategoryAttributeRelation categoryAttributeRelation){
+    public void saveCategoryAttributeRelation(CategoryAttribute categoryAttributeRelation){
         Integer result = adminMapper.saveCategoryAttributeRelation(categoryAttributeRelation);
     }
 }

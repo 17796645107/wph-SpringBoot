@@ -6,22 +6,31 @@ package hhxy.dn.wph.entity;
  */
 //用户收藏商品实体类
 public class UserCollectProduct {
-    private Integer user_id;
-    private Integer product_id;
+    private Integer id;
+    private Integer userId;
+    private Integer productId;
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 }

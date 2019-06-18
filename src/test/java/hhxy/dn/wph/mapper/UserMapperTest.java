@@ -33,13 +33,13 @@ public class UserMapperTest extends TestTemplate {
         User user = new User();
         user.setTelephone("17796645107");
         Integer user_no = userMapper.saveUser(user);
-        LOGGER.info("user_no = {}",user.getUser_no());
+        LOGGER.info("user_no = {}",user.getUserNo());
     }
 
     @Test
     public void userPasswordRegister() {
         UserPassword userPassword = new UserPassword();
-        userPassword.setUser_no(4);
+        userPassword.setUserId(4);
         userPassword.setPassword("123456");
         Integer result = userMapper.saveUserPassword(userPassword);
         LOGGER.info("result = {}",result);
@@ -66,7 +66,7 @@ public class UserMapperTest extends TestTemplate {
     @Test
     public void updateUser() {
         User user = new User();
-        user.setUser_no(1);
+        user.setUserNo("Usserttggh");
         user.setSex("女");
         user.setNickname("李慢慢是头猪");
         user.setEmail("222@qq.com");
@@ -78,7 +78,7 @@ public class UserMapperTest extends TestTemplate {
     @Test
     public void saveUserAddress() {
         UserAddress address = new UserAddress();
-        address.setUser_no(1);
+        address.setUser_id(1);
         address.setName("李慢慢");
         address.setProvince("河南省");
         address.setCity("郑州市");
@@ -150,8 +150,8 @@ public class UserMapperTest extends TestTemplate {
     @Test
     public void collectSeller() {
         UserCollectSeller collectSeller = new UserCollectSeller();
-        collectSeller.setUser_no(1);
-        collectSeller.setSeller_no(5);
+        collectSeller.setUserID(1);
+        collectSeller.setSellerId(5);
         int result = userMapper.saveCollectSeller(collectSeller);
         assertEquals(result, 1);
     }
@@ -165,7 +165,7 @@ public class UserMapperTest extends TestTemplate {
     @Test
     public void updateUserHeadIcon() {
         User user = new User();
-        user.setUser_no(1);
+        user.setId(1);
         user.setHeadImage("avatar_89373029_1496285287409.jpg");
         int result = userMapper.updateUser(user);
         assertEquals(result,1);
@@ -174,8 +174,8 @@ public class UserMapperTest extends TestTemplate {
     @Test
     public void selectUserCollectSeller() {
         UserCollectSeller collectSeller = userMapper.findUserCollectSellerById(1,1);
-        assertEquals(collectSeller.getUser_no().toString(),"1");
-        assertEquals(collectSeller.getSeller_no().toString(),"1");
+        assertEquals(collectSeller.getUserID().toString(),"1");
+        assertEquals(collectSeller.getSellerId().toString(),"1");
     }
 
     @Test

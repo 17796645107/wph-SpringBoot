@@ -4,7 +4,7 @@ import hhxy.dn.wph.entity.User;
 import hhxy.dn.wph.entity.UserAddress;
 import org.apache.ibatis.jdbc.SQL;
 
-import static hhxy.dn.wph.util.DBTableUtil.*;
+import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 /**
  * @Author: 邓宁
  * @Date: Created in 22:33 2018/11/12

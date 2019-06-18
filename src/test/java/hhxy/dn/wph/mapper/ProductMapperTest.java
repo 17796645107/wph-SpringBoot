@@ -1,6 +1,6 @@
 package hhxy.dn.wph.mapper;
 
-import hhxy.dn.wph.domain.Category;
+import hhxy.dn.wph.entity.Category;
 import hhxy.dn.wph.entity.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * @Author: 邓宁

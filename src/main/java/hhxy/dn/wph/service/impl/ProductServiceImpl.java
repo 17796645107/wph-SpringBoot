@@ -1,25 +1,17 @@
 package hhxy.dn.wph.service.impl;
 
-import hhxy.dn.wph.domain.*;
 import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.enums.GeneralExceptionEnum;
-import hhxy.dn.wph.enums.ProductExceptionEnum;
 import hhxy.dn.wph.exception.GeneralException;
-import hhxy.dn.wph.exception.ProductException;
 import hhxy.dn.wph.mapper.ProductMapper;
 import hhxy.dn.wph.service.ProductService;
 import hhxy.dn.wph.util.JsonUtil;
 import hhxy.dn.wph.util.RedisUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.applet.Main;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,7 +42,7 @@ public class ProductServiceImpl implements ProductService{
         List<Category> SecondaryCategoryList = productMapper.findCategoryBySellerId(seller_id);
         SecondaryCategoryList.forEach(category -> {
             //统计每种分类的商品数量
-            int count = productMapper.getProductCountBySecoundaryCategory(category.getCategoryId(),seller_id);
+            int count = productMapper.getProductCountBySecoundaryCategory(category.getId(),seller_id);
             category.setProductCount(count);
         });
         //查询结果为空。则抛出异常
@@ -129,7 +121,7 @@ public class ProductServiceImpl implements ProductService{
     /*
      * @Description:根据商品分类获取商品属性列表和商品属性值列表
      * @param: [categoryId]
-     * @return: java.util.List<hhxy.dn.wph.domain.ProductAttribute>
+     * @return: java.util.List<hhxy.dn.wph.entity.ProductAttribute>
      */
     @Override
     public List<ProductAttribute> getProductAttributeByCategoryId(Integer categoryId) {
@@ -140,7 +132,7 @@ public class ProductServiceImpl implements ProductService{
         List<ProductAttribute> productAttributeList = productMapper.getProductAttributeByCategoryId(categoryId);
         productAttributeList.forEach(productAttribute -> {
             //获取商品属性值
-            List<ProductAttributeValue> productAttributeValueList = productMapper.getProductAttributeValueByAttributeId(productAttribute.getAttrId());
+            List<ProductAttributeValue> productAttributeValueList = productMapper.getProductAttributeValueByAttributeId(productAttribute.getId());
             productAttribute.setAttributeValues(productAttributeValueList);
         });
         if (productAttributeList.isEmpty()){
