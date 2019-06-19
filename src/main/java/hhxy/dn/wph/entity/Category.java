@@ -2,25 +2,48 @@ package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-//商品类目
+/**
+ *   @Author 邓宁
+ *   @Date Created in 2019/6/19
+ *   @Description 商品类目
+ */
 public class Category implements Serializable {
+    /**
+     *
+     */
     private Integer id;
-
-    private String categoryName;//类目名称
-
-    private Integer categorySort;//类目排序
-
-    private Integer parentId;//父ID
-
-    private Integer adminId;//管理员ID
-
-    private Integer status;//状态
-
-    private Date create;//创建时间
-
-    private Date updated;
-
-    private Integer productCount;//统计此类目商品数量
+    /**
+     * 类目名称
+     */
+    private String categoryName;
+    /**
+     * 类目排序
+     */
+    private Integer categorySort;
+    /**
+     * 父ID
+     */
+    private Integer parentId;
+    /**
+     * 管理员ID
+     */
+    private Integer adminId;
+    /**
+     * 状态
+     */
+    private Integer status;
+    /**
+     * 创建时间
+     */
+    private String created;
+    /**
+     * 更新时间
+     */
+    private String updated;
+    /**
+     * 统计此类目商品数量
+     */
+    private Integer productCount;
 
     private static final long serialVersionUID = 1L;
 
@@ -72,19 +95,19 @@ public class Category implements Serializable {
         this.status = status;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 

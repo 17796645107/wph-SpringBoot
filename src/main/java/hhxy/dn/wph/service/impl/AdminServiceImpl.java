@@ -37,7 +37,7 @@ public class AdminServiceImpl {
             attribute.setAttrName(params[0]);
             attribute.setId(1);
             attribute.setIsSearch(1);
-            attribute.setCreate(new Date());
+            attribute.setCreated(DateUtil.getDate());
             attribute.setStatus(1);
             adminMapper.saveAttribute(attribute);
             r1 = attribute.getId();
@@ -56,7 +56,7 @@ public class AdminServiceImpl {
         productAttributeRelation.setAttributeId(r1);
         productAttributeRelation.setValueId(r2);
         productAttributeRelation.setStatus(1);
-        productAttributeRelation.setCreate(new Date());
+        productAttributeRelation.setCreated(DateUtil.getDate());
         int result = adminMapper.saveProductAttributeValueRelation(productAttributeRelation);
     }
 

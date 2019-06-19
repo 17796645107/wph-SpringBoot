@@ -7,25 +7,73 @@ import java.util.Date;
 /**
  * @Author: 邓宁
  * @Date: Created in 12:45 2018/11/16
+ * 商品基本信息表
  */
-//商品基本信息表
 public class Product {
-    private Integer id;//商品ID(主键)
+    /**
+     * 主键ID
+     */
+    private Integer id;
+    /**
+     * 商品编号
+     */
     private String productNo;
-    private Integer categoryId;//二级分类ID
-    private Integer sellerId;//商户ID
-    private Integer brandId;//品牌ID
-    private String title;//商品名称
-    private String detail;//商品描述
-    private Integer price;//商品价格
-    private Integer collect;//商品收藏量
-    private Integer isHot;//是否热门商品。1：是；0：否
-    private Integer isNew;//是否新品。1：是；0：否
-    private Integer status;//状态。1：正常；0：删除
-    private Date create;//创建时间
-    private Date updated;//更新时间
-    private ProductImage defaultImage;//商品默认展示的图片
-    private Seller seller;//所属商户
+    /**
+     * 二级分类ID
+     */
+    private Integer categoryId;
+    /**
+     * 商户ID
+     */
+    private Integer sellerId;
+    /**
+     * 品牌ID
+     */
+    private Integer brandId;
+    /**
+     * 商品名称
+     */
+    private String title;
+    /**
+     * 商品描述
+     */
+    private String detail;
+    /**
+     * 商品价格
+     */
+    private Integer price;
+    /**
+     * 商品收藏量
+     */
+    private Integer collect;
+    /**
+     * 是否热门商品。1：是；0：否
+     */
+    private Integer isHot;
+    /**
+     * 是否新品。1：是；0：否
+     */
+    private Integer isNew;
+    /**
+     * 状态。1：正常；0：删除
+     */
+    private Integer status;
+    /**
+     * 创建时间
+     */
+    private String created;
+    /**
+     * 更新时间
+     */
+    private String updated;
+    /**
+     * 商品默认展示的图片
+     */
+    private ProductImage defaultImage;
+    /**
+     * 所属商户
+     */
+    private Seller seller;
 
 
     public Integer getId() {
@@ -124,19 +172,19 @@ public class Product {
         this.status = status;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 
@@ -171,7 +219,7 @@ public class Product {
                 ", isHot=" + isHot +
                 ", isNew=" + isNew +
                 ", status=" + status +
-                ", create=" + create +
+                ", create=" + created +
                 ", updated=" + updated +
                 ", defaultImage=" + defaultImage +
                 ", seller=" + seller +

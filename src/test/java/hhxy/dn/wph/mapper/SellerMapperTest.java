@@ -55,7 +55,7 @@ public class SellerMapperTest {
 //                "XXXL",
         };
         ProductSize productSize = new ProductSize();
-        productSize.setProduct_id(p_id);
+        productSize.setProductId(p_id);
         for (String s : size) {
             productSize.setSize(s);
             sellerMapper.saveProductSize(productSize);
@@ -105,15 +105,15 @@ public class SellerMapperTest {
 
     @Test
     public void saveProductNum(){
-        List<ProductColor> productColorList = productMapper.findProductColorByProductId(p_id);
-        Set<ProductSize> productSizeList = productMapper.findProductSizeByProductId(p_id);
+        List<ProductColor> productColorList = productMapper.listProductColorByProductId(p_id);
+        Set<ProductSize> productSizeList = productMapper.listProductSizeByProductId(p_id);
         ProductNum productNum = new ProductNum();
-        productNum.setProduct_id(p_id);
+        productNum.setProductId(p_id);
         productNum.setNum(888);
         productColorList.forEach(productColor -> {
-            productNum.setProduct_color(productColor.getColor());
+            productNum.setProductColor(productColor.getColor());
             productSizeList.forEach(productSize -> {
-                productNum.setProduct_size(productSize.getSize());
+                productNum.setProductSize(productSize.getSize());
                 sellerMapper.saveProductNum(productNum);
             });
         });

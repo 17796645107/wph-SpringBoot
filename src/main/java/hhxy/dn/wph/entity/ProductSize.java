@@ -7,16 +7,33 @@ import java.util.Date;
 /**
  * @Author: 邓宁
  * @Date: Created in 12:15 2018/11/30
+ * 商品尺寸表
  */
-//商品尺寸表
 public class ProductSize {
-
-    private Integer id;//编号
-    private Integer product_id;//商品编号
-    private String size;//商品尺寸
-    private Integer status;//状态。1：正常，0：删除
-    private Date create;
-    private Date updated;
+    /**
+     * 主键ID
+     */
+    private Integer id;
+    /**
+     * 商品ID
+     */
+    private Integer productId;
+    /**
+     * 商品尺寸
+     */
+    private String size;
+    /**
+     * 状态。1：正常，0：删除
+     */
+    private Integer status;
+    /**
+     * 创建时间
+     */
+    private String create;
+    /**
+     * 更新时间
+     */
+    private String updated;
 
     public Integer getId() {
         return id;
@@ -26,12 +43,12 @@ public class ProductSize {
         this.id = id;
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getSize() {
@@ -50,19 +67,19 @@ public class ProductSize {
         this.status = status;
     }
 
-    public Date getCreate() {
+    public String getCreate() {
         return create;
     }
 
-    public void setCreate(Date create) {
+    public void setCreate(String create) {
         this.create = create;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 }

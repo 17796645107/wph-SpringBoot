@@ -40,7 +40,7 @@ public class AdminMapperTest {
             category.setCategorySort(0);
             category.setParentId(7);
             category.setAdminId(1);
-            category.setCreate(new Date());
+            category.setCreated(DateUtil.getDate());
             category.setStatus(1);
             adminMapper.saveCategory(category);
         });
@@ -56,7 +56,7 @@ public class AdminMapperTest {
             attribute.setAttrName(s);
             attribute.setIsSearch(1);
             attribute.setId(1);
-            attribute.setCreate(new Date());
+            attribute.setCreated(DateUtil.getDate());
             attribute.setStatus(1);
             adminMapper.saveAttribute(attribute);
         });

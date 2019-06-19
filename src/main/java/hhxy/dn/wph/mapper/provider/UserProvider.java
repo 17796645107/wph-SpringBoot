@@ -8,17 +8,25 @@ import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 /**
  * @Author: 邓宁
  * @Date: Created in 22:33 2018/11/12
+ * 动态SQL
  */
-//用户动态SQL类
+
 public class UserProvider {
 
-    //更新用户信息
+    /**
+     * 更新用户信息
+     * @param user
+     * @return java.lang.String
+     */
     public String updateUser(User user){
         return new SQL(){
             {
                 UPDATE(USER);
                 if (user.getNickname() != null){
                     SET("nickname = #{nickname}");
+                }
+                if (user.getName() != null){
+                    SET("name = #{name}");
                 }
                 if (user.getTelephone() != null){
                     SET("telephone = #{telephone}");
@@ -33,20 +41,25 @@ public class UserProvider {
                     SET("email = #{email}");
                 }
                 if (user.getHeadImage() != null){
-                    SET("headImage = #{headImage}");
+                    SET("head_image = #{headImage}");
                 }
-                WHERE("user_no = #{user_no}");
+                SET("updated = #{updated}");
+                WHERE("id = #{id}");
                 WHERE("status = 1");
             }
         }.toString();
     }
 
-    //添加用户收货地址
+    /**
+     * 添加用户收货地址
+     * @param address
+     * @return java.lang.String
+     */
     public String saveUserAddress(UserAddress address){
         return new SQL(){
             {
                 INSERT_INTO(USER_ADDRESS);
-                VALUES("user_no","#{user_no}");
+                VALUES("user_id","#{userId}");
                 VALUES("name","#{name}");
                 VALUES("province","#{province}");
                 VALUES("city","#{city}");
@@ -54,14 +67,16 @@ public class UserProvider {
                 VALUES("area","#{area}");
                 VALUES("postcode","#{postcode}");
                 VALUES("telephone","#{telephone}");
-                VALUES("status","#{status}");
-                VALUES("is_default","#{is_default}");
                 VALUES("created","#{created}");
             }
         }.toString();
     }
 
-    //更新用户收货地址
+    /**
+     * 更新用户收货地址
+     * @param address
+     * @return java.lang.String
+     */
     public String updateUserAddress(UserAddress address){
         return new SQL(){
             {
@@ -87,20 +102,8 @@ public class UserProvider {
                 if(address.getTelephone() != null){
                     SET("telephone = #{telephone}");
                 }
-                SET("updated = #{updated}");//更新时间
-                WHERE("address_id = #{address_id}");
-                WHERE("status = 1");
-            }
-        }.toString();
-    }
-
-    //查询所有用户收货地址
-    public String findAllUserAddress(Integer user_id){
-        return new SQL(){
-            {
-                SELECT("address_id,user_no,name,province,city,town,area,postcode,telephone,is_default");
-                FROM(USER_ADDRESS);
-                WHERE("user_no = #{user_no}");
+                SET("updated = #{updated}");
+                WHERE("id = #{id}");
                 WHERE("status = 1");
             }
         }.toString();

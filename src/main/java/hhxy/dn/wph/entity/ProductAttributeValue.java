@@ -4,23 +4,32 @@ import hhxy.dn.wph.util.DateUtil;
 
 import java.io.Serializable;
 import java.util.Date;
-//商品属性值
+/**
+ * @Author: 邓宁
+ * @Date: Created in 21:49 2018/11/4
+ * 商品属性值
+ */
 public class ProductAttributeValue implements Serializable {
+    /**
+     * 主键ID
+     */
     private Integer id;
-
-    private String value;//属性值
-
+    /**
+     * 属性值
+     */
+    private String value;
+    /**
+     * 状态
+     */
     private Integer status;
-
-    private Integer attributeId;//属性ID
-
-    private Date create;
-
-    public ProductAttributeValue() {
-        this.status = 1;
-    }
-
-    private static final long serialVersionUID = 1L;
+    /**
+     * 属性ID
+     */
+    private Integer attributeId;
+    /**
+     * 创建时间
+     */
+    private String created;
 
     public Integer getId() {
         return id;
@@ -30,20 +39,12 @@ public class ProductAttributeValue implements Serializable {
         this.id = id;
     }
 
-    public Date getCreate() {
-        return create;
-    }
-
-    public void setCreate(Date create) {
-        this.create = create;
-    }
-
     public String getValue() {
         return value;
     }
 
     public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
+        this.value = value;
     }
 
     public Integer getStatus() {
@@ -62,4 +63,11 @@ public class ProductAttributeValue implements Serializable {
         this.attributeId = attributeId;
     }
 
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
 }

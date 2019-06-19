@@ -101,11 +101,11 @@ public class OrderServiceImpl implements OrderService {
         ProductNum productNum = new ProductNum();
         Integer num = 0;
         for(Cart goodCart:goodList){
-            productNum.setProduct_color(goodCart.getProductColor());
-            productNum.setProduct_size(goodCart.getProductSize());
-            productNum.setProduct_id(goodCart.getProduct().getId());
+            productNum.setProductColor(goodCart.getProductColor());
+            productNum.setProductSize(goodCart.getProductSize());
+            productNum.setProductId(goodCart.getProduct().getId());
             //查询库存
-            List<Integer> numList = productMapper.findProductNum(productNum);
+            List<Integer> numList = productMapper.listProductNum(productNum);
             for(Integer i:numList){
                 num += i;
             }

@@ -2,21 +2,40 @@ package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-//商品属性与属性值对应关系
+/**
+ * @Author: 邓宁
+ * @Date: Created in 21:49 2018/11/4
+ * 商品属性与属性值对应关系
+ */
 public class ProductAttributeRelation implements Serializable {
+    /**
+     *
+     */
     private Integer id;
-
-    private Integer productId;//商品ID
-
-    private Integer attributeId;//属性ID
-
-    private Integer valueId;//属性值ID
-
+    /**
+     * 商品ID
+     */
+    private Integer productId;
+    /**
+     * 属性ID
+     */
+    private Integer attributeId;
+    /**
+     * 属性值ID
+     */
+    private Integer valueId;
+    /**
+     * 状态
+     */
     private Integer status;
-
-    private Date create;
-
-    private Date updated;
+    /**
+     * 创建时间
+     */
+    private String created;
+    /**
+     * 更新时间
+     */
+    private String updated;
 
     private static final long serialVersionUID = 1L;
 
@@ -60,19 +79,19 @@ public class ProductAttributeRelation implements Serializable {
         this.id = id;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 }

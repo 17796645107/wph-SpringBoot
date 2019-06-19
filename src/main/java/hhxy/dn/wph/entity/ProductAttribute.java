@@ -5,19 +5,36 @@ import hhxy.dn.wph.util.DateUtil;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-//商品属性类
+/**
+ * @Author: 邓宁
+ * @Date: Created in 21:49 2018/11/4
+ * 商品属性类
+ */
 public class ProductAttribute implements Serializable {
+    /**
+     * 主键ID
+     */
     private Integer id;
-
-    private String attrName;//属性名称
-
-    private int isSearch;//是否搜索
-
+    /**
+     * 属性名称
+     */
+    private String attrName;
+    /**
+     * 是否搜索
+     */
+    private int isSearch;
+    /**
+     * 状态
+     */
     private int status;
-
-    private Date create;
-
-    private List<ProductAttributeValue> attributeValues;//属性值列表
+    /**
+     * 创建时间
+     */
+    private String created;
+    /**
+     * 属性值列表
+     */
+    private List<ProductAttributeValue> attributeValues;
 
     private static final long serialVersionUID = 1L;
 
@@ -31,12 +48,12 @@ public class ProductAttribute implements Serializable {
         this.id = id;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
     public String getAttrName() {

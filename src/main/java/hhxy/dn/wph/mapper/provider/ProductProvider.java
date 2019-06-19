@@ -12,12 +12,16 @@ import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 /**
  * @Author: 邓宁
  * @Date: Created in 21:47 2018/11/19
+ * 商品动态SQL类
  */
-//商品动态SQL类
 public class ProductProvider {
 
-    //根据一级目录查询所有的商品尺寸
-    public String findAllProductSizeByPrimaryCategoryId(Integer primary_id){
+    /**
+     * 根据一级目录查询所有的商品尺寸
+     * @param primary_id
+     * @return java.lang.String
+     */
+    public String findAllProductSizeByPrimaryCategoryId(Integer categotyId){
         StringBuffer sql = new StringBuffer();
         sql.append("SELECT distinct size " +
                     "FROM tb_product_size " +
@@ -27,66 +31,80 @@ public class ProductProvider {
                                         "WHERE category_id in (" +
                                                             "SELECT category_id " +
                                                             "FROM tb_category " +
-                                                            "WHERE parent_id=#{primary_id}" +
+                                                            "WHERE parent_id = #{categotyId}" +
                                         ")" +
                     ")" +
                     "ORDER BY size_id");
         return sql.toString();
     }
 
+    /**
+     * 添加商品
+     * @param product
+     * @return java.lang.String
+     */
     public String saveProduct(Product product){
         return new SQL(){
             {
                 INSERT_INTO(PRODUCT);
-                VALUES("product_id","#{product_id}");
-                VALUES("seller_id","#{seller_id}");
-                VALUES("secondary_id","#{secondary_id}");
+                VALUES("id","#{id}");
+                VALUES("seller_id","#{sellerId}");
+                VALUES("category_id","#{categoryId}");
                 VALUES("title","#{title}");
                 VALUES("detail","#{detail}");
                 VALUES("price","#{price}");
-                VALUES("collect","#{collect}");
-                VALUES("is_hot","#{is_hot}");
-                VALUES("is_new","#{is_new}");
-                VALUES("status","#{status}");
                 VALUES("created","#{created}");
             }
         }.toString();
     }
 
+    /**
+     * 查询商品库存
+     * @param productNum
+     * @return java.lang.String
+     */
     public String findProductNum(ProductNum productNum){
         return new SQL(){
             {
                 SELECT("num");
                 FROM(PRODUCT_NUM);
-                if (!StringUtils.isBlank(productNum.getProduct_color())){
-                    WHERE("product_color = #{product_color}");
+                if (!StringUtils.isBlank(productNum.getProductColor())){
+                    WHERE("product_color = #{productColor}");
                 }
-                if (!StringUtils.isBlank(productNum.getProduct_size())){
-                    WHERE("product_size = #{product_size}");
+                if (!StringUtils.isBlank(productNum.getProductSize())){
+                    WHERE("product_size = #{productSize}");
                 }
-                WHERE("product_id = #{product_id}");
+                WHERE("product_id = #{productId}");
             }
         }.toString();
     }
 
+    /**
+     * 更新商品库存
+     * @param productId
+     * @param productColor
+     * @param productSize
+     * @param productNumber
+     * @return java.lang.String
+     */
     public String updateProductNum(
-            @Param("product_id") Integer product_id,
-            @Param("product_color") String product_color,
-            @Param("product_size") String product_size,
-            @Param("product_number") Integer product_number){
+            @Param("productId") Integer productId,
+            @Param("productColor") String productColor,
+            @Param("productSize") String productSize,
+            @Param("productNumber") Integer productNumber){
 
         return new SQL(){
             {
                 UPDATE(PRODUCT_NUM);
-                SET("num = num - #{product_number}");
-                WHERE("product_color = #{product_color}");
-                WHERE("product_size = #{product_size}");
-                WHERE("product_id = #{product_id}");
+                SET("num = num - #{productNumber}");
+                WHERE("product_color = #{productColor}");
+                WHERE("product_size = #{productSize}");
+                WHERE("product_id = #{productId}");
             }
         }.toString();
     }
 
-    public String findProductByArrtibute1(@Param("attributeRelation") ProductAttributeRelation attributeRelation,
+    public String findProductByArrtibute(@Param("attributeRelation") ProductAttributeRelation attributeRelation,
                                          @Param("productIdArray") Integer[] productIdList){
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(
@@ -106,21 +124,30 @@ public class ProductProvider {
         return stringBuffer.toString();
     }
 
+    /**
+     * 检索商品
+     * @param sellerId
+     * @param categoryId
+     * @param sizeId
+     * @param type 排序类型 1:价格,2:收藏
+     * @param hasNum 是否有库存
+     * @return java.util.List<hhxy.dn.wph.entity.Product>
+     */
     public String findProductInSeller(
-            @Param("seller_id") Integer seller_id,@Param("secoundCategoryId") Integer secoundCategoryId,
-            @Param("size_id")Integer size_id,@Param("type") Integer type, @Param("hasNum")Integer hasNum){
+            @Param("sellerId") Integer sellerId,@Param("categoryId") Integer categoryId,
+            @Param("sizeId")Integer sizeId,@Param("type") Integer type, @Param("hasNum")Integer hasNum){
         return new SQL(){
             {
                 SELECT("p.*");
                 FROM("tb_product p ,tb_product_size s,tb_product_num n");
                 WHERE("p.product_id = s.product_id");
                 WHERE("p.product_id = n.product_id");
-                WHERE("p.seller_id = #{seller_id}");
-                if (secoundCategoryId != null){
-                    WHERE("p.category_id = #{secoundCategoryId}");
+                WHERE("p.seller_id = #{sellerId}");
+                if (categoryId != null){
+                    WHERE("p.category_id = #{categoryId}");
                 }
-                if (size_id != null){
-                    WHERE("s.size_id = #{size_id}");
+                if (sizeId != null){
+                    WHERE("s.size_id = #{sizeId}");
                 }
                 if (hasNum != null && hasNum == 1){
                     WHERE("n.num > 0");
@@ -138,13 +165,14 @@ public class ProductProvider {
                 }
             }
         }.toString();
+        /*  SELECT p.*, s.*,n.*
+            FROM tb_product p ,tb_product_size s,tb_product_num n
+            where p.product_id = s.product_id and p.product_id = n.product_id
+            and p.seller_id = 1
+            and p.category_id = 43
+            and s.size_id = 139
+            and n.num > 0
+            ORDER BY p.price
+         */
     }
-    /*SELECT p.*, s.*,n.*
-    FROM tb_product p ,tb_product_size s,tb_product_num n
-    where p.product_id = s.product_id and p.product_id = n.product_id
-    and p.seller_id = 1
-    and p.category_id = 43
-    and s.size_id = 139
-    and n.num > 0
-    ORDER BY p.price*/
 }

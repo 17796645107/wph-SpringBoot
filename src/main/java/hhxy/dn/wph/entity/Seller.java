@@ -9,7 +9,7 @@ import hhxy.dn.wph.util.DateUtil;
 //商户信息表
 public class Seller {
     private String id;//商户ID
-    private String seller_no;//自动编号
+    private String sellerNo;//自动编号
     private String name;//店铺名称
     private String showImage;//店铺展示图
     private Integer type;//店铺类型 category_id
@@ -17,7 +17,6 @@ public class Seller {
     private String created;//创建时间
     private String updated;
     private Brand brand;//品牌
-
 
     public String getId() {
         return id;
@@ -27,20 +26,12 @@ public class Seller {
         this.id = id;
     }
 
-    public String getShowImage() {
-        return showImage;
+    public String getSellerNo() {
+        return sellerNo;
     }
 
-    public void setShowImage(String showImage) {
-        this.showImage = showImage;
-    }
-
-    public String getSeller_no() {
-        return seller_no;
-    }
-
-    public void setSeller_no(String seller_no) {
-        this.seller_no = seller_no;
+    public void setSellerNo(String sellerNo) {
+        this.sellerNo = sellerNo;
     }
 
     public String getName() {
@@ -51,12 +42,12 @@ public class Seller {
         this.name = name;
     }
 
-    public Brand getBrand() {
-        return brand;
+    public String getShowImage() {
+        return showImage;
     }
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
+    public void setShowImage(String showImage) {
+        this.showImage = showImage;
     }
 
     public Integer getType() {
@@ -91,4 +82,26 @@ public class Seller {
         this.updated = updated;
     }
 
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    @Override
+    public String toString() {
+        return "Seller{" +
+                "id='" + id + '\'' +
+                ", sellerNo='" + sellerNo + '\'' +
+                ", name='" + name + '\'' +
+                ", showImage='" + showImage + '\'' +
+                ", type=" + type +
+                ", status=" + status +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                ", brand=" + brand +
+                '}';
+    }
 }

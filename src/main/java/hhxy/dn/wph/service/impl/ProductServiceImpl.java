@@ -31,44 +31,49 @@ public class ProductServiceImpl implements ProductService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-    //查询商户所有的商品二级目录（店铺的所有分类）
+    /**
+     * 查询商户所有的商品二级目录（店铺的所有分类）
+     * @param seller_id
+     * @return java.util.List<hhxy.dn.wph.entity.Category>
+     */
     @Override
-    public List<Category> findCategoryBySellerId(Integer seller_id) {
+    public List<Category> findCategoryBySellerId(Integer sellerId) {
+        String cacheFlag = "SecondaryCategory:";
         //查询缓存
-        if (redisUtil.hasKey("SecondaryCategory:"+seller_id)){
-            return JsonUtil.jsonToList(redisUtil.get("SecondaryCategory:"+seller_id).toString(),Category.class);
+        if (redisUtil.hasKey(cacheFlag + sellerId)){
+            return JsonUtil.jsonToList(redisUtil.get(cacheFlag + sellerId).toString(),Category.class);
         }
         //查询数据库
-        List<Category> SecondaryCategoryList = productMapper.findCategoryBySellerId(seller_id);
-        SecondaryCategoryList.forEach(category -> {
+        List<Category> secondaryCategoryList = productMapper.listCategoryBySellerId(sellerId);
+        secondaryCategoryList.forEach(category -> {
             //统计每种分类的商品数量
-            int count = productMapper.getProductCountBySecoundaryCategory(category.getId(),seller_id);
+            int count = productMapper.getProductCount(category.getId(),sellerId);
             category.setProductCount(count);
         });
         //查询结果为空。则抛出异常
-        if (SecondaryCategoryList.isEmpty()){
+        if (secondaryCategoryList.isEmpty()){
             throw new GeneralException(GeneralExceptionEnum.notFound);
         }
         //写入缓存
-        redisUtil.set("SecondaryCategory:"+seller_id,JsonUtil.objectToJson(SecondaryCategoryList));
-        return SecondaryCategoryList;
+        redisUtil.set(cacheFlag + sellerId,JsonUtil.objectToJson(secondaryCategoryList));
+        return secondaryCategoryList;
     }
 
     //根据一级目录查询所有的商品尺寸
     @Override
-    public List<ProductSize> findAllProductSizeByPrimaryCategoryId(Integer primary_id) {
-        return productMapper.findAllProductSizeByPrimaryCategoryId(primary_id);
+    public List<ProductSize> findAllProductSizeByPrimaryCategoryId(Integer categoryId) {
+        return productMapper.listProductSizeByCategoryId(categoryId);
     }
 
     //根据商品ID查询商品
     @Override
-    public Product getProductByProductId(Integer product_id) {
-        String key = "Product:"+product_id;
+    public Product getProductByProductId(Integer productId) {
+        String key = "Product:"+ productId;
         if(redisUtil.hasKey(key)){
             String productCache = (String) redisUtil.get(key);
             return JsonUtil.jsonToPojo(productCache,Product.class);
         }
-        Product product = productMapper.getProductByProductId(product_id);
+        Product product = productMapper.getProductById(productId);
         if (product == null){
             throw new GeneralException(GeneralExceptionEnum.notFound);
         }
@@ -83,7 +88,7 @@ public class ProductServiceImpl implements ProductService{
             String categoryList = (String) redisUtil.get("Category:"+parentId);
             return  JsonUtil.jsonToList(categoryList,Category.class);
         }
-        List<Category> categories = productMapper.findCategoryByParentId(parentId);
+        List<Category> categories = productMapper.listCategoryByParentId(parentId);
         //如果查询结果为空，抛出异常，（空结果禁止写入缓存）！
         if (categories.isEmpty()){
             throw new GeneralException(GeneralExceptionEnum.notFound);
@@ -92,8 +97,8 @@ public class ProductServiceImpl implements ProductService{
         return categories;
     }
 
-    /*
-     * @Description:根据商品分类查询商品
+    /**
+     * @Description: 根据商品分类查询商品
      * @param: [categoryId, page, countOfPage]商品分类Id，当前页，页面商品数量
      * @return: java.util.List<hhxy.dn.wph.entity.Product>
      */
@@ -113,7 +118,7 @@ public class ProductServiceImpl implements ProductService{
         if (redisUtil.hasKey("Brand:"+categoryId)){
             return JsonUtil.jsonToList(redisUtil.get("Brand:"+categoryId).toString(),Brand.class);
         }
-        List<Brand> brandList = productMapper.getBrandByCategoryId(categoryId);
+        List<Brand> brandList = productMapper.listBrandByCategoryId(categoryId);
         redisUtil.set("Brand:"+categoryId,JsonUtil.objectToJson(brandList));
         return brandList;
     }
@@ -129,10 +134,10 @@ public class ProductServiceImpl implements ProductService{
             return JsonUtil.jsonToList(redisUtil.get("ProductAttributeByCategoryId:"+categoryId).toString(),ProductAttribute.class);
         }
         //获取商品属性
-        List<ProductAttribute> productAttributeList = productMapper.getProductAttributeByCategoryId(categoryId);
+        List<ProductAttribute> productAttributeList = productMapper.listProductAttributeByCategoryId(categoryId);
         productAttributeList.forEach(productAttribute -> {
             //获取商品属性值
-            List<ProductAttributeValue> productAttributeValueList = productMapper.getProductAttributeValueByAttributeId(productAttribute.getId());
+            List<ProductAttributeValue> productAttributeValueList = productMapper.listProductAttributeValueByAttributeId(productAttribute.getId());
             productAttribute.setAttributeValues(productAttributeValueList);
         });
         if (productAttributeList.isEmpty()){
@@ -158,7 +163,7 @@ public class ProductServiceImpl implements ProductService{
             String productListCache = (String) redisUtil.get("ProductListBySellerId:"+ sellerId +":Page"+ page);
             return JsonUtil.jsonToList(productListCache,Product.class);
         }
-        List<Product> productList = productMapper.findProductBySellerId(sellerId);
+        List<Product> productList = productMapper.listProductBySellerId(sellerId);
         if (productList.isEmpty()){
             throw new GeneralException(GeneralExceptionEnum.notFound);
         }
@@ -168,23 +173,23 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<ProductColor> findProductColorByProductId(Integer productId) {
-        return productMapper.findProductColorByProductId(productId);
+        return productMapper.listProductColorByProductId(productId);
     }
 
     @Override
     public Set<ProductSize> findProductSizeByProductId(Integer productId) {
-        return productMapper.findProductSizeByProductId(productId);
+        return productMapper.listProductSizeByProductId(productId);
     }
 
     @Override
     public List<ProductImage> findProductImageByProductId(Integer productId) {
-        return productMapper.findProductImageByProductId(productId);
+        return productMapper.listProductImageByProductId(productId);
     }
 
     @Override
     public Integer findProductNum(ProductNum productNum) {
 
-        List<Integer> numList = productMapper.findProductNum(productNum);
+        List<Integer> numList = productMapper.listProductNum(productNum);
         Integer num = 0;
         for(Integer i:numList){
             num += i;
@@ -196,11 +201,11 @@ public class ProductServiceImpl implements ProductService{
         Integer[] productIdArray = null;
         for (int i = 0; i < attributeRelations.size(); i++) {
             if (i == 0){
-                List<Integer> product_id = productMapper.findProductByArrtibute(attributeRelations.get(i));
-                productIdArray = listToArray(product_id);
+                List<Integer> productId = productMapper.listProductByArrtibute(attributeRelations.get(i));
+                productIdArray = listToArray(productId);
             }else{
-                List<Integer> p = productMapper.findProductByArrtibute1(attributeRelations.get(i),productIdArray);
-                productIdArray =listToArray(p);
+                List<Integer> productId = productMapper.listProductIdByArrtibute(attributeRelations.get(i),productIdArray);
+                productIdArray = listToArray(productId);
             }
             if (productIdArray.length == 0){
                 System.out.println("没有查询到商品");
@@ -223,7 +228,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     public List<Product> findProductInSeller(Integer seller_id,Integer secoundCategoryId,Integer size_id,Integer type,Integer hasNum){
-        List<Product> productList = productMapper.findProductInSeller(seller_id,secoundCategoryId,size_id,type,hasNum);
+        List<Product> productList = productMapper.listProductInSeller(seller_id,secoundCategoryId,size_id,type,hasNum);
         return  productList;
     }
 }

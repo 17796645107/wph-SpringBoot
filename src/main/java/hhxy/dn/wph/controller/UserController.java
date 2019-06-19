@@ -41,24 +41,20 @@ import java.util.UUID;
  */
 
 @RestController
-@RequestMapping(value = "/user")//访问路径前缀
-//用户控制器类
+@RequestMapping(value = "/user")
 public class UserController {
 
-    //注入UserService
     @Autowired
     private UserService userService;
 
     @Autowired
     private RedisUtil redisUtil;
 
-    //日志
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
-    /*
-     * @Description:用户注册
-     * @param:[user]用户注册信息,[result]参数验证结果
-     * @return:
+    /**
+     * 用户注册
+     * @param userRegister
+     * @param result
+     * @return hhxy.dn.wph.entity.Result
      */
     @PostMapping(value = "/register")
     public Result userRegister(@Valid @RequestBody UserRegister userRegister, BindingResult result){
@@ -68,7 +64,11 @@ public class UserController {
         return ResultUtil.success();
     }
 
-    //SpringMVC参数验证
+    /**
+     * SpringMVC参数验证
+     * @param result
+     * @return void
+     */
     public void valid(BindingResult result){
         if (result.hasFieldErrors()){
             //获取错误信息
@@ -78,10 +78,13 @@ public class UserController {
         }
     }
 
-    /*
-     * @Description:用户登录
-     * @param: [userLogin, result]
-     * @return: hhxy.dn.wph.entity.Result
+    /**
+     * 用户登录
+     * @param userLogin UserLogin实体类
+     * @param result
+     * @param request
+     * @param response
+     * @return hhxy.dn.wph.entity.Result
      */
     @PostMapping("/login")
     public Result userLogin(@Valid @RequestBody UserLogin userLogin,BindingResult result,
@@ -101,7 +104,11 @@ public class UserController {
         return ResultUtil.success(user);
     }
 
-    //Cookie中是否存在Token,
+    /**
+     * Cookie中是否存在Token
+     * @param request
+     * @return java.lang.String
+     */
     String cookieHasToken(HttpServletRequest request){
         //从Cookie中获取Token
         String tokenCookie = CookieUtil.getCookieValue(request,"token");
@@ -115,7 +122,11 @@ public class UserController {
         return null;
     }
 
-    //将用户信息存储到Redis,并生成Token
+    /**
+     * 将用户信息存储到Redis,并生成Token
+     * @param user
+     * @return java.lang.String
+     */
     String setUserToRedis(User user){
         //生成Token令牌
         String token = UUID.randomUUID().toString();
@@ -124,6 +135,11 @@ public class UserController {
         return token;
     }
 
+    /**
+     * 注销
+     * @param request
+     * @return hhxy.dn.wph.entity.Result
+     */
     @RequestMapping("/logout")
     public Result userLogout(HttpServletRequest request){
         String token = CookieUtil.getCookieValue(request,"token");
@@ -135,10 +151,10 @@ public class UserController {
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:发送短信验证码
-     * @param: []
-     * @return: hhxy.dn.wph.entity.Result
+    /**
+     * 发送短信验证码
+     * @param user
+     * @return hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/sendCode")
     public Result userSendCode(@RequestBody User user) throws ClientException {
@@ -146,10 +162,10 @@ public class UserController {
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:AJAX查询手机号是否注册
-     * @param: [user]
-     * @return: hhxy.dn.wph.entity.Result
+    /**
+     * 查询手机号是否注册
+     * @param user
+     * @return hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/checkTelephone")
     public Result userCheckTelephone(@RequestBody User user){
@@ -157,29 +173,30 @@ public class UserController {
         return ResultUtil.success("手机号可以使用");
     }
 
-    /*
-     * @Description:图片验证码
-     * @param: [response, session]
-     * @return: void
+    /**
+     * 图片验证码
+     * @param response
+     * @param session
+     * @return void
      */
     @RequestMapping(value="/getImageCode")
     public void userImageCode(HttpServletResponse response, HttpSession session) throws IOException {
         userService.userImageCode(response,session);
     }
 
-    /*
-     * @Description:获取用户信息
-     * @param: [user_no]
+    /**
+     * @Description: 获取用户信息
+     * @param userId
      * @return: hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/findUserById/{user_no}")
-    public Result getUserDetail(@PathVariable Integer user_no){
-        User user = userService.getUserDetail(user_no);
+    public Result getUserDetail(@PathVariable Integer userId){
+        User user = userService.getUserDetail(userId);
         return ResultUtil.success(user);
     }
 
-    /*
-     * @Description:更新用户信息
+    /**
+     * @Description: 更新用户信息
      * @param: [user]
      * @return: hhxy.dn.wph.entity.Result
      */
@@ -190,8 +207,8 @@ public class UserController {
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:用户上传头像
+    /**
+     * @Description: 用户上传头像
      * @param: [file]
      * @return: hhxy.dn.wph.entity.Result
      */
@@ -203,8 +220,8 @@ public class UserController {
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:添加用户收货地址
+    /**
+     * @Description: 添加用户收货地址
      * @param: [address]
      * @return: hhxy.dn.wph.entity.Result
      */
@@ -214,8 +231,8 @@ public class UserController {
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:更新用户收货地址
+    /**
+     * @Description: 更新用户收货地址
      * @param: [address]
      * @return: hhxy.dn.wph.entity.Result
      */
@@ -225,63 +242,63 @@ public class UserController {
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:更新用户默认收货地址
+    /**
+     * @Description: 更新用户默认收货地址
      * @param: [address_id]
      * @return: hhxy.dn.wph.entity.Result
      */
     @GetMapping("/updateDefaultUserAddress/{userId}/{address_id}")
-    public Result updateDefaultUserAddress(@PathVariable Integer user_no,@PathVariable Integer address_id){
-        userService.updateDefaultUserAddress(user_no,address_id);
+    public Result updateDefaultUserAddress(@PathVariable Integer userId,@PathVariable Integer addressId){
+        userService.updateDefaultUserAddress(userId,addressId);
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:删除用户收货地址
+    /**
+     * @Description: 删除用户收货地址
      * @param: [address_id]
      * @return: hhxy.dn.wph.entity.Result
      */
     @GetMapping("/deleteUserAddressByAddressID/{userId}/{address_id}")
-    public Result deleteUserAddressByAddressID(@PathVariable Integer userId,@PathVariable Integer address_id){
-        userService.deleteUserAddressByAddressID(userId,address_id);
+    public Result deleteUserAddressByAddressId(@PathVariable Integer userId,@PathVariable Integer addressId){
+        userService.deleteUserAddressByAddressId(userId,addressId);
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:查询用户收货地址
+    /**
+     * @Description: 查询用户收货地址
      * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
     @GetMapping("/findAllUserAddress/{user_no}")
-    public Result findAllUserAddress(@PathVariable Integer user_no){
-        List<UserAddress>addressList = userService.findAllUserAddress(user_no);
+    public Result findAllUserAddress(@PathVariable Integer userId){
+        List<UserAddress>addressList = userService.findAllUserAddress(userId);
         return ResultUtil.success(addressList);
     }
 
-    /*
-     * @Description:查询搜索历史记录
+    /**
+     * @Description: 查询搜索历史记录
      * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
     @GetMapping("/findAllSearchHistory/{user_no}")
-    public Result findAllSearchHistory(@PathVariable Integer user_no){
-        List<String>searchHistory = userService.findAllSearchHistory(user_no);
+    public Result findAllSearchHistory(@PathVariable Integer userId){
+        List<String>searchHistory = userService.findAllSearchHistory(userId);
         return ResultUtil.success(searchHistory);
     }
 
-    /*
-     * @Description:用户清除搜索历史记录
+    /**
+     * @Description: 用户清除搜索历史记录
      * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
     @GetMapping("/deleteSearchHistoryByNo/{user_no}")
-    public Result deleteSearchHistoryByNo(@PathVariable Integer user_no){
-        userService.deleteAllSearchHistory(user_no);
+    public Result deleteSearchHistoryByNo(@PathVariable Integer userId){
+        userService.deleteAllSearchHistory(userId);
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:用户关注商铺
+    /**
+     * @Description: 用户关注商铺
      * @param: [collect]
      * @return: hhxy.dn.wph.entity.Result
      */
@@ -291,8 +308,8 @@ public class UserController {
         return ResultUtil.success();
     }
 
-    /*
-     * @Description:获取用户关注的商铺
+    /**
+     * @Description: 获取用户关注的商铺
      * @param: [userId]
      * @return: hhxy.dn.wph.entity.Result
      */
@@ -302,8 +319,8 @@ public class UserController {
         return ResultUtil.success(sellerList);
     }
 
-    /*
-     * @Description:查询用户是否收藏了该商品
+    /**
+     * @Description: 查询用户是否收藏了该商品
      * @param: [sellerId, userId]
      * @return: hhxy.dn.wph.entity.Result
      */

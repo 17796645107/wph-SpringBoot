@@ -23,13 +23,13 @@ public class ProductMapperTest {
 
     @Test
     public void findCategoryBySellerId() {
-        List<Category> categoryList = productMapper.findCategoryBySellerId(1);
+        List<Category> categoryList = productMapper.listCategoryBySellerId(1);
         categoryList.forEach(category -> System.out.println(category));
     }
 
     @Test
     public void getOneProduct(){
-        Product product = productMapper.getProductByProductId(2019050503);
+        Product product = productMapper.getProductById(2019050503);
         System.out.println(product);
     }
 

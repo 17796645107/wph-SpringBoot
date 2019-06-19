@@ -15,10 +15,10 @@ import java.util.Set;
 
 public interface ProductService {
     //查询所有商品二级目录
-    List<Category> findCategoryBySellerId(Integer seller_id);
+    List<Category> findCategoryBySellerId(Integer sellerId);
 
     //根据一级目录查询所有的商品尺寸
-    List<ProductSize> findAllProductSizeByPrimaryCategoryId(Integer primary_id);
+    List<ProductSize> findAllProductSizeByPrimaryCategoryId(Integer categoryId);
 
     //根据商品ID(主键)查询商品
     Product getProductByProductId(Integer product_id);

@@ -275,11 +275,12 @@ public class MD5Util {
 	// 将byte型数组按顺序合成long型数组，长度为len
 	private void Decode(long[] output, byte[] input, int len) {
 		int i, j;
-		for (i = 0, j = 0; j < len; i++, j += 4)
-			output[i] = byteToul(input[j])
-					| (byteToul(input[j + 1]) << 8)
-					| (byteToul(input[j + 2]) << 16)
-					| (byteToul(input[j + 3]) << 24);
+		for (i = 0, j = 0; j < len; i++, j += 4) {
+            output[i] = byteToul(input[j])
+                    | (byteToul(input[j + 1]) << 8)
+                    | (byteToul(input[j + 2]) << 16)
+                    | (byteToul(input[j + 3]) << 24);
+        }
 		return;
 	}
 

@@ -7,11 +7,11 @@ import java.util.Date;
 /**
  * @Author: 邓宁
  * @Date: Created in 12:23 2018/11/16
+ * 用户收货地址表
  */
-//用户收货地址表
 public class UserAddress {
-    private Integer address_id;//地址ID
-    private Integer user_id;//用户ID
+    private Integer id;//地址ID
+    private Integer userId;//用户ID
     private String name;//收货人姓名
     private String province;//省份
     private String city;//市区
@@ -21,23 +21,23 @@ public class UserAddress {
     private String telephone;//手机号码
     private Integer isDefault;//是否默认收货地址a
     private Integer status;//状态
-    private Date create;//创建时间
-    private Date updated;//更新时间
+    private String created;//创建时间
+    private String updated;//更新时间
 
-    public Integer getAddress_id() {
-        return address_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAddress_id(Integer address_id) {
-        this.address_id = address_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -112,27 +112,27 @@ public class UserAddress {
         this.status = status;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 
     @Override
     public String toString() {
         return "UserAddress{" +
-                "address_id=" + address_id +
-                ", user_id=" + user_id +
+                "id=" + id +
+                ", userId=" + userId +
                 ", name='" + name + '\'' +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
@@ -142,7 +142,7 @@ public class UserAddress {
                 ", telephone='" + telephone + '\'' +
                 ", isDefault=" + isDefault +
                 ", status=" + status +
-                ", create=" + create +
+                ", created=" + created +
                 ", updated=" + updated +
                 '}';
     }

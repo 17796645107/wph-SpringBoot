@@ -3,10 +3,13 @@ package hhxy.dn.wph.enums;
 /**
  * @Author: 邓宁
  * @Date: Created in 16:12 2018/11/9
+ * 用户异常信息枚举
  */
 
-//用户异常信息枚举
 public enum UserExceptionEnum {
+    /**
+     *
+     */
     LOGIN_ERROR(1001,"登录失败，用户名或密码不正确"),
     REGISTER_ERROR(1002,"用户注册失败"),
     CODE_ERROR(1003,"手机验证码错误"),
@@ -22,10 +25,17 @@ public enum UserExceptionEnum {
     UpdateUserHeadIconError(1011,"更新用户头像错误：操作数据库失败！"),
     telehpne_error(1012,"手机号已经注册"),
     deleteAllSearchHistoryError(1013,"删除搜索记录失败"),
+    DELETE_DEFAULT_ADDRESS__Error(1014,"无法删除默认收货地址"),
     ;
 
-    private Integer code;//返回码
-    private String msg;//返回信息
+    /**
+     * 返回状态码
+     */
+    private Integer code;
+    /**
+     * 返回信息
+     */
+    private String msg;
 
     UserExceptionEnum(Integer code, String msg) {
         this.code = code;

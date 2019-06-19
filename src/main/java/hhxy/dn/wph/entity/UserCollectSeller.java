@@ -3,11 +3,11 @@ package hhxy.dn.wph.entity;
 /**
  * @Author: 邓宁
  * @Date: Created in 23:08 2019/5/3
+ * 用户关注商家实体类
  */
-//用户关注商家实体类
 public class UserCollectSeller {
     private Integer id;
-    private Integer userID;
+    private Integer userId;
     private Integer sellerId;
     private Seller seller;
 
@@ -19,12 +19,12 @@ public class UserCollectSeller {
         this.id = id;
     }
 
-    public Integer getUserID() {
-        return userID;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getSellerId() {

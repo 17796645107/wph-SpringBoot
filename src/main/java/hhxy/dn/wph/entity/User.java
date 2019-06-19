@@ -14,24 +14,63 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 用户表
  * @Author: 邓宁
  * @Date: Created in 13:38 2018/11/12
  */
-//用户表
 public class User{
-    private Integer id;//自动编号
-    private String userNo;//用户ID
-    private String nickname;//昵称
-    private String telephone;//手机号
-    private String name;//真实姓名
-    private String sex;//性别
-    private String birthday;//生日
-    private String email;//邮箱
-    private String vip;//会员等级
-    private String headImage;//头像-图片路径
-    private Integer status;//状态
-    private Date create;//创建时间
-    private Date updated;//更新时间
+    /**
+     * 自动编号
+     */
+    private Integer id;
+    /**
+     *
+     */
+    private String userNo;
+    /**
+     * 昵称
+     */
+    private String nickname;
+    /**
+     * 手机号
+     */
+    private String telephone;
+    /**
+     * 真实姓名
+     */
+    private String name;
+    /**
+     * 性别
+     */
+    private String sex;
+    /**
+     * 生日
+     */
+    private String birthday;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 会员等级
+     */
+    private String vip;
+    /**
+     * 头像-图片路径
+     */
+    private String headImage;
+    /**
+     * 状态
+     */
+    private Integer status;
+    /**
+     * 创建时间
+     */
+    private String created;
+    /**
+     * 更新时间
+     */
+    private String updated;
 
     public Integer getId() {
         return id;
@@ -121,19 +160,19 @@ public class User{
         this.status = status;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 
@@ -151,7 +190,7 @@ public class User{
                 ", vip='" + vip + '\'' +
                 ", headImage='" + headImage + '\'' +
                 ", status=" + status +
-                ", create=" + create +
+                ", created=" + created +
                 ", updated=" + updated +
                 '}';
     }
