@@ -5,9 +5,11 @@ import com.github.pagehelper.PageInfo;
 import hhxy.dn.wph.entity.Cart;
 import hhxy.dn.wph.entity.Order;
 import hhxy.dn.wph.entity.ProductNum;
+import hhxy.dn.wph.enums.GeneralExceptionEnum;
 import hhxy.dn.wph.enums.GoodCartExceptionEnum;
 import hhxy.dn.wph.enums.OrderExceptionEnum;
 import hhxy.dn.wph.enums.ProductExceptionEnum;
+import hhxy.dn.wph.exception.GeneralException;
 import hhxy.dn.wph.exception.GoodCartException;
 import hhxy.dn.wph.exception.OrderException;
 import hhxy.dn.wph.exception.ProductException;
@@ -24,6 +26,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private RedisUtil redisUtil;
 
-    @Autowired
+    @Resource
     private OrderMapper orderMapper;
 
     @Autowired
@@ -126,6 +129,9 @@ public class OrderServiceImpl implements OrderService {
         PageHelper.startPage(page,countOfPage);
         //查询数据库
         List<Order> orderList = orderMapper.getOrderByUserID(userId);
+        if (orderList.isEmpty()){
+            throw new GeneralException(GeneralExceptionEnum.notFound);
+        }
         //创建分页对象
         PageInfo<Order> orderPageInfo = new PageInfo<>(orderList);
         //把分页存入缓存

@@ -49,4 +49,9 @@ public class ProductServiceImplTest {
         List<Product> productList = productService.findProductInSeller(1,43,null,null,null);
         productList.forEach(product -> System.out.println(product));
     }
+
+    /*@Test
+    public void update() {
+        productService.update();
+    }*/
 }

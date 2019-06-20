@@ -34,8 +34,8 @@ public interface AdminMapper {
     @Options(keyProperty = "valueId",useGeneratedKeys = true)
     int saveAttributeValue(ProductAttributeValue attributeValue);
 
-    @Insert("insert into"+CATEGORY_ATTRIBUTE_RELATION
-            +"(category_id,attribute_id)value(#{categoryId},#{attributeId})")
+    @Insert("insert into"+ CATEGORY_ATTRIBUTE +
+            "(category_id,attribute_id)value(#{categoryId},#{attributeId})")
     int saveCategoryAttributeRelation(CategoryAttribute categoryAttribute);
 
     @Select("select attr_id from"+ PRODUCT_ATTRIBUTE +"where attr_name = #{attr_name}")

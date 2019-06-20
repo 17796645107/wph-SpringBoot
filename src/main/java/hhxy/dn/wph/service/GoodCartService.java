@@ -11,17 +11,45 @@ import java.util.List;
 
 public interface GoodCartService {
 
-    //添加一条购物车记录
+    /**
+     * 添加一条购物车记录
+     * @param goodCart
+     * @return void
+     */
     void saveGoodCart(Cart goodCart);
 
-    //查询购物车列表
-    List<Cart> getGoodCart(Integer userNo);
+    /**
+     *  查询购物车列表
+     * @param userId
+     * @return java.util.List<hhxy.dn.wph.entity.Cart>
+     */
+    List<Cart> listGoodCartByUserId(Integer userId);
 
+    /**
+     * 删除一条购物车记录
+     * @param id
+     * @return void
+     */
     void deleteGoodCartById(Integer id);
 
-    Integer getCartCount(Integer userNo);
+    /**
+     * 查询购物车记录数量
+     * @param userId
+     * @return java.lang.Integer
+     */
+    Integer getCartCount(Integer userId);
 
-    List<Cart> getGoodCartByIdList(int[] idList);
+    /**
+     * 查询购物车列表
+     * @param idList 购物车ID数组
+     * @return java.util.List<hhxy.dn.wph.entity.Cart>
+     */
+    List<Cart> listGoodCartByIdList(int[] idList);
 
+    /**
+     * 更新购物车
+     * @param goodCart
+     * @return void
+     */
     void updateGoodCartById(Cart goodCart);
 }

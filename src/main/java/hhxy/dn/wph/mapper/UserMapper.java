@@ -138,7 +138,10 @@ public interface UserMapper {
      * @return java.util.List<java.lang.String>
      */
     @Select("SELECT search_title FROM"+ SEARCH_HISTORY +
-            "WHERE user_id = #{userId} ORDER BY search_id DESC LIMIT 6")
+            "WHERE user_id = #{userId} ORDER BY id DESC LIMIT 6")
+    @Results({
+            @Result(property = "searchTitle",column = "search_title")
+    })
     List<String> listSearchHistory(Integer userId);
 
     /**

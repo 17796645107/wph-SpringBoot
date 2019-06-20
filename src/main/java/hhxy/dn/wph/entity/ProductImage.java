@@ -7,27 +7,52 @@ import java.util.Date;
 /**
  * @Author: 邓宁
  * @Date: Created in 19:41 2019/4/8
+ * 商品图片类
  */
-//商品图片类
 public class ProductImage {
+    /**
+     *
+     */
     private Integer id;
-    private Integer product_id;//商品ID
-    private String image;//图片URL
-    private Integer color_id;//颜色ID
-    private Integer status;//状态
-    private Date create;//
-    private Date updated;
+    /**
+     * 商品ID
+     */
+    private Integer productId;
+    /**
+     * 图片URL
+     */
+    private String image;
+    /**
+     * 颜色ID
+     */
+    private Integer colorId;
+    /**
+     * 状态
+     */
+    private Integer status;
+    /**
+     *
+     */
+    private String created;
+    /**
+     *
+     */
+    private String updated;
 
-    public ProductImage() {
-        this.status = 1;
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getImage() {
@@ -38,12 +63,12 @@ public class ProductImage {
         this.image = image;
     }
 
-    public Integer getColor_id() {
-        return color_id;
+    public Integer getColorId() {
+        return colorId;
     }
 
-    public void setColor_id(Integer color_id) {
-        this.color_id = color_id;
+    public void setColorId(Integer colorId) {
+        this.colorId = colorId;
     }
 
     public Integer getStatus() {
@@ -54,27 +79,32 @@ public class ProductImage {
         this.status = status;
     }
 
-    public Integer getId() {
-        return id;
+    public String getCreated() {
+        return created;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getCreate() {
-        return create;
-    }
-
-    public void setCreate(Date create) {
-        this.create = create;
-    }
-
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductImage{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", image='" + image + '\'' +
+                ", colorId=" + colorId +
+                ", status=" + status +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                '}';
     }
 }

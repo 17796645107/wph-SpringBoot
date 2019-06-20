@@ -189,7 +189,7 @@ public class UserController {
      * @param userId
      * @return: hhxy.dn.wph.entity.Result
      */
-    @RequestMapping("/findUserById/{user_no}")
+    @RequestMapping("/getUserById/{userId}")
     public Result getUserDetail(@PathVariable Integer userId){
         User user = userService.getUserDetail(userId);
         return ResultUtil.success(user);
@@ -269,7 +269,7 @@ public class UserController {
      * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @GetMapping("/findAllUserAddress/{user_no}")
+    @GetMapping("/findAllUserAddress/{userId}")
     public Result findAllUserAddress(@PathVariable Integer userId){
         List<UserAddress>addressList = userService.findAllUserAddress(userId);
         return ResultUtil.success(addressList);
@@ -280,7 +280,7 @@ public class UserController {
      * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @GetMapping("/findAllSearchHistory/{user_no}")
+    @GetMapping("/findAllSearchHistory/{userId}")
     public Result findAllSearchHistory(@PathVariable Integer userId){
         List<String>searchHistory = userService.findAllSearchHistory(userId);
         return ResultUtil.success(searchHistory);
@@ -291,7 +291,7 @@ public class UserController {
      * @param: [user_no]
      * @return: hhxy.dn.wph.entity.Result
      */
-    @GetMapping("/deleteSearchHistoryByNo/{user_no}")
+    @GetMapping("/deleteSearchHistoryByNo/{userId}")
     public Result deleteSearchHistoryByNo(@PathVariable Integer userId){
         userService.deleteAllSearchHistory(userId);
         return ResultUtil.success();

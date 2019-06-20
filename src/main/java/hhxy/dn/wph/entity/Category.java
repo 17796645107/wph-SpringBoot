@@ -41,7 +41,7 @@ public class Category implements Serializable {
      */
     private String updated;
     /**
-     * 统计此类目商品数量
+     * 统计此类目的商品数量
      */
     private Integer productCount;
 
@@ -117,5 +117,20 @@ public class Category implements Serializable {
 
     public void setProductCount(Integer productCount) {
         this.productCount = productCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", categoryName='" + categoryName + '\'' +
+                ", categorySort=" + categorySort +
+                ", parentId=" + parentId +
+                ", adminId=" + adminId +
+                ", status=" + status +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                ", productCount=" + productCount +
+                '}';
     }
 }

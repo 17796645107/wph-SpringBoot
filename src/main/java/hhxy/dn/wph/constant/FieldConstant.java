@@ -23,10 +23,11 @@ public class FieldConstant {
     public static final String SELLER_FIELD = " id,seller_no,name,show_image,type,status,created,updated ";
 
     public static final String PRODUCT_FIELD = " id,product_no,seller_id,category_id,title,detail,price," +
-            "collect," + "is_hot,is_new,status.created.updated ";
+            "collect,is_hot,is_new,status,created,updated ";
 
-    public static final String CATEGORY_FIELD = " id,category_id,category_name,parent_id,category_sort," +
-            "status,created,updated ";
+    public static final String CATEGORY_FIELD = " id,category_name,parent_id,category_sort," +
+            "admin_id,status,created,updated ";
 
     public static final String PRODUCT_ATTRIBUTE_FIELD = " id,attr_name,is_search,status,created,updated ";
+
 }

@@ -87,4 +87,16 @@ public class ProductAttribute implements Serializable {
     public void setAttributeValues(List<ProductAttributeValue> attributeValues) {
         this.attributeValues = attributeValues;
     }
+
+    @Override
+    public String toString() {
+        return "ProductAttribute{" +
+                "id=" + id +
+                ", attrName='" + attrName + '\'' +
+                ", isSearch=" + isSearch +
+                ", status=" + status +
+                ", created='" + created + '\'' +
+                ", attributeValues=" + attributeValues +
+                '}';
+    }
 }

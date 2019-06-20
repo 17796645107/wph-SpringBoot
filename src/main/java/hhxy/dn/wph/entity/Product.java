@@ -219,7 +219,7 @@ public class Product {
                 ", isHot=" + isHot +
                 ", isNew=" + isNew +
                 ", status=" + status +
-                ", create=" + created +
+                ", created=" + created +
                 ", updated=" + updated +
                 ", defaultImage=" + defaultImage +
                 ", seller=" + seller +

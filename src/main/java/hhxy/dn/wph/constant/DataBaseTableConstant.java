@@ -13,7 +13,7 @@ public class DataBaseTableConstant {
     //用户收货地址表
     public static final String USER_ADDRESS = " tb_user_address ";
     //用户搜索历史表
-    public static final String SEARCH_HISTORY = " tb_user_search_history ";
+    public static final String SEARCH_HISTORY = " tb_user_search ";
     //商品一级分类目录表
     public static final String PRIMARY_CATEGORY = " tb_primary_category ";
     //商品二级分类目录表
@@ -41,7 +41,7 @@ public class DataBaseTableConstant {
     //商品分类目录表
     public static final String CATEGORY = " tb_category ";
     //商品分类目录表
-    public static final String CATEGORY_ATTRIBUTE_RELATION = " tb_category_attribute ";
+    public static final String CATEGORY_ATTRIBUTE = " tb_category_attribute ";
     //商品属性表
     public static final String PRODUCT_ATTRIBUTE = " tb_product_attribute ";
     //商品属性值表

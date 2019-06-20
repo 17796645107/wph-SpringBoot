@@ -2,18 +2,32 @@ package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
-//管理员类
+/**
+ * @Description 管理员类
+ * @author 邓宁宁
+ * @date 2016/10/31
+ */
 public class Admin implements Serializable {
+    /**
+     * @Description
+     */
     private Integer id;
-
+    /**
+     * @Description 用户名
+     */
     private String username;
-
+    /**
+     * @Description 密码
+     */
     private String password;
-
-    private Date create;
-
-    private Date updated;
+    /**
+     * @Description 创建时间
+     */
+    private String created;
+    /**
+     * @Description 更新时间
+     */
+    private String updated;
 
     private static final long serialVersionUID = 1L;
 
@@ -41,19 +55,30 @@ public class Admin implements Serializable {
         this.password = password == null ? null : password.trim();
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                '}';
     }
 }

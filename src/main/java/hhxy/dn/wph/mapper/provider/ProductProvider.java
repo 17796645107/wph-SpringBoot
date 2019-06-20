@@ -26,36 +26,16 @@ public class ProductProvider {
         sql.append("SELECT distinct size " +
                     "FROM tb_product_size " +
                     "WHERE product_id in (" +
-                                        "SELECT product_id " +
+                                        "SELECT id " +
                                         "FROM tb_product " +
                                         "WHERE category_id in (" +
-                                                            "SELECT category_id " +
+                                                            "SELECT id " +
                                                             "FROM tb_category " +
                                                             "WHERE parent_id = #{categotyId}" +
                                         ")" +
                     ")" +
-                    "ORDER BY size_id");
+                    "ORDER BY id");
         return sql.toString();
-    }
-
-    /**
-     * 添加商品
-     * @param product
-     * @return java.lang.String
-     */
-    public String saveProduct(Product product){
-        return new SQL(){
-            {
-                INSERT_INTO(PRODUCT);
-                VALUES("id","#{id}");
-                VALUES("seller_id","#{sellerId}");
-                VALUES("category_id","#{categoryId}");
-                VALUES("title","#{title}");
-                VALUES("detail","#{detail}");
-                VALUES("price","#{price}");
-                VALUES("created","#{created}");
-            }
-        }.toString();
     }
 
     /**

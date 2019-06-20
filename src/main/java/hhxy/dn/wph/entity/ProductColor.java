@@ -7,15 +7,33 @@ import java.util.Date;
 /**
  * @Author: 邓宁
  * @Date: Created in 12:15 2018/11/30
+ * 商品颜色
  */
-//商品颜色
 public class ProductColor {
+    /**
+     *
+     */
     private Integer id;
-    private Integer productId;//商品ID
-    private String color;//颜色
+    /**
+     * 商品ID
+     */
+    private Integer productId;
+    /**
+     * 颜色
+     */
+    private String color;
+    /**
+     *
+     */
     private Integer status;
-    private Date create;
-    private Date updated;
+    /**
+     *
+     */
+    private String created;
+    /**
+     *
+     */
+    private String updated;
 
     public ProductColor() {
         this.status = 1;
@@ -53,19 +71,31 @@ public class ProductColor {
         this.status = status;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductColor{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", color='" + color + '\'' +
+                ", status=" + status +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                '}';
     }
 }

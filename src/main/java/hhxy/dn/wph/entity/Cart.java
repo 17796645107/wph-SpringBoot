@@ -2,27 +2,52 @@ package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-//购物车类
+/**
+ * @Author: 邓宁
+ * @Date: Created in 13:39 2018/11/12
+ * 购物车类
+ */
 public class Cart implements Serializable {
+    /**
+     * @Description 主键
+     */
     private Integer id;
-
-    private Integer userId;//用户ID
-
-    private Integer productId;//商品ID
-
-    private Integer productNumber;//商品数量
-
-    private String productColor;//商品颜色
-
-    private String productSize;//商品尺寸
-
-    private Byte status = 1;//状态
-
-    private Date create;//创建时间
-
-    private Date updated;//更新时间
-
-    private Product product;//商品实体类
+    /**
+     * @Description 用户ID
+     */
+    private Integer userId;
+    /**
+     * @Description 商品ID
+     */
+    private Integer productId;
+    /**
+     * @Description 商品数量
+     */
+    private Integer productNumber;
+    /**
+     * @Description 商品颜色
+     */
+    private String productColor;
+    /**
+     * @Description 商品尺寸
+     */
+    private String productSize;
+    /**
+     * @Description 状态
+     */
+    private Integer status;
+    /**
+     * @Description 创建时间
+     */
+    private String created;
+    /**
+     * @Description 更新时间
+     */
+    private String updated;
+    /**
+     * @Description 商品实体类,一对一
+     */
+    private Product product;
 
     private static final long serialVersionUID = 1L;
 
@@ -74,27 +99,27 @@ public class Cart implements Serializable {
         this.productSize = productSize == null ? null : productSize.trim();
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 
@@ -104,5 +129,21 @@ public class Cart implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", productId=" + productId +
+                ", productNumber=" + productNumber +
+                ", productColor='" + productColor + '\'' +
+                ", productSize='" + productSize + '\'' +
+                ", status=" + status +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                ", product=" + product +
+                '}';
     }
 }

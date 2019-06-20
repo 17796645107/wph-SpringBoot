@@ -70,4 +70,15 @@ public class ProductAttributeValue implements Serializable {
     public void setCreated(String created) {
         this.created = created;
     }
+
+    @Override
+    public String toString() {
+        return "ProductAttributeValue{" +
+                "id=" + id +
+                ", value='" + value + '\'' +
+                ", status=" + status +
+                ", attributeId=" + attributeId +
+                ", created='" + created + '\'' +
+                '}';
+    }
 }

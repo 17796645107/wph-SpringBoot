@@ -19,7 +19,20 @@ public class IDUtil {
         return builder.toString();
     }
 
-    /*
+    /**
+     * 生成商品编号
+     * @param
+     * @return java.lang.String
+     */
+    public static String createProductNo(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+        StringBuilder builder = new StringBuilder();
+        builder.append(format.format(new Date()));
+        builder.append(System.currentTimeMillis());
+        return builder.toString();
+    }
+
+    /**
      * @Description:生成人员ID--用户,商户,管理员
      * @param: sub前缀字符串:用户-U,商户-S,管理员-A
      * @return:

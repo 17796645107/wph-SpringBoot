@@ -5,13 +5,25 @@ import java.util.Date;
 /**
  * @Author: 邓宁
  * @Date: Created in 23:08 2018/11/21
+ * 用户搜索记录类
  */
-//用户搜索记录
 public class UserSearch {
-    private Integer id;//编号
-    private Integer user_id;//用户ID
-    private String search_title;//搜索词
-    private Date create;
+    /**
+     * 编号
+     */
+    private Integer id;
+    /**
+     * 用户ID
+     */
+    private Integer userId;
+    /**
+     * 搜索关键词
+     */
+    private String searchTitle;
+    /**
+     *
+     */
+    private String created;
 
     public Integer getId() {
         return id;
@@ -21,27 +33,37 @@ public class UserSearch {
         this.id = id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getSearch_title() {
-        return search_title;
+    public String getSearchTitle() {
+        return searchTitle;
     }
 
-    public void setSearch_title(String search_title) {
-        this.search_title = search_title;
+    public void setSearchTitle(String searchTitle) {
+        this.searchTitle = searchTitle;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    @Override
+    public String toString() {
+        return "UserSearch{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", searchTitle='" + searchTitle + '\'' +
+                ", created='" + created + '\'' +
+                '}';
     }
 }

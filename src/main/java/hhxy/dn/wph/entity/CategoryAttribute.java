@@ -1,13 +1,24 @@
 package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
-//类目属性
+/**
+ * @Author: 邓宁
+ * @Date: Created in 13:39 2018/11/12
+ * 类目属性类
+ */
 public class CategoryAttribute implements Serializable {
+    /**
+     * @Description 主键
+     */
     private Integer id;
-
-    private Integer categoryId;//类目ID
-
-    private Integer attributeId;//属性ID
+    /**
+     * @Description 类目ID
+     */
+    private Integer categoryId;
+    /**
+     * @Description 属性ID
+     */
+    private Integer attributeId;
 
     private static final long serialVersionUID = 1L;
 

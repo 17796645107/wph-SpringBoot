@@ -67,7 +67,7 @@ public class SellerMapperTest {
         ProductColor productColor = new ProductColor();
         productColor.setProductId(p_id);
         ProductImage productImage = new ProductImage();
-        productImage.setProduct_id(p_id);
+        productImage.setProductId(p_id);
 
 //        String[]colors = {"默认"};
         String[]colors = {
@@ -95,7 +95,7 @@ public class SellerMapperTest {
             productColor.setColor(color);
             sellerMapper.saveProductColor(productColor);
             int color_id = productColor.getId();
-            productImage.setColor_id(color_id);
+            productImage.setColorId(color_id);
             for (String image : images) {
                 productImage.setImage(image);
                 sellerMapper.saveProductImage(productImage);
@@ -106,7 +106,7 @@ public class SellerMapperTest {
     @Test
     public void saveProductNum(){
         List<ProductColor> productColorList = productMapper.listProductColorByProductId(p_id);
-        Set<ProductSize> productSizeList = productMapper.listProductSizeByProductId(p_id);
+        List<ProductSize> productSizeList = productMapper.listProductSizeByProductId(p_id);
         ProductNum productNum = new ProductNum();
         productNum.setProductId(p_id);
         productNum.setNum(888);

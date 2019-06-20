@@ -225,6 +225,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void updateUser(User user,String token) {
+        user.setUpdated(DateUtil.getDate());
         int result = userMapper.updateUser(user);
         if (result != 1){
             throw new UserException(UserExceptionEnum.updateUserError);

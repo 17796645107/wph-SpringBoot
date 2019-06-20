@@ -20,8 +20,8 @@ public class CartController {
     @Autowired
     private GoodCartService goodCartService;
 
-    /*
-     * @Description:生成一条购物车记录
+    /**
+     * @Description: 生成一条购物车记录
      * @param: [goodCart]
      * @return: hhxy.dn.wph.entity.Result
      */
@@ -31,18 +31,18 @@ public class CartController {
         return ResultUtil.success();
     }
 
-    /*
+    /**
      * @Description:查询购物车列表
      * @param: [userId]用户ID
      * @return: hhxy.dn.wph.entity.Result
      */
-    @RequestMapping("/getGoodCart/{userNo}")
-    public Result getGoodCart(@PathVariable Integer userNo){
-        List<Cart> goodCartList = goodCartService.getGoodCart(userNo);
+    @RequestMapping("/getGoodCart/{userId}")
+    public Result getGoodCart(@PathVariable Integer userId){
+        List<Cart> goodCartList = goodCartService.listGoodCartByUserId(userId);
         return ResultUtil.success(goodCartList);
     }
 
-    /*
+    /**
      * @Description:删除购物车记录
      * @param: [id]购物车ID
      * @return: hhxy.dn.wph.entity.Result
@@ -53,29 +53,29 @@ public class CartController {
         return ResultUtil.success();
     }
 
-    /*
+    /**
      * @Description:获取购物车记录数
      * @param: [userId]用户ID
      * @return: hhxy.dn.wph.entity.Result
      */
-    @RequestMapping("/getCartCount/{userNo}")
-    public Result getCartCount(@PathVariable Integer userNo){
-        Integer cartCount = goodCartService.getCartCount(userNo);
+    @RequestMapping("/getCartCount/{userId}")
+    public Result getCartCount(@PathVariable Integer userId){
+        Integer cartCount = goodCartService.getCartCount(userId);
         return ResultUtil.success(cartCount);
     }
 
-    /*
+    /**
      * @Description:获取购物车列表
      * @param: [idList]
      * @return: hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/getGoodCartByIdList")
     public Result getGoodCartByIdList(@RequestParam("idList") int[] idList){
-        List<Cart> goodCartList = goodCartService.getGoodCartByIdList(idList);
+        List<Cart> goodCartList = goodCartService.listGoodCartByIdList(idList);
         return ResultUtil.success(goodCartList);
     }
 
-    /*
+    /**
      * @Description:更新一个购物车
      * @param: [goodCart]
      * @return: hhxy.dn.wph.entity.Result

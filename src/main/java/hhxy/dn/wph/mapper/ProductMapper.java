@@ -17,8 +17,6 @@ import java.util.Set;
  */
 public interface ProductMapper {
 
-    final String CATEGORY_FIELD = " category_id,category_name,category_sort,parent_id,admin_id ";
-
     /**
      * 根据商品ID查询商品
      * @param productId
@@ -26,15 +24,22 @@ public interface ProductMapper {
      */
     @Select("select"+ PRODUCT_FIELD +"from"+ PRODUCT +"where id = #{productId} and status = 1")
     @Results(id = "productResultMap",value = {
-            @Result(column = "product_id",property = "defaultImage",
+            @Result(property = "productNo",column = "product_no"),
+            @Result(property = "categoryId",column = "category_id"),
+            @Result(property = "sellerId",column = "seller_id"),
+            @Result(property = "brandId",column = "brand_id"),
+            @Result(property = "isHot",column = "is_hot"),
+            @Result(property = "isNew",column = "is_new"),
+            //查询商品默认图片
+            @Result(property = "defaultImage",column = "id",
                     one = @One(
-                            //查询商品默认图片
                             select = "hhxy.dn.wph.mapper.ProductMapper.getImageByProductId",
                             //查询类型:立即加载
                             fetchType = FetchType.EAGER
                     )
             ),
-            @Result(property = "seller",column = "seller_no",javaType = Seller.class,
+            //查询商户
+            @Result(property = "seller",column = "seller_id",javaType = Seller.class,
                     one = @One(
                             select = "hhxy.dn.wph.mapper.SellerMapper.getSellerById",
                             fetchType = FetchType.EAGER
@@ -45,7 +50,7 @@ public interface ProductMapper {
 
     /**
      * 获取商品分类目录,根据category_sort排序
-     * @param parentId
+     * @param parentId 父目录ID
      * @return java.util.List<hhxy.dn.wph.entity.Category>
      */
     @Select("select" + CATEGORY_FIELD +
@@ -65,12 +70,12 @@ public interface ProductMapper {
      * @param sellerId
      * @return java.util.List<hhxy.dn.wph.entity.Category>
      */
-    @Select("SELECT distinct"+ CATEGORY_FIELD +
+    @Select("SELECT "+ CATEGORY_FIELD +
             "FROM "+ CATEGORY +
             "WHERE id in (" +
-                                    "SELECT category_id " +
+                                    "SELECT distinct category_id " +
                                     "FROM tb_product " +
-                                    "WHERE id = #{seller_id}"+
+                                    "WHERE seller_id = #{sellerId} and status = 1"+
                                     ")" +
             "and status = 1 " +
             "ORDER BY category_sort")
@@ -79,27 +84,19 @@ public interface ProductMapper {
 
     /**
      * 根据商品ID查询所有的商品Size
-     * @param productId 商品编号
+     * @param productId product_no商品编号
      * @return java.util.Set<hhxy.dn.wph.entity.ProductSize>
      */
-    @Select("select size_id,size from"+ PRODUCT_SIZE +"where product_id = #{productId} and status = 1")
-    Set<ProductSize> listProductSizeByProductId(Integer productId);
+    @Select("select id,size from"+ PRODUCT_SIZE +"where product_id = #{productId} and status = 1")
+    List<ProductSize> listProductSizeByProductId(Integer productId);
 
     /**
      * 根据一级目录查询所有的商品尺寸
-     * @param categoryId
+     * @param categoryId 一级目录
      * @return java.util.List<hhxy.dn.wph.entity.ProductSize>
      */
     @SelectProvider(type = ProductProvider.class,method = "findAllProductSizeByPrimaryCategoryId")
     List<ProductSize> listProductSizeByCategoryId(Integer categoryId);
-
-    /**
-     * 添加商品
-     * @param product
-     * @return int
-     */
-    @InsertProvider(type = ProductProvider.class,method = "saveProduct")
-    int saveProduct(Product product);
 
     /**
      * 查询商户所有商品
@@ -108,7 +105,9 @@ public interface ProductMapper {
      */
     @Select("select"+ PRODUCT_FIELD +"from"+ PRODUCT +"where seller_id = #{sellerId} and status = 1")
     @Results(id = "productImageMap",value = {
-            @Result(column = "product_id",property = "defaultImage",
+            @Result(column = "is_hot",property = "isHot"),
+            @Result(column = "is_new",property = "isNew"),
+            @Result(column = "id",property = "defaultImage",
                 one = @One(
                     //查询商品默认图片
                     select = "hhxy.dn.wph.mapper.ProductMapper.getImageByProductId",
@@ -124,8 +123,11 @@ public interface ProductMapper {
      * @param productId 商品编号
      * @return java.util.List<hhxy.dn.wph.entity.ProductColor>
      */
-    @Select("select color_id,product_id,color " +
+    @Select("select id,product_id,color " +
             "from"+ PRODUCT_COLOR +"where product_id = #{productId} and status = 1")
+    @Results({
+            @Result(property = "productId",column = "product_id")
+    })
     List<ProductColor> listProductColorByProductId(Integer productId);
 
     /**
@@ -133,13 +135,17 @@ public interface ProductMapper {
      * @param productId 商品编号
      * @return java.util.List<hhxy.dn.wph.entity.ProductImage>
      */
-    @Select("select image_id,product_id,image,color_id "+
+    @Select("select id,product_id,image,color_id "+
             "from"+ PRODUCT_IMAGE +
             "where product_id = #{productId} and status = 1")
+    @Results(id = "productImageResultMap",value = {
+            @Result(property = "productId",column = "product_id"),
+            @Result(property = "colorId",column = "color_id"),
+    })
     List<ProductImage> listProductImageByProductId(Integer productId);
 
     /**
-     * 根据图片ID获取图片
+     * 根据图片ID获取图片路径
      * @param imageId
      * @return java.lang.String
      */
@@ -151,8 +157,9 @@ public interface ProductMapper {
      * @param productId 商品编号
      * @return hhxy.dn.wph.entity.ProductImage
      */
-    @Select("select id,product_id,image from"+ PRODUCT_IMAGE +"where product_id = #{productId} " +
-            "order by id limit 1")
+    @Select("select id,product_id,image,color_id from"+ PRODUCT_IMAGE +"where product_id = #{productId} " +
+            "and status = 1 order by id limit 1")
+    @ResultMap(value = "productImageResultMap")
     ProductImage getImageByProductId(Integer productId);
 
     /**
@@ -168,9 +175,9 @@ public interface ProductMapper {
      * @param productNum
      * @return java.util.List<java.lang.Integer>
      */
-    @Select("select num from" + PRODUCT_NUM + "where product_size = #{product_size} and product_id = #{productId}")
+    /*@Select("select num from" + PRODUCT_NUM + "where product_size = #{product_size} and product_id = #{productId}")
     List<Integer> listProductNumBySize(ProductNum productNum);
-
+*/
     /**
      * 查询商品库存
      * @param productNum
@@ -209,8 +216,8 @@ public interface ProductMapper {
      * @return java.util.List<hhxy.dn.wph.entity.Product>
      */
     @Select("select"+ PRODUCT_FIELD +"from"+ PRODUCT +"where category_id = #{categoryId} and status = 1")
-    @ResultMap(value = "productMap")
-    List<Product> getProductByCategoryId(Integer categoryId);
+    @ResultMap(value = "productResultMap")
+    List<Product> listProductByCategoryId(Integer categoryId);
 
     /**
      * 查询品牌列表
@@ -219,9 +226,9 @@ public interface ProductMapper {
      */
     @Select("select id,brand_name,brand_icon from"+ BRAND +
             " where id in(" +
-                                "select brand_id from"+
-                                 PRODUCT +"where category_id = #{categoryId} and status = 1" +
-            ")")
+                            "select brand_id from"+
+                             PRODUCT +"where category_id = #{categoryId} and status = 1" +
+            ")and status = 1")
     @Results(id = "brandResultMap",value = {
             @Result(column = "brand_id",property = "brandId"),
             @Result(column = "brand_name",property = "brandName"),
@@ -231,19 +238,20 @@ public interface ProductMapper {
 
     /**
      * 查询商品属性
-     * @param categoryId
+     * @param categoryId 二级目录ID
      * @return java.util.List<hhxy.dn.wph.entity.ProductAttribute>
      */
     @Select("select"+ PRODUCT_ATTRIBUTE_FIELD +
             "from"+ PRODUCT_ATTRIBUTE +
             "where id in("+
                             "SELECT attribute_id FROM "+
-                             CATEGORY_ATTRIBUTE_RELATION +"where category_id = #{categoryId}"+
+                            CATEGORY_ATTRIBUTE +"where category_id = #{categoryId}"+
                             ")"
             )
     @Results(id = "productAttributeResultMap",value = {
             @Result(column = "attr_id",property = "attrId"),
-            @Result(column = "attr_name",property = "attrName")
+            @Result(column = "attr_name",property = "attrName"),
+            @Result(column = "is_search",property = "isSearch"),
     })
     List<ProductAttribute> listProductAttributeByCategoryId(Integer categoryId);
 
@@ -261,12 +269,12 @@ public interface ProductMapper {
 
     /**
      * 查询商品ID
-     * @param attributeRelation
+     * @param attributeRelation 属性ID和属性值ID
      * @return java.util.List<java.lang.Integer>
      */
     @Select("select product_id from"+ PRODUCT_ATTRIBUTE_RELATION +
             "where attribute_id = #{attributeId} and value_id = #{valueId}")
-    List<Integer> listProductByArrtibute(ProductAttributeRelation attributeRelation);
+    List<Integer> listProductIdByArrtibute(ProductAttributeRelation attributeRelation);
 
    /**
     * 查询商品ID
@@ -275,7 +283,7 @@ public interface ProductMapper {
     * @return java.util.List<java.lang.Integer>
     */
     @SelectProvider(type = ProductProvider.class,method = "findProductByArrtibute")
-    List<Integer> listProductIdByArrtibute(
+    List<Integer> listProductId(
             @Param("attributeRelation") ProductAttributeRelation attributeRelation,
             @Param("productIdArray") Object[] productIdList);
 
@@ -289,8 +297,32 @@ public interface ProductMapper {
      * @return java.util.List<hhxy.dn.wph.entity.Product>
      */
     @SelectProvider(type = ProductProvider.class,method = "findProductInSeller")
-    @ResultMap(value = "productImageMap")
+    @ResultMap(value = "productResultMap")
     List<Product> listProductInSeller(
             @Param("sellerId") Integer sellerId,@Param("categoryId") Integer categoryId,
             @Param("sizeId")Integer sizeId,@Param("type") Integer type, @Param("hasNum")Integer hasNum);
+
+
+    /*@Update("update tb_product set product_no = #{productNo} where id = #{productId}")
+    int updateProduct(@Param("productNo") String productNo,@Param("productId") Integer productId);
+    @Update("update tb_product_attribute_relation set product_id = #{productId} where product_id = #{productNo}")
+    int updateProductAttributeRelation(@Param("productId") Integer productId,@Param("productNo") Integer productNo);
+    @Update("update tb_product_color set product_id = #{productId} where product_id = #{productNo}")
+    int updateProductColor(@Param("productId") Integer productId,@Param("productNo") Integer productNo);
+    @Update("update tb_product_evaluation set product_id = #{productId} where product_id = #{productNo}")
+    int updateProductEvaluation(@Param("productId") Integer productId,@Param("productNo") Integer productNo);
+    @Update("update tb_product_image set product_id = #{productId} where product_id = #{productNo}")
+    int updateProductImage(@Param("productId") Integer productId,@Param("productNo") Integer productNo);
+    @Update("update tb_product_num set product_id = #{productId} where product_id = #{productNo}")
+    int updateProductNum1(@Param("productId") Integer productId,@Param("productNo") Integer productNo);
+    @Update("update tb_product_size set product_id = #{productId} where product_id = #{productNo}")
+    int updateProductImageSize(@Param("productId") Integer productId,@Param("productNo") Integer productNo);
+    @Update("update tb_cart set product_id = #{productId} where product_id = #{productNo}")
+    int updateCart(@Param("productId") Integer productId,@Param("productNo") Integer productNo);
+    @Update("update tb_order_product set product_id = #{productId} where product_id = #{productNo}")
+    int updateOrderProduct(@Param("productId") Integer productId,@Param("productNo") Integer productNo);
+    @Select("select id from tb_product")
+    List<Integer> listProductId();
+    @Select("select product_no from tb_product where id = #{id}")
+    String getProductNo(Integer id);*/
 }

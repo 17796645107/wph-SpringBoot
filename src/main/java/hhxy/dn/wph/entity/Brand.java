@@ -2,17 +2,32 @@ package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-//品牌类
+/**
+ * @Author: 邓宁
+ * @Date: Created in 13:39 2018/11/12
+ * 品牌类
+ */
 public class Brand implements Serializable {
+    /**
+     *
+     */
     private Integer id;
-
-    private String brandName;//品牌名称
-
-    private String brandIcon;//品牌Logo
-
-    private Date create;
-
-    private Date updated;
+    /**
+     * 品牌名称
+     */
+    private String brandName;
+    /**
+     * 品牌Logo
+     */
+    private String brandIcon;
+    /**
+     * 创建时间
+     */
+    private String created;
+    /**
+     * 更新时间
+     */
+    private String updated;
 
     private static final long serialVersionUID = 1L;
 
@@ -40,19 +55,30 @@ public class Brand implements Serializable {
         this.brandIcon = brandIcon == null ? null : brandIcon.trim();
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
+    }
+
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "id=" + id +
+                ", brandName='" + brandName + '\'' +
+                ", brandIcon='" + brandIcon + '\'' +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                '}';
     }
 }

@@ -29,7 +29,7 @@ public class ProductSize {
     /**
      * 创建时间
      */
-    private String create;
+    private String created;
     /**
      * 更新时间
      */
@@ -67,12 +67,12 @@ public class ProductSize {
         this.status = status;
     }
 
-    public String getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(String create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
     public String getUpdated() {
@@ -81,5 +81,17 @@ public class ProductSize {
 
     public void setUpdated(String updated) {
         this.updated = updated;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductSize{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", size='" + size + '\'' +
+                ", status=" + status +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                '}';
     }
 }

@@ -18,39 +18,40 @@ import java.util.List;
  */
 
 public interface SellerMapper {
-    final String seller_field = " seller_id,brand_id,name,show_image,type,status,created,updated ";
-    final String brand_field = " brand_id,brand_name,brand_icon ";
+    final String seller_field = " id,brand_id,name,show_image,type,status,created,updated ";
+    final String brand_field = " id,brand_name,brand_icon ";
 
     //根据分类ID获取商户信息
     @Select("select"+ seller_field +
             "from"+ SELLER +
             "where type = #{primaryId} and status = 1")
     @Results(id = "SellerMap",value = {
-        @Result(property = "brand",column = "brand_id",
-                one = @One(
-                    select = "hhxy.dn.wph.mapper.SellerMapper.getBrandById",
-                    fetchType = FetchType.EAGER
-        ))
+            @Result(property = "showImage",column = "show_image"),
+            @Result(property = "brand",column = "brand_id",
+                    one = @One(
+                            select = "hhxy.dn.wph.mapper.SellerMapper.getBrandById",
+                            fetchType = FetchType.EAGER
+            ))
     })
     List<Seller> getSellerByPrimaryCategoryId(Integer primaryId);
 
     //根据品牌ID获取品牌信息
     @Select("select"+ brand_field +
             "from"+ BRAND +"" +
-            "where brand_id = #{brand_id}")
+            "where id = #{brandId}")
     @Results(id = "brandMap",value = {
         @Result(column = "brand_id",property = "brandId"),
         @Result(column = "brand_name",property = "brandName"),
         @Result(column = "brand_icon",property = "brandIcon"),
     })
-    Brand getBrandById(Integer brand_id);
+    Brand getBrandById(Integer brandId);
 
     //根据商户ID获取商户信息
     @Select("select"+ seller_field +
             "from"+ SELLER +
-            "where seller_no = #{sellerNo} and status = 1")
+            "where id = #{sellerId} and status = 1")
     @ResultMap(value = "SellerMap")
-    Seller getSellerById(Integer sellerNo);
+    Seller getSellerById(Integer sellerId);
 
     //获取商品收藏量
     @Select("select count(seller_id) from"+ USER_COLLECT_SELLER +"where seller_id = #{sellerId}")

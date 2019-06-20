@@ -29,6 +29,7 @@ public class SellerServiceImpl implements SellerService {
     @Autowired
     private RedisUtil redisUtil;
 
+    @Override
     public List<Seller> getSellerByPrimaryCategoryId(Integer primaryId){
         String sellerList = (String) redisUtil.get("SellerByPrimaryCategoryId:"+primaryId);
         if (sellerList != null){
