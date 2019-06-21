@@ -5,17 +5,14 @@ import hhxy.dn.wph.enums.GeneralExceptionEnum;
 import hhxy.dn.wph.exception.GeneralException;
 import hhxy.dn.wph.mapper.ProductMapper;
 import hhxy.dn.wph.service.ProductService;
-import hhxy.dn.wph.util.IDUtil;
 import hhxy.dn.wph.util.JsonUtil;
 import hhxy.dn.wph.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @Author: 邓宁
@@ -30,6 +27,9 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     private RedisUtil redisUtil;
 
+    /**
+     * 日志
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     /**
@@ -39,10 +39,11 @@ public class ProductServiceImpl implements ProductService{
      */
     @Override
     public List<Category> listCategoryBySellerId(Integer sellerId) {
-        String cacheFlag = "SecondaryCategory:";
+        String cacheKey = "SecondaryCategory:";
         //查询缓存
-        if (redisUtil.hasKey(cacheFlag + sellerId)){
-            return JsonUtil.jsonToList(redisUtil.get(cacheFlag + sellerId).toString(),Category.class);
+        if (redisUtil.hasKey(cacheKey + sellerId)){
+            String cache = (String) redisUtil.get(cacheKey + sellerId);
+            return JsonUtil.jsonToList(cache,Category.class);
         }
         //查询数据库
         List<Category> secondaryCategoryList = productMapper.listCategoryBySellerId(sellerId);
@@ -52,12 +53,21 @@ public class ProductServiceImpl implements ProductService{
             category.setProductCount(count);
         });
         //查询结果为空。则抛出异常
-        if (secondaryCategoryList.isEmpty()){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
-        }
+        validIsEmpty(secondaryCategoryList.isEmpty());
         //写入缓存
-        redisUtil.set(cacheFlag + sellerId,JsonUtil.objectToJson(secondaryCategoryList));
+        redisUtil.set(cacheKey + sellerId,JsonUtil.objectToJson(secondaryCategoryList));
         return secondaryCategoryList;
+    }
+
+    /**
+     * 验证查询结果是否为空
+     * @param empty List.isEmpty()方法,
+     * @return void
+     */
+    private void validIsEmpty(boolean empty) {
+        if (empty) {
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
+        }
     }
 
     /**
@@ -67,7 +77,19 @@ public class ProductServiceImpl implements ProductService{
      */
     @Override
     public List<ProductSize> listProductSizeByCategoryId(Integer categoryId) {
-        return productMapper.listProductSizeByCategoryId(categoryId);
+        String cacheKey = "ProductSize:";
+        //查询缓存
+        if (redisUtil.hasKey(cacheKey + categoryId)){
+            String cache = (String) redisUtil.get(cacheKey + categoryId);
+            return JsonUtil.jsonToList(cache,ProductSize.class);
+        }
+        //查询数据库
+        List<ProductSize> productSizeList = productMapper.listProductSizeByCategoryId(categoryId);
+        //查询结果为空。则抛出异常
+        validIsEmpty(productSizeList.isEmpty());
+        //写入缓存
+        redisUtil.set(cacheKey + categoryId,JsonUtil.objectToJson(productSizeList));
+        return productSizeList;
     }
 
     /**
@@ -77,16 +99,14 @@ public class ProductServiceImpl implements ProductService{
      */
     @Override
     public Product getProductById(Integer productId) {
-        String key = "Product:"+ productId;
-        if(redisUtil.hasKey(key)){
-            String productCache = (String) redisUtil.get(key);
+        final String cacheKey = "Product:"+ productId;
+        if(redisUtil.hasKey(cacheKey)){
+            String productCache = (String) redisUtil.get(cacheKey);
             return JsonUtil.jsonToPojo(productCache,Product.class);
         }
         Product product = productMapper.getProductById(productId);
-        if (product == null){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
-        }
-        redisUtil.set(key,JsonUtil.objectToJson(product));
+        validIsEmpty(product == null);
+        redisUtil.set(cacheKey,JsonUtil.objectToJson(product));
         return product;
     }
 
@@ -104,9 +124,7 @@ public class ProductServiceImpl implements ProductService{
         }
         List<Category> categories = productMapper.listCategoryByParentId(parentId);
         //如果查询结果为空，抛出异常，（空结果禁止写入缓存）！
-        if (categories.isEmpty()){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
-        }
+        validIsEmpty(categories.isEmpty());
         redisUtil.set(categoryKey + parentId, JsonUtil.objectToJson(categories));
         return categories;
     }
@@ -124,6 +142,7 @@ public class ProductServiceImpl implements ProductService{
             return JsonUtil.jsonToList(products,Product.class);
         }
         List<Product> productList = productMapper.listProductByCategoryId(categoryId);
+        validIsEmpty(productList.isEmpty());
         redisUtil.set(productListKey,JsonUtil.objectToJson(productList));
         return productList;
     }
@@ -141,9 +160,7 @@ public class ProductServiceImpl implements ProductService{
             return JsonUtil.jsonToList(cache,Brand.class);
         }
         List<Brand> brandList = productMapper.listBrandByCategoryId(categoryId);
-        if(brandList.size() == 0) {
-          throw new GeneralException(GeneralExceptionEnum.notFound);
-        }
+        validIsEmpty(brandList.size() == 0);
         redisUtil.set(brandKey + categoryId,JsonUtil.objectToJson(brandList));
         return brandList;
     }
@@ -167,9 +184,7 @@ public class ProductServiceImpl implements ProductService{
             List<ProductAttributeValue> productAttributeValueList = productMapper.listProductAttributeValueByAttributeId(productAttribute.getId());
             productAttribute.setAttributeValues(productAttributeValueList);
         });
-        if (productAttributeList.isEmpty()){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
-        }
+        validIsEmpty(productAttributeList.isEmpty());
         redisUtil.set(productAttributeKey + categoryId,JsonUtil.objectToJson(productAttributeList));
         return productAttributeList;
     }
@@ -187,15 +202,13 @@ public class ProductServiceImpl implements ProductService{
             return JsonUtil.jsonToList(productListCache,Product.class);
         }
         List<Product> productList = productMapper.listProductBySellerId(sellerId);
-        if (productList.isEmpty()){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
-        }
+        validIsEmpty(productList.isEmpty());
         redisUtil.set(productListKey,JsonUtil.objectToJson(productList));
         return productList;
     }
 
     /**
-     * @Description
+     * @Description 查询商品颜色列表
      * @param productId
      * @return java.util.List<hhxy.dn.wph.entity.ProductColor>
      */
@@ -205,7 +218,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     /**
-     * @Description
+     * @Description 查询商品尺寸列表
      * @param productId
      * @return java.util.List<hhxy.dn.wph.entity.ProductSize>
      */
@@ -215,7 +228,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     /**
-     * @Description
+     * @Description 查询商品图片
      * @param productId
      * @return java.util.List<hhxy.dn.wph.entity.ProductImage>
      */
@@ -271,7 +284,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     /**
-     * @Description
+     * @Description 检索商品
      * @param sellerId
      * @param secoundCategoryId
      * @param sizeId

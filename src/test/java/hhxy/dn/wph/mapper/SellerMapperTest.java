@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @Author: 邓宁
@@ -41,7 +40,7 @@ public class SellerMapperTest {
         product.setTitle("【100%桑蚕丝】索菲丝尔V领印花小衫女宽松真丝衬衫");
         product.setDetail("性感V领 创意印花 度假风");
         product.setPrice(1098);
-        sellerMapper.saveOneProduct(product);
+        sellerMapper.saveProduct(product);
     }
 
     @Test
@@ -124,7 +123,7 @@ public class SellerMapperTest {
         SellerAccount sellerAccount = new SellerAccount();
         sellerAccount.setSellerUsername("seller1");
         sellerAccount.setSellerPassword("123456");
-        int seller_id = sellerMapper.findSellerAccount(sellerAccount);
+        int seller_id = sellerMapper.getSellerId(sellerAccount);
         LOGGER.info("sellerid = {}",seller_id);
     }
 }

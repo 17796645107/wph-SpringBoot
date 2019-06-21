@@ -7,7 +7,7 @@ import java.io.IOException;
  * @Author: 邓宁
  * @Date: Created in 14:12 2019/5/4
  */
-/* *
+/**
  *类名：AlipayConfig
  *功能：基础配置类
  *详细：设置帐户有关信息及返回路径

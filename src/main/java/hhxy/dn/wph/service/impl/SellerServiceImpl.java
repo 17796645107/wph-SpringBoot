@@ -30,27 +30,28 @@ public class SellerServiceImpl implements SellerService {
     private RedisUtil redisUtil;
 
     @Override
-    public List<Seller> getSellerByPrimaryCategoryId(Integer primaryId){
-        String sellerList = (String) redisUtil.get("SellerByPrimaryCategoryId:"+primaryId);
+    public List<Seller> listSellerByCategoryId(Integer categoryId){
+        String sellerList = (String) redisUtil.get("SellerByPrimaryCategoryId:"+categoryId);
         if (sellerList != null){
             return JsonUtil.jsonToList(sellerList,Seller.class);
         }
-        List<Seller> sellers = sellerMapper.getSellerByPrimaryCategoryId(primaryId);
-        redisUtil.set("SellerByPrimaryCategoryId:"+primaryId,JsonUtil.objectToJson(sellers));
+        List<Seller> sellers = sellerMapper.listSellerByCategoryId(categoryId);
+        redisUtil.set("SellerByPrimaryCategoryId:"+categoryId,JsonUtil.objectToJson(sellers));
         return sellers;
     }
 
     @Override
     public Seller getSellerById(Integer sellerNo) {
-        if (redisUtil.hasKey("SellerByNo:"+ sellerNo)){
-            String seller = (String) redisUtil.get("SellerByNo:"+ sellerNo);
+        String cacheKey = "SellerByNo:";
+        if (redisUtil.hasKey(cacheKey + sellerNo)){
+            String seller = (String) redisUtil.get(cacheKey+ sellerNo);
             return JsonUtil.jsonToPojo(seller,Seller.class);
         }
         Seller seller = sellerMapper.getSellerById(sellerNo);
         if (seller == null){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
         }
-        redisUtil.set("SellerByNo:"+ sellerNo,JsonUtil.objectToJson(seller));
+        redisUtil.set(cacheKey+ sellerNo,JsonUtil.objectToJson(seller));
         return seller;
     }
 
@@ -60,27 +61,34 @@ public class SellerServiceImpl implements SellerService {
         return result;
     }
 
+    /**
+     *
+     * @param sellerAccount
+     * @return hhxy.dn.wph.entity.Seller
+     */
     @Override
     public Seller login(SellerAccount sellerAccount) {
-        Integer seller_id = sellerMapper.findSellerAccount(sellerAccount);
-        if (seller_id == null){
+        Integer sellerId = sellerMapper.getSellerId(sellerAccount);
+        if (sellerId == null){
             throw new SellerException(SellerExceptionEnum.accountError);
         }
-        if (redisUtil.hasKey("SellerById:"+ seller_id)){
-            String seller = (String) redisUtil.get("SellerById:"+ seller_id);
+        String cacheKey = "SellerById:";
+        if (redisUtil.hasKey(cacheKey + sellerId)){
+            String seller = (String) redisUtil.get(cacheKey+ sellerId);
             return JsonUtil.jsonToPojo(seller,Seller.class);
         }
-        Seller seller = sellerMapper.getSellerById(seller_id);
-        redisUtil.set("SellerById:"+ seller_id,JsonUtil.objectToJson(seller));
+        Seller seller = sellerMapper.getSellerById(sellerId);
+        redisUtil.set(cacheKey+ sellerId,JsonUtil.objectToJson(seller));
         return seller;
+
     }
 
-    public int saveOneProduct(Product product){
-        int result = sellerMapper.saveOneProduct(product);
+    public int saveProduct(Product product){
+        int result = sellerMapper.saveProduct(product);
         return product.getId();
     }
 
-    /*public void saveProductSize(List<ProductSize> productSizeList){
+    public void saveProductSize(List<ProductSize> productSizeList){
         productSizeList.forEach(productSize -> {
             int result = sellerMapper.saveProductSize(productSize);
         });
@@ -102,5 +110,5 @@ public class SellerServiceImpl implements SellerService {
     }
     public void saveProductAttributeRelation(ProductAttributeRelation productAttributeRelation){
         int result = sellerMapper.saveProductAttributeRelation(productAttributeRelation);
-    }*/
+    }
 }

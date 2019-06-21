@@ -14,33 +14,42 @@ import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 public class OrderProvider {
 
-    public String createOrder(Order order){
+    /**
+     * 创建订单
+     * @param order
+     * @return java.lang.String
+     */
+    public String saveOrder(Order order){
         return new SQL(){
             {
                 INSERT_INTO(ORDER);
-                VALUES("order_id","#{order_id}");
-                VALUES("user_id","#{user_id}");
-                VALUES("address_id","#{address_id}");
-                VALUES("product_total","#{product_total}");
-                VALUES("order_count","#{order_count}");
-                VALUES("pay_channel","#{pay_channel}");
-                VALUES("pay_no","#{pay_no}");
-                VALUES("status","#{status}");
+                VALUES("id","#{id}");
+                VALUES("user_id","#{userId}");
+                VALUES("address_id","#{addressId}");
+                VALUES("product_total","#{productTotal}");
+                VALUES("order_count","#{orderCount}");
+                VALUES("pay_channel","#{payChannel}");
+                VALUES("pay_no","#{payNo}");
                 VALUES("created","#{created}");
             }
         }.toString();
     }
 
-    //订单商品详情,@Param对应OrderMapper接口的参数
-    public String saveOrderProductDetail(@Param("goodCart") Cart goodCart, @Param("order_no") Integer order_no){
+    /**
+     * 订单商品详情,@Param对应OrderMapper接口的参数
+     * @param goodCart
+     * @param orderId
+     * @return java.lang.String
+     */
+    public String saveOrderProductDetail(@Param("goodCart") Cart goodCart, @Param("orderId") Integer orderId){
         return new SQL(){
             {
                 INSERT_INTO(ORDER_PRODUCT);
-                VALUES("product_id","#{goodCart.product.product_id}");
-                VALUES("order_id","#{order_no}");
-                VALUES("product_number","#{goodCart.product_number}");
-                VALUES("product_size","#{goodCart.product_size}");
-                VALUES("product_color","#{goodCart.product_color}");
+                VALUES("product_id","#{goodCart.product.productId}");
+                VALUES("order_id","#{orderId}");
+                VALUES("product_number","#{goodCart.productNumber}");
+                VALUES("product_size","#{goodCart.productSize}");
+                VALUES("product_color","#{goodCart.productColor}");
             }
         }.toString();
     }

@@ -6,10 +6,22 @@ package hhxy.dn.wph.enums;
  */
 
 public enum GeneralExceptionEnum {
-    notFound(0002,"没有查询到信息"),
-    paramError(0003,"参数不合法"),
+    /**
+     * @Description
+     */
+    NOT_FOUND(0002,"没有查询到信息"),
+    /**
+     * @Description
+     */
+    PARAM_ERROR(0003,"参数不合法"),
     ;
+    /**
+     * @Description
+     */
     private Integer code;
+    /**
+     * @Description
+     */
     private String msg;
 
     GeneralExceptionEnum(Integer code,String msg){

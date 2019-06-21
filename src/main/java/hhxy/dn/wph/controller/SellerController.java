@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -25,22 +26,25 @@ import java.util.UUID;
 @RequestMapping("/seller")
 public class SellerController {
 
-    private final Logger logger = LoggerFactory.getLogger(SellerController.class);
-
     @Autowired
     private RedisUtil redisUtil;
 
     @Autowired
     private SellerService sellerService;
 
-    //获得某一类型的所有商家
-    @RequestMapping("/getSellerByType/{primaryId}")
-    public Result getSellerByPrimaryCategoryId(@PathVariable Integer primaryId){
-        return ResultUtil.success(sellerService.getSellerByPrimaryCategoryId(primaryId));
+    /**
+     * 获得某一类型的所有商家
+     * @param primaryId
+     * @return hhxy.dn.wph.entity.Result
+     */
+    @RequestMapping("/getSellerByType/{categoryId}")
+    public Result listSellerByCategoryId(@PathVariable Integer categoryId){
+        List<Seller> sellerList = sellerService.listSellerByCategoryId(categoryId);
+        return ResultUtil.success(sellerList);
     }
 
-    /*
-     * @Description:获取商户信息
+    /**
+     * @Description: 获取商户信息
      * @param: [sellerId]商户ID
      * @return: hhxy.dn.wph.entity.Result
      */
@@ -50,17 +54,24 @@ public class SellerController {
         return ResultUtil.success(seller);
     }
 
-    /*
-     * @Description:获取商户的关注量
+    /**
+     * @Description: 获取商户的关注量
      * @param: [sellerId]
      * @return: hhxy.dn.wph.entity.Result
      */
     @GetMapping("/getSellerCollectNum/{sellerId}")
     public Result getSellerCollectNum(@PathVariable Integer sellerId){
-        int result = sellerService.getSellerCollectNum(sellerId);
-        return ResultUtil.success(result);
+        int collectNum = sellerService.getSellerCollectNum(sellerId);
+        return ResultUtil.success(collectNum);
     }
 
+    /**
+     * 商户登录
+     * @param sellerAccount
+     * @param request
+     * @param response
+     * @return hhxy.dn.wph.entity.Result
+     */
     @PostMapping("/login")
     public Result sellerLogin(@RequestBody SellerAccount sellerAccount,
                               HttpServletRequest request,HttpServletResponse response){

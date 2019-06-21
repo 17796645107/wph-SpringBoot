@@ -7,21 +7,54 @@ import java.util.List;
 /**
  * @Author: 邓宁
  * @Date: Created in 14:01 2019/5/3
+ * 订单实体类
  */
-//订单实体类
-public class Order implements Serializable {
 
-    private Integer id;//自动编号
-    private String orderNo;//订单编号
-    private Integer userId;//用户ID
-    private Integer addressId;//用户地址ID
-    private Double productTotal;//商品总价
-    private Integer orderCount;//订单商品数量
-    private Integer payChannel;//订单支付渠道
-    private Integer status;//订单状态
-    private String payNo;//第三方支付流水号
-    private Date create;//创建时间
-    private List<Cart> goodCartList;//商品详情
+public class Order implements Serializable {
+    /**
+     * 订单编号
+     */
+    private Integer id;
+    /**
+     * 订单编号
+     */
+    private String orderNo;
+    /**
+     * 用户ID
+     */
+    private Integer userId;
+    /**
+     * 用户地址ID
+     */
+    private Integer addressId;
+    /**
+     * 商品总价
+     */
+    private Double productTotal;
+    /**
+     * 订单商品数量
+     */
+    private Integer orderCount;
+    /**
+     * 订单支付渠道
+     */
+    private Integer payChannel;
+    /**
+     * 订单状态
+     */
+    private Integer status;
+    /**
+     * 第三方支付流水号
+     */
+    private String payNo;
+    /**
+     * 创建时间
+     */
+    private String created;
+    /**
+     * 商品详情
+     */
+    private List<Cart> goodCartList;
 
     public Integer getId() {
         return id;
@@ -95,12 +128,12 @@ public class Order implements Serializable {
         this.payNo = payNo;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
     public List<Cart> getGoodCartList() {
@@ -109,5 +142,22 @@ public class Order implements Serializable {
 
     public void setGoodCartList(List<Cart> goodCartList) {
         this.goodCartList = goodCartList;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderNo='" + orderNo + '\'' +
+                ", userId=" + userId +
+                ", addressId=" + addressId +
+                ", productTotal=" + productTotal +
+                ", orderCount=" + orderCount +
+                ", payChannel=" + payChannel +
+                ", status=" + status +
+                ", payNo='" + payNo + '\'' +
+                ", created='" + created + '\'' +
+                ", goodCartList=" + goodCartList +
+                '}';
     }
 }

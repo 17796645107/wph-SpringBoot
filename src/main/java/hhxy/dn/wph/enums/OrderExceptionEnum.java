@@ -6,11 +6,12 @@ package hhxy.dn.wph.enums;
  */
 
 public enum OrderExceptionEnum {
-    createOrder_error(2001,"创建订单失败"),
-    createOrderProductDeatil_error(2002,"创建订单商品详情失败"),
-    orderId_error(2003,"订单编号错误"),
-    orderValidt_error(2003,"支付验证错误"),
-    orderUpdateState_error(2003,"更新订单状态错误"),
+    //
+    CREATE_ORDER_ERROR(2001,"创建订单失败"),
+    ORDER_EXCEPTION_ENUM(2002,"创建订单商品详情失败"),
+    ORDER_ID_ERROR(2003,"订单编号错误"),
+    ORDER_VALID_ERROR(2003,"支付验证错误"),
+    ORDER_UPDATE_STATE_ERROR(2003,"更新订单状态错误"),
     ;
 
     private Integer code;

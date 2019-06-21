@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 /**
  * @Author: 邓宁
  * @Date: Created in 19:54 2019/6/18
- * @Description 字段常量类
+ * @Description 数据库表字段常量类
  */
 public class FieldConstant {
     public static final String USER_FIELD = " id,user_no,nickname,telephone,name,sex,birthday,email," +

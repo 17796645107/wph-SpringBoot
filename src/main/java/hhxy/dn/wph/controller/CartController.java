@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * @Author: 邓宁
- * @Date: Created in 13:47 2018/11/12
+ * @Author:  邓宁
+ * @Date:  Created in 13: 47 2018/11/12
  */
 
 @RestController
@@ -21,9 +21,9 @@ public class CartController {
     private GoodCartService goodCartService;
 
     /**
-     * @Description: 生成一条购物车记录
-     * @param: [goodCart]
-     * @return: hhxy.dn.wph.entity.Result
+     * @Description:  生成一条购物车记录
+     * @param:  [goodCart]
+     * @return:  hhxy.dn.wph.entity.Result
      */
     @PostMapping("/saveGoodCart")
     public Result saveCart(@RequestBody Cart cart){
@@ -32,9 +32,9 @@ public class CartController {
     }
 
     /**
-     * @Description:查询购物车列表
-     * @param: [userId]用户ID
-     * @return: hhxy.dn.wph.entity.Result
+     * @Description: 查询购物车列表
+     * @param:  [userId]用户ID
+     * @return:  hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/getGoodCart/{userId}")
     public Result getGoodCart(@PathVariable Integer userId){
@@ -43,9 +43,9 @@ public class CartController {
     }
 
     /**
-     * @Description:删除购物车记录
-     * @param: [id]购物车ID
-     * @return: hhxy.dn.wph.entity.Result
+     * @Description: 删除购物车记录
+     * @param:  [id]购物车ID
+     * @return:  hhxy.dn.wph.entity.Result
      */
     @GetMapping("/deleteGoodCartById/{id}")
     public Result deleteGoodCartById(@PathVariable Integer id){
@@ -54,9 +54,9 @@ public class CartController {
     }
 
     /**
-     * @Description:获取购物车记录数
-     * @param: [userId]用户ID
-     * @return: hhxy.dn.wph.entity.Result
+     * @Description: 获取购物车记录数
+     * @param:  [userId]用户ID
+     * @return:  hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/getCartCount/{userId}")
     public Result getCartCount(@PathVariable Integer userId){
@@ -65,9 +65,9 @@ public class CartController {
     }
 
     /**
-     * @Description:获取购物车列表
-     * @param: [idList]
-     * @return: hhxy.dn.wph.entity.Result
+     * @Description: 获取购物车列表
+     * @param:  [idList]
+     * @return:  hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/getGoodCartByIdList")
     public Result getGoodCartByIdList(@RequestParam("idList") int[] idList){
@@ -76,9 +76,9 @@ public class CartController {
     }
 
     /**
-     * @Description:更新一个购物车
-     * @param: [goodCart]
-     * @return: hhxy.dn.wph.entity.Result
+     * @Description: 更新一个购物车
+     * @param:  [goodCart]
+     * @return:  hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/updateGoodCartById")
     public Result updateGoodCartById(@RequestBody Cart goodCart){

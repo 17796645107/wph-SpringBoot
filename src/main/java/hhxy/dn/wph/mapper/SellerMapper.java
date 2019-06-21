@@ -18,13 +18,17 @@ import java.util.List;
  */
 
 public interface SellerMapper {
-    final String seller_field = " id,brand_id,name,show_image,type,status,created,updated ";
-    final String brand_field = " id,brand_name,brand_icon ";
+    final String SELLER_FIELD = " id,brand_id,name,show_image,type,status,created,updated ";
+    final String BRAND_FIELD = " id,brand_name,brand_icon ";
 
-    //根据分类ID获取商户信息
-    @Select("select"+ seller_field +
+    /**
+     * 根据分类ID获取商户信息
+     * @param categoryId
+     * @return java.util.List<hhxy.dn.wph.entity.Seller>
+     */
+    @Select("select"+ SELLER_FIELD +
             "from"+ SELLER +
-            "where type = #{primaryId} and status = 1")
+            "where type = #{categoryId} and status = 1")
     @Results(id = "SellerMap",value = {
             @Result(property = "showImage",column = "show_image"),
             @Result(property = "brand",column = "brand_id",
@@ -33,10 +37,14 @@ public interface SellerMapper {
                             fetchType = FetchType.EAGER
             ))
     })
-    List<Seller> getSellerByPrimaryCategoryId(Integer primaryId);
+    List<Seller> listSellerByCategoryId(Integer categoryId);
 
-    //根据品牌ID获取品牌信息
-    @Select("select"+ brand_field +
+    /**
+     * 根据品牌ID获取品牌信息
+     * @param brandId
+     * @return hhxy.dn.wph.entity.Brand
+     */
+    @Select("select"+ BRAND_FIELD +
             "from"+ BRAND +"" +
             "where id = #{brandId}")
     @Results(id = "brandMap",value = {
@@ -46,37 +54,79 @@ public interface SellerMapper {
     })
     Brand getBrandById(Integer brandId);
 
-    //根据商户ID获取商户信息
-    @Select("select"+ seller_field +
+    /**
+     * 根据商户ID获取商户信息
+     * @param sellerId
+     * @return hhxy.dn.wph.entity.Seller
+     */
+    @Select("select"+ SELLER_FIELD +
             "from"+ SELLER +
             "where id = #{sellerId} and status = 1")
     @ResultMap(value = "SellerMap")
     Seller getSellerById(Integer sellerId);
 
-    //获取商品收藏量
-    @Select("select count(seller_id) from"+ USER_COLLECT_SELLER +"where seller_id = #{sellerId}")
+    /**
+     * 获取商品收藏量
+     * @param sellerId
+     * @return int
+     */
+    @Select("select count(*) from"+ USER_COLLECT_SELLER +"where seller_id = #{sellerId}")
     int getSellerCollectNum(Integer sellerId);
 
-    //添加一个商品
-    @InsertProvider(type = SellerProvider.class,method = "saveOneProduct")
-    int saveOneProduct(Product product);
+    /**
+     * 添加一个商品
+     * @param product
+     * @return int
+     */
+    @InsertProvider(type = SellerProvider.class,method = "saveProduct")
+    int saveProduct(Product product);
 
+    /**
+     * 添加商品尺寸
+     * @param productSize
+     * @return int
+     */
     @InsertProvider(type = SellerProvider.class,method = "saveProductSize")
     int saveProductSize(ProductSize productSize);
 
+    /**
+     * 添加商品颜色
+     * @param productColor
+     * @return int
+     */
     @InsertProvider(type = SellerProvider.class,method = "saveProductColor")
     @Options(keyProperty = "color_id",useGeneratedKeys = true)
     int saveProductColor(ProductColor productColor);
 
+    /**
+     * 添加商品图片
+     * @param productImage
+     * @return int
+     */
     @InsertProvider(type = SellerProvider.class,method = "saveProductImage")
     int saveProductImage(ProductImage productImage);
 
+    /**
+     * 添加商品库存
+     * @param productNum
+     * @return int
+     */
     @InsertProvider(type = SellerProvider.class,method = "saveProductNum")
     int saveProductNum(ProductNum productNum);
 
+    /**
+     * 添加商品属性-属性值关系
+     * @param productAttributeRelation
+     * @return int
+     */
     int saveProductAttributeRelation(ProductAttributeRelation productAttributeRelation);
 
+    /**
+     * 查询商户ID
+     * @param sellerAccount
+     * @return java.lang.Integer
+     */
     @Select("select seller_id from"+ SELLER_ACCOUNT +
             "where seller_username = #{sellerUsername} and seller_password = #{sellerPassword}")
-    Integer findSellerAccount(SellerAccount sellerAccount);
+    Integer getSellerId(SellerAccount sellerAccount);
 }

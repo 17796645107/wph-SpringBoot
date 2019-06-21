@@ -66,7 +66,7 @@ public class GoodCartServiceImpl implements GoodCartService {
         }
         List<Cart> cartList = goodCartMapper.listGoodCartByUserId(userId);
         if (cartList.isEmpty()){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
         }
         redisUtil.set(cacheKey,JsonUtil.objectToJson(cartList));
         return cartList;
@@ -81,7 +81,7 @@ public class GoodCartServiceImpl implements GoodCartService {
     public void deleteGoodCartById(Integer id) {
         int result = goodCartMapper.deleteGoodCartById(id);
         if (result != 1 ){
-            throw new GoodCartException(GoodCartExceptionEnum.deleteCartById_error);
+            throw new GoodCartException(GoodCartExceptionEnum.DELETE_CART_ERROR);
         }
     }
 

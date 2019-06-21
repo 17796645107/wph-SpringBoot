@@ -12,12 +12,31 @@ import java.util.List;
 
 public interface SellerService {
 
-    List<Seller> getSellerByPrimaryCategoryId(Integer primaryId);
+    /**
+     * 查询商户列表
+     * @param categoryId 分类ID
+     * @return java.util.List<hhxy.dn.wph.entity.Seller>
+     */
+    List<Seller> listSellerByCategoryId(Integer categoryId);
 
-    //根据编号获取商户信息
-    Seller getSellerById(Integer sellerNo);
+    /**
+     * 根据编号获取商户信息
+     * @param sellerId
+     * @return hhxy.dn.wph.entity.Seller
+     */
+    Seller getSellerById(Integer sellerId);
 
+    /**
+     * 获取商户收藏量
+     * @param sellerId
+     * @return int
+     */
     int getSellerCollectNum(Integer sellerId);
 
+    /**
+     * 商户登录
+     * @param sellerAccount
+     * @return hhxy.dn.wph.entity.Seller
+     */
     Seller login(SellerAccount sellerAccount);
 }

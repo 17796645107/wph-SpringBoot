@@ -28,13 +28,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Author: 邓宁
@@ -330,7 +324,7 @@ public class UserServiceImpl implements UserService {
         //缓存没有,则查询数据库
         List<UserAddress> addressList = userMapper.listAddressByUserId(userId);
         if (addressList.size() == 0){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
         }
         redisUtil.set(cacheFlag + userId,JsonUtil.objectToJson(addressList));
         return addressList;
@@ -350,7 +344,7 @@ public class UserServiceImpl implements UserService {
         }
         List<String> searchHostoryList = userMapper.listSearchHistory(userId);
         if (searchHostoryList.size() == 0){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
         }
         redisUtil.set(cacheFlag + userId,JsonUtil.objectToJson(searchHostoryList));
         return searchHostoryList;
@@ -401,7 +395,7 @@ public class UserServiceImpl implements UserService {
         }
         List<Seller> sellerList = userMapper.listCollectSellerByUserId(userId);
         if (sellerList.size() == 0){
-            throw new GeneralException(GeneralExceptionEnum.notFound);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
         }
         redisUtil.set(cacheFlag + userId, JsonUtil.objectToJson(sellerList));
         return sellerList;

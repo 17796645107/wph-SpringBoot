@@ -12,18 +12,26 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: 邓宁
  * @Date: Created in 0:21 2019/6/11
+ * 切面类
+ * 用户模块控制器参数验证
  */
 @Aspect
 @Component
-public class UserValidatorAspect {
+public class ParamValidatorAspect {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(UserValidatorAspect.class);
-
-    //切点
+    /**
+     * 切点
+     * @param
+     * @return void
+     */
     @Pointcut("execution(public * hhxy.dn.wph.controller.UserController.*(..))")
     public void validator(){ }
 
-    //异常通知
+    /**
+     * 异常通知
+     * @param e
+     * @return void
+     */
     @AfterThrowing(pointcut = "validator()",throwing = "e")
     public void afterThrowing(Exception e) throws Throwable {
         //捕获参数验证异常

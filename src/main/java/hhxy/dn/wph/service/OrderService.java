@@ -10,15 +10,48 @@ import hhxy.dn.wph.entity.Order;
 
 public interface OrderService {
 
-    Integer createOrder(Order order);
+    /**
+     *
+     * @param order
+     * @return java.lang.Integer
+     */
+    Integer saveOrder(Order order);
 
-    PageInfo<Order> getOrderByUserID(Integer userId, Integer page, Integer countOfPage);
+    /**
+     *
+     * @param userId
+     * @param page
+     * @param countOfPage
+     * @return com.github.pagehelper.PageInfo<hhxy.dn.wph.entity.Order>
+     */
+    PageInfo<Order> listOrderPage(Integer userId, Integer page, Integer countOfPage);
 
-    Order getOrderByOrderNO(Integer orderNO);
+    /**
+     * 查询订单
+     * @param orderNo 订单编号
+     * @return hhxy.dn.wph.entity.Order
+     */
+    Order getOrderByNo(Integer orderNo);
 
-    void deleteOrderByNO(Integer orderNO);
+    /**
+     * 删除订单
+     * @param orderNo 订单编号
+     * @return void
+     */
+    void deleteOrderByNo(Integer orderNo);
 
-    Order getOrderByOrderId(String out_trade_no);
+    /**
+     * 查询订单
+     * @param outTradeNo 订单ID
+     * @return hhxy.dn.wph.entity.Order
+     */
+    Order getOrderByOrderId(String outTradeNo);
 
-    int updateOrderSetPayNo(String out_trade_no,String trade_no);
+    /**
+     * ????
+     * @param outTradeNo
+     * @param tradeNo
+     * @return int
+     */
+    int updateOrderSetPayNo(String outTradeNo,String tradeNo);
 }

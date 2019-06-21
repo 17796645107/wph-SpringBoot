@@ -11,7 +11,6 @@ import hhxy.dn.wph.service.OrderService;
 import hhxy.dn.wph.service.PayService;
 import hhxy.dn.wph.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -100,7 +99,7 @@ public class PayController {
                 //判断该笔订单是否在商户网站中已经做过处理
                 //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 //如果有做过处理，不执行商户的业务程序
-                throw new OrderException(OrderExceptionEnum.orderValidt_error);
+                throw new OrderException(OrderExceptionEnum.ORDER_EXCEPTION_ENUM);
                 //注意：
                 //退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
             }else if (trade_status.equals("TRADE_SUCCESS")){
@@ -109,11 +108,11 @@ public class PayController {
                 //如果有做过处理，不执行商户的业务程序
                 Order order = orderService.getOrderByOrderId(out_trade_no);
                 if (order == null){
-                    throw new OrderException(OrderExceptionEnum.orderValidt_error);
+                    throw new OrderException(OrderExceptionEnum.ORDER_EXCEPTION_ENUM);
                 }
                 int result = orderService.updateOrderSetPayNo(out_trade_no,trade_no);
                 if (result != 1){
-                    throw new OrderException(OrderExceptionEnum.orderUpdateState_error);
+                    throw new OrderException(OrderExceptionEnum.ORDER_UPDATE_STATE_ERROR);
                 }
                 //注意：
                 //付款完成后，支付宝系统发送该交易状态通知
@@ -153,9 +152,9 @@ public class PayController {
             if (order == null){
                 throw new OrderException(OrderExceptionEnum.orderValidt_error);
             }
-            int result = orderService.updateOrderSetPayNo(out_trade_no,trade_no);
+            int result = orderService.updateOrderPayNo(out_trade_no,trade_no);
             if (result != 1){
-                throw new OrderException(OrderExceptionEnum.orderUpdateState_error);
+                throw new OrderException(OrderExceptionEnum.ORDER_UPDATE_STATE_ERROR);
             }
         }
         return ResultUtil.success();*/

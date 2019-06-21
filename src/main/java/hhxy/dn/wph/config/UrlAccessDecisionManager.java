@@ -21,7 +21,7 @@ import java.util.Iterator;
 @Component
 public class UrlAccessDecisionManager implements AccessDecisionManager {
 
-    /*
+    /**
      * @Description:
      * @param: [authentication(当前登录用户的角色信息), o, collection(角色集合)]
      * @return: void
@@ -40,8 +40,9 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
             if ("ROLE_no".equals(needRole)) {
                 if (authentication instanceof AnonymousAuthenticationToken) {
                     throw new BadCredentialsException("未登录");
-                } else
+                } else{
                     return;
+                }
             }
             //当前用户所具有的权限
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

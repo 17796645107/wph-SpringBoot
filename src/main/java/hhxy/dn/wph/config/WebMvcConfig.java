@@ -9,11 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @Author: 邓宁
  * @Date: Created in 15:21 2018/11/23
+ * //拦截器
+ *
  * */
 
-
 //@Configuration
-//拦截器配置类
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired

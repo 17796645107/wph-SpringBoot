@@ -159,6 +159,4 @@ public class ProductController {
         return ResultUtil.success(attributeList);
     }
 
-
-
 }

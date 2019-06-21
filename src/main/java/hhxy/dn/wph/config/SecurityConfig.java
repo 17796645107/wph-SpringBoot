@@ -30,9 +30,9 @@ import java.io.PrintWriter;
 /**
  * @Author: 邓宁
  * @Date: Created in 20:50 2018/11/24
+ * Spring security 安全控制中心
  */
 
-//安全控制中心
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -45,28 +45,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserAccessDeniedHandle userAccessDeniedHandle;//用户登录权限异常捕获类
 */
-    //用户登录不拦截的路径
-    private String[] excludePath = {"/user/**","/product/**"};
 
-    /*定义认证用户信息获取来源，密码校验规则等*/
+    /**
+     * 定义认证用户信息获取来源，密码校验规则等
+     * @param auth
+     * @return void
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //注入userDetailsService，需要实现userDetailsService接口
 //        auth.userDetailsService(userDetailsService);
     }
 
-    /*定义安全策略*/
+    /**
+     * 定义安全策略
+     * @param http
+     * @return void
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //配置安全策略
         http
-            .authorizeRequests()//配置安全策略
+            .authorizeRequests()
                 .anyRequest().permitAll()
-                .and().exceptionHandling().accessDeniedPage("/security/accessDenied")//没有权限返回的请求URL
+                //没有权限返回的请求URL
+                .and().exceptionHandling().accessDeniedPage("/security/accessDenied")
                 .and().logout().permitAll()//定义logout不需要验证
                 //防止跨站请求伪造
                 .and().cors()
                 .and().csrf().disable();
-        /*http.authorizeRequests()       //配置安全策略
+        /*http.authorizeRequests()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <Obj extends FilterSecurityInterceptor> Obj postProcess(Obj obj) {
