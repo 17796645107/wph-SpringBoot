@@ -1,6 +1,9 @@
 package hhxy.dn.wph.mapper;
 
 import hhxy.dn.wph.entity.Role;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 import java.util.List;
@@ -11,20 +14,41 @@ import java.util.List;
  */
 
 public interface RoleMapper {
+    final String ROLE_FIELD = " id,name,name_zh ";
 
-    @Select("select * from "+ ROLE +
-            "where role_id in("+
-                            "select role_id from"+ PEOPLE_ROLE +"where people_id = #{people_id}"+
+    /**
+     * 根据人员ID获取人员所具有的权限
+     * @param peopleNo
+     * @return java.util.List<hhxy.dn.wph.entity.Role>
+     */
+    @Select("select"+ ROLE_FIELD +"from "+ ROLE +
+            "where id in("+
+                        "select role_id from"+ PEOPLE_ROLE +"where people_no = #{peopleNo}"+
             ")")
-    List<Role> findRolesByPeopleId(String people_id);
+    @Results(id = "releResultMap",value = {
+            @Result(column = "name_zh",property = "nameZh")
+    })
+    List<Role> listRoleByPeopleId(String peopleNo);
 
-    @Select("select * from"+ ROLE +"where role_id = #{role_id}")
-    Role findRoleById(Integer role_id);
+    /**
+     * 获取角色
+     * @param roleId 角色ID
+     * @return hhxy.dn.wph.entity.Role
+     */
+    @Select("select"+ ROLE_FIELD +"from"+ ROLE +"where role_id = #{role_id}")
+    @ResultMap(value = "releResultMap")
+    Role getRoleById(Integer roleId);
 
-    @Select("select * from "+ ROLE +
-            "where role_id in("+
-                                "select role_id from"+ ROLE_RESOURCE +
-                                "where resource_id = #{resource_id}"+
+    /**
+     * 根据资源ID获取人员所具有的权限
+     * @param resourceId
+     * @return java.util.List<hhxy.dn.wph.entity.Role>
+     */
+    @Select("select"+ ROLE_FIELD +"from "+ ROLE +
+            "where id in("+
+                        "select role_id from"+ ROLE_RESOURCE +
+                        "where resource_id = #{resource_id}"+
             ")")
-    List<Role> findRolesByResourceId(Integer resource_id);
+    @ResultMap(value = "releResultMap")
+    List<Role> listRoleByResourceId(Integer resourceId);
 }

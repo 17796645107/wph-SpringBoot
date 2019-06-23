@@ -49,6 +49,30 @@ public interface ProductMapper {
     Product getProductById(Integer productId);
 
     /**
+     * 查询简单的商品信息,不需要很多关联查询
+     * @param productId
+     * @return hhxy.dn.wph.entity.Product
+     */
+    @Select("select"+ PRODUCT_FIELD +"from"+ PRODUCT +"where id = #{productId} and status = 1")
+    @Results({
+ /*           @Result(property = "productNo",column = "product_no"),
+            @Result(property = "categoryId",column = "category_id"),
+            @Result(property = "sellerId",column = "seller_id"),
+            @Result(property = "brandId",column = "brand_id"),
+            @Result(property = "isHot",column = "is_hot"),
+            @Result(property = "isNew",column = "is_new"),*/
+            //查询商品默认图片
+            @Result(property = "defaultImage",column = "id",
+                    one = @One(
+                            select = "hhxy.dn.wph.mapper.ProductMapper.getImageByProductId",
+                            //查询类型:立即加载
+                            fetchType = FetchType.EAGER
+                    )
+            )
+    })
+    Product getSimpleProductById(Integer productId);
+
+    /**
      * 获取商品分类目录,根据category_sort排序
      * @param parentId 父目录ID
      * @return java.util.List<hhxy.dn.wph.entity.Category>

@@ -16,14 +16,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @Author: 邓宁
  * @Date: Created in 22:59 2018/10/26
+ * 异常捕获类
  */
-
 @ControllerAdvice
-//异常捕获类
 public class ExceptionHandle {
-    //日志
+    /**
+     * @Description 日志
+     */
     private static  final Logger logger= LoggerFactory.getLogger(ExceptionHandle.class);
 
+    /**
+     * 异常处理
+     * @param e 异常信息
+     * @return hhxy.dn.wph.entity.Result
+     */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public Result handle(Exception e){

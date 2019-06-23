@@ -101,7 +101,7 @@ public class DataBaseTableConstant {
     /**
      * @Description 人员-角色表
      */
-    public static final String PEOPLE_ROLE = " tb_people_role ";
+    public static final String PEOPLE_ROLE = " tb_role_people ";
     /**
      * @Description 角色表
      */
@@ -113,6 +113,6 @@ public class DataBaseTableConstant {
     /**
      * @Description 角色-资源表
      */
-    public static final String ROLE_RESOURCE = " tb_role_resource ";
+    public static final String ROLE_RESOURCE = " tb_resource_role ";
 
 }

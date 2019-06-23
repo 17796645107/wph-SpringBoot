@@ -18,13 +18,13 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
 
-    public List<Role> findRolesByPeopleId(String people_id){
-        return roleMapper.findRolesByPeopleId(people_id);
+    @Override
+    public List<Role> listRolesByPeopleId(String peopleId){
+        return roleMapper.listRoleByPeopleId(peopleId);
     }
 
-    public List<Role> findRolesByResourceId(Integer resource_id){
-        return roleMapper.findRolesByResourceId(resource_id);
+    @Override
+    public List<Role> listRoleByResourceId(Integer resourceId){
+        return roleMapper.listRoleByResourceId(resourceId);
     }
-
-
 }

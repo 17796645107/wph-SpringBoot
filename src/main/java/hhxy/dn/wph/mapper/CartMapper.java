@@ -28,11 +28,14 @@ public interface CartMapper {
     @Select("select"+ CART_FIELD +
             "from"+ CART +" where id = #{id} and status = 1")
     @Results(id = "GoodCartMap",value = {
+            @Result(column = "product_color",property = "productColor"),
+            @Result(column = "product_size",property = "productSize"),
+            @Result(column = "product_number",property = "productNumber"),
             @Result(column = "product_id",property = "product",
                     //一对一
                     one = @One(
                             //查询商品信息
-                            select = "hhxy.dn.wph.mapper.ProductMapper.getProductByProductId",
+                            select = "hhxy.dn.wph.mapper.ProductMapper.getSimpleProductById",
                             //查询类型:立即加载
                             fetchType = FetchType.EAGER
                     ))

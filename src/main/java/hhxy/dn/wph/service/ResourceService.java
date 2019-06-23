@@ -9,5 +9,5 @@ import hhxy.dn.wph.entity.Resource;
 
 public interface ResourceService {
 
-    Resource findResourceByUrl(String url);
+    Resource getResourceByUrl(String url);
 }

@@ -71,7 +71,7 @@ public class UserController {
      */
     public void valid(BindingResult result){
         if (result.hasFieldErrors()){
-            //获取错误信息
+            //获取错误信息列表
             List<FieldError> errorList = result.getFieldErrors();
             //通过断言抛出参数不合法的异常
             errorList.stream().forEach(item -> Assert.isTrue(false,item.getDefaultMessage()));
@@ -99,7 +99,7 @@ public class UserController {
         this.valid(result);
         //验证账号密码
         User user = userService.userLogin(userLogin.getTelephone(),userLogin.getPwd());
-        //生成Token,存入Cookie
+        //生成Token,存入Cookie,有效期:7天
         CookieUtil.setCookie(request,response,"token",this.setUserToRedis(user),60*60*24*7);
         return ResultUtil.success(user);
     }

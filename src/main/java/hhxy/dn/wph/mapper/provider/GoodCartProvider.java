@@ -16,6 +16,7 @@ public class GoodCartProvider {
      * @return java.lang.String
      */
     public String saveGoodCart(Cart goodCart){
+        goodCart.setCreated(DateUtil.getDate());
         return new SQL(){
             {
                 INSERT_INTO(CART);

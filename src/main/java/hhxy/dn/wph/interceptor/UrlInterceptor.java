@@ -4,6 +4,7 @@ import hhxy.dn.wph.entity.Resource;
 import hhxy.dn.wph.entity.Role;
 import hhxy.dn.wph.service.ResourceService;
 import hhxy.dn.wph.service.RoleService;
+import hhxy.dn.wph.util.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,39 +20,47 @@ import java.util.List;
 /**
  * @Author: 邓宁
  * @Date: Created in 11:22 2018/12/7
+ * 该类的主要功能就是通过当前的请求地址，获取该地址需要的用户角色和权限
  */
-/*该类的主要功能就是通过当前的请求地址，获取该地址需要的用户角色和权限*/
 @Component
-public class UserLoginInterceptor implements FilterInvocationSecurityMetadataSource {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserLoginInterceptor.class);
+public class UrlInterceptor implements FilterInvocationSecurityMetadataSource {
 
-    //用来查询数据库中url pattern和role的对应关系
+    private static final Logger LOGGER = LoggerFactory.getLogger(UrlInterceptor.class);
+
+    /**
+     * 用来查询数据库中url pattern和role的对应关系
+     */
     @Autowired
     ResourceService resourceService;
 
     @Autowired
     RoleService roleService;
 
+    /**
+     * 接收用户请求的地址，返回访问该地址需要的所有权限
+     * @param object
+     * @return java.util.Collection<org.springframework.security.access.ConfigAttribute>
+     */
     @Override
-    public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
+    public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
+
+//        CookieUtil.getCookieValue(object)
         //获取请求地址
-        String requestUrl = ((FilterInvocation) o).getRequestUrl();
+        String requestUrl = ((FilterInvocation) object).getRequestUrl();
         LOGGER.info("requestUrl = {}",requestUrl);
 
-        //注册/登录请求放行
-        if ("/user/login".equals(requestUrl) || "/user/register".equals(requestUrl)) {
-            return null;
-        }
-        Resource resource = resourceService.findResourceByUrl(requestUrl);
+        //获取请求资源
+        Resource resource = resourceService.getResourceByUrl(requestUrl);
         if (resource == null){
-            return SecurityConfig.createList("ROLE_no");
+            //如果没有匹配的url则说明大家都可以访问
+            return SecurityConfig.createList("ROLE_NO");
         }
         //获取用户角色
-        List<Role> roles = roleService.findRolesByResourceId(resource.getId());
-        int size = roles.size();
+        List<Role> roleList = roleService.listRoleByResourceId(resource.getId());
+        int size = roleList.size();
         String[] values = new String[size];
         for (int i = 0; i < size; i++) {
-            values[i] = roles.get(i).getNameZh();
+            values[i] = roleList.get(i).getNameZh();
         }
         return SecurityConfig.createList(values);
 

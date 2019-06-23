@@ -2,7 +2,7 @@
 package hhxy.dn.wph.config;
 
 import hhxy.dn.wph.handle.UserAccessDeniedHandle;
-import hhxy.dn.wph.interceptor.UserLoginInterceptor;
+import hhxy.dn.wph.interceptor.UrlInterceptor;
 import hhxy.dn.wph.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -36,15 +36,29 @@ import java.io.PrintWriter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    /*@Autowired
-    UserServiceImpl userDetailsService;//用户业务接口
+    /**
+     *  URL拦截器
+     */
     @Autowired
-    UserLoginInterceptor userLoginInterceptor;//UrlFilterI
+    UrlInterceptor urlInterceptor;
+
+    /**
+     *  用户信息接口实现类
+     */
     @Autowired
-    UrlAccessDecisionManager urlAccessDecisionManager;//UrlManager
+    UserServiceImpl userDetailsService;
+
+    /**
+     *  UrlManager
+     */
     @Autowired
-    UserAccessDeniedHandle userAccessDeniedHandle;//用户登录权限异常捕获类
-*/
+    UrlAccessDecisionManager urlAccessDecisionManager;
+
+    /**
+     *  用户登录权限异常捕获类
+     */
+    @Autowired
+    UserAccessDeniedHandle userAccessDeniedHandle;
 
     /**
      * 定义认证用户信息获取来源，密码校验规则等
@@ -54,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //注入userDetailsService，需要实现userDetailsService接口
-//        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService);
     }
 
     /**
@@ -78,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <Obj extends FilterSecurityInterceptor> Obj postProcess(Obj obj) {
-                        obj.setSecurityMetadataSource(userLoginInterceptor);
+                        obj.setSecurityMetadataSource(urlInterceptor);
                         obj.setAccessDecisionManager(urlAccessDecisionManager);
                         return obj;
                     }

@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * @Author: 邓宁
  * @Date: Created in 13:38 2018/11/12
- * 用户业务接口实现类
+ * 用户信息接口实现类
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -457,7 +457,7 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("没有该用户");
         }
         //获取人员的权限
-        List<Role> roleList = roleMapper.findRolesByPeopleId(user.getUserNo());
+        List<Role> roleList = roleMapper.listRoleByPeopleId(user.getUserNo());
         UserLogin userLogin = new UserLogin();
         userLogin.setTelephone(telephone);
         userLogin.setRoles(roleList);

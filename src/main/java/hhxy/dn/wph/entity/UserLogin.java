@@ -14,7 +14,6 @@ import java.util.List;
  * @Author: 邓宁
  * @Date: Created in 11:02 2019/6/12
  */
-
 public class UserLogin implements UserDetails {
 
     @Pattern(regexp = AccountValidatorUtil.REGEX_MOBILE,message = "手机号码格式不正确")//验证手机号

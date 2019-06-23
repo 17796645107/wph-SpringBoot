@@ -4,21 +4,42 @@ import hhxy.dn.wph.entity.Role;
 
 import java.io.Serializable;
 import java.util.List;
-//人员-角色表
+/**
+ * @Description 人员-角色类
+ * @Date: 2019/6/22
+ * @Author: 邓宁
+ */
 public class RolePeople implements Serializable {
-
-    private Integer peopleId;//人员ID
-    private Integer roleId;//角色ID
-    private Role role;//角色
+    private Integer id;
+    /**
+     * @Description 人员ID(用户,商户,管理员)
+     */
+    private Integer peopleNo;
+    /**
+     * @Description 角色ID
+     */
+    private Integer roleId;
+    /**
+     * @Description 角色类
+     */
+    private Role role;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getPeopleId() {
-        return peopleId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPeopleId(Integer peopleId) {
-        this.peopleId = peopleId;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getPeopleNo() {
+        return peopleNo;
+    }
+
+    public void setPeopleNo(Integer peopleNo) {
+        this.peopleNo = peopleNo;
     }
 
     public Integer getRoleId() {
@@ -27,5 +48,13 @@ public class RolePeople implements Serializable {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

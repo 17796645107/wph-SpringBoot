@@ -4,14 +4,24 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by sang on 2017/12/28.
+ * @Date Created by sang on 2017/12/28.
+ * @Author: 邓宁宁
+ * 角色类
  */
-//角色
 public class Role implements Serializable {
     private Integer id;
-    private String name;//角色名称
-    private String nameZh;//角色
-    private Date create;
+    /**
+     * @Description 角色名称
+     */
+    private String name;
+    /**
+     * @Description 角色
+     */
+    private String nameZh;
+    /**
+     * @Description 创建时间
+     */
+    private String created;
 
     public Integer getId() {
         return id;

@@ -112,7 +112,7 @@ public class OrderServiceImpl implements OrderService {
         for(Cart goodCart:goodList){
             productNum.setProductColor(goodCart.getProductColor());
             productNum.setProductSize(goodCart.getProductSize());
-            productNum.setProductId(goodCart.getProduct().getId());
+            productNum.setProductId(goodCart.getProduct().getDefaultImage().getProductId());
             //查询库存
             List<Integer> numList = productMapper.listProductNum(productNum);
             for(Integer i:numList){

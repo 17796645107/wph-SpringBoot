@@ -11,7 +11,7 @@ import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 public class SellerProvider {
 
-    public String saveOneProduct(Product product){
+    public String saveProduct(Product product){
         return new SQL(){
             {
                 INSERT_INTO(PRODUCT);
