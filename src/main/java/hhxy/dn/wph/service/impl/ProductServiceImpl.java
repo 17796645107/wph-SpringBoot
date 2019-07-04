@@ -1,5 +1,7 @@
 package hhxy.dn.wph.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.enums.GeneralExceptionEnum;
 import hhxy.dn.wph.exception.GeneralException;
@@ -66,7 +68,7 @@ public class ProductServiceImpl implements ProductService{
      */
     private void validIsEmpty(boolean empty) {
         if (empty) {
-            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
         }
     }
 
@@ -160,7 +162,7 @@ public class ProductServiceImpl implements ProductService{
             return JsonUtil.jsonToList(cache,Brand.class);
         }
         List<Brand> brandList = productMapper.listBrandByCategoryId(categoryId);
-        validIsEmpty(brandList.size() == 0);
+        validIsEmpty(brandList.isEmpty());
         redisUtil.set(brandKey + categoryId,JsonUtil.objectToJson(brandList));
         return brandList;
     }
@@ -195,16 +197,22 @@ public class ProductServiceImpl implements ProductService{
      * @return: java.util.List<hhxy.dn.wph.entity.Product>
      */
     @Override
-    public List<Product> listProductBySellerId(Integer sellerId,Integer page,Integer countOfPage) {
+    public PageInfo<Product> listProductBySellerId(Integer sellerId,Integer page,Integer countOfPage) {
         final String productListKey = "ProductListBySellerId:"+ sellerId +":Page"+ page;
         if (redisUtil.hasKey(productListKey)){
             String productListCache = (String) redisUtil.get(productListKey);
-            return JsonUtil.jsonToList(productListCache,Product.class);
+            return JsonUtil.jsonToPojo(productListCache,PageInfo.class);
         }
         List<Product> productList = productMapper.listProductBySellerId(sellerId);
         validIsEmpty(productList.isEmpty());
-        redisUtil.set(productListKey,JsonUtil.objectToJson(productList));
-        return productList;
+
+        //开始分页
+        PageHelper.startPage(page,countOfPage);
+        //把查询结果传给PageInfo,生成分页
+        PageInfo<Product> productPageInfo = new PageInfo<>(productList);
+        //写入缓存
+        redisUtil.set(productListKey,JsonUtil.objectToJson(productPageInfo));
+        return productPageInfo;
     }
 
     /**
@@ -292,9 +300,13 @@ public class ProductServiceImpl implements ProductService{
      * @param hasNum
      * @return java.util.List<hhxy.dn.wph.entity.Product>
      */
-    public List<Product> findProductInSeller(Integer sellerId,Integer secoundCategoryId,Integer sizeId,Integer type,Integer hasNum){
-        List<Product> productList = productMapper.listProductInSeller(sellerId,secoundCategoryId,sizeId,type,hasNum);
-        return  productList;
+    @Override
+    public PageInfo<Product> findProductInSeller(ProductSelectCondition condition,Integer pageNum,Integer pageCount){
+
+        List<Product> productList = productMapper.listProductInSeller(condition);
+        PageHelper.startPage(pageNum,pageCount);
+        PageInfo<Product> productPageInfo = new PageInfo<>(productList);
+        return  productPageInfo;
     }
 
     /*@Transactional(rollbackFor = Exception.class)

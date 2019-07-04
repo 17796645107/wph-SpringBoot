@@ -49,7 +49,7 @@ public class SellerServiceImpl implements SellerService {
         }
         Seller seller = sellerMapper.getSellerById(sellerNo);
         if (seller == null){
-            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
         }
         redisUtil.set(cacheKey+ sellerNo,JsonUtil.objectToJson(seller));
         return seller;

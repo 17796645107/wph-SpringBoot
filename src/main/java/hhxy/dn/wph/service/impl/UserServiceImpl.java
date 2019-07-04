@@ -36,7 +36,8 @@ import java.util.List;
  * 用户信息接口实现类
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class
+UserServiceImpl implements UserService {
 
     /**
      * 用户上传头像存储地址
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService {
      * @return void
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = RuntimeException.class)
     public void userRegister(UserRegister userRegister) {
         //校验手机验证码
         validateTelephoneCode(userRegister.getTelephone(),userRegister.getTelephoneCode());
@@ -109,7 +110,7 @@ public class UserServiceImpl implements UserService {
         if(!StringUtils.equals(codeCache,code)){
             throw new UserException(UserExceptionEnum.CODE_ERROR);
         }
-        //程序执行到这里说明验证码正确,从缓存中删除
+        //程序执行到这里说明验证码正确,将手机验证码从缓存中删除
         redisUtil.del(telephone);
     }
 
@@ -143,7 +144,7 @@ public class UserServiceImpl implements UserService {
     public void userCheckTelephone(String telephone) {
         String result = userMapper.getTelephone(telephone);
         if (result != null){
-            throw new UserException(UserExceptionEnum.telehpne_error);
+            throw new UserException(UserExceptionEnum.TELEHPNE_ERROR);
         }
     }
 
@@ -222,7 +223,7 @@ public class UserServiceImpl implements UserService {
         user.setUpdated(DateUtil.getDate());
         int result = userMapper.updateUser(user);
         if (result != 1){
-            throw new UserException(UserExceptionEnum.updateUserError);
+            throw new UserException(UserExceptionEnum.UPDATE_USER_ERROR);
         }else{
             //删除缓存
             redisUtil.del(token);
@@ -238,7 +239,7 @@ public class UserServiceImpl implements UserService {
     public Integer saveUserAddress(UserAddress address) {
         int result = userMapper.saveUserAddress(address);
         if (result != 1){
-            throw new UserException(UserExceptionEnum.saveUserAddressError);
+            throw new UserException(UserExceptionEnum.SAVE_USER_ADDRESS_ERROR);
         }else{
             //清除缓存
             redisUtil.del("UserAddress:" + address.getUserId());
@@ -255,7 +256,7 @@ public class UserServiceImpl implements UserService {
     public Integer updateUserAddress(UserAddress address) {
         int result = userMapper.updateUserAddressById(address);
         if (result != 1){
-            throw new UserException(UserExceptionEnum.saveUserAddressError);
+            throw new UserException(UserExceptionEnum.SAVE_USER_ADDRESS_ERROR);
         }else{
             //清除缓存
             redisUtil.del("UserAddress:" + address.getUserId());
@@ -274,12 +275,12 @@ public class UserServiceImpl implements UserService {
         //把此用户的所有收货地址都重置为非默认收货地址
         Integer result1 = userMapper.updateAllUserAddressById(userId);
         if (result1 == null){
-            throw new UserException(UserExceptionEnum.updateAddressError);
+            throw new UserException(UserExceptionEnum.UPDATE_ADDRESS_ERROR);
         }
         //更新默认收货地址
         Integer result2 = userMapper.updateDefaultUserAddressById(addressId);
         if (result2 == null){
-            throw new UserException(UserExceptionEnum.updateAddressError);
+            throw new UserException(UserExceptionEnum.UPDATE_ADDRESS_ERROR);
         }else{
             //清除缓存
             redisUtil.del("UserAddress:" + userId);
@@ -301,7 +302,7 @@ public class UserServiceImpl implements UserService {
         }
         Integer result = userMapper.deleteUserAddressById(addressId);
         if (result != 1){
-            throw new UserException(UserExceptionEnum.deleteAddressError);
+            throw new UserException(UserExceptionEnum.DELETE_ADDRESS_ERROR);
         }
         redisUtil.del("UserAddress:"+ userId);
         return result;
@@ -324,7 +325,7 @@ public class UserServiceImpl implements UserService {
         //缓存没有,则查询数据库
         List<UserAddress> addressList = userMapper.listAddressByUserId(userId);
         if (addressList.size() == 0){
-            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
         }
         redisUtil.set(cacheFlag + userId,JsonUtil.objectToJson(addressList));
         return addressList;
@@ -344,7 +345,7 @@ public class UserServiceImpl implements UserService {
         }
         List<String> searchHostoryList = userMapper.listSearchHistory(userId);
         if (searchHostoryList.size() == 0){
-            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
         }
         redisUtil.set(cacheFlag + userId,JsonUtil.objectToJson(searchHostoryList));
         return searchHostoryList;
@@ -359,7 +360,7 @@ public class UserServiceImpl implements UserService {
     public Integer deleteAllSearchHistory(Integer userId) {
         Integer result = userMapper.deleteAllSearchHistory(userId);
         if (result == null){
-            throw new UserException(UserExceptionEnum.deleteAllSearchHistoryError);
+            throw new UserException(UserExceptionEnum.DELETE_SEARCH_HISTORY_ERROR);
         }
         redisUtil.del("SearchHistory:"+ userId);
         return result;
@@ -374,7 +375,10 @@ public class UserServiceImpl implements UserService {
     public void collectSeller(UserCollectSeller collect) {
         int result = userMapper.saveCollectSeller(collect);
         if (result != 1){
-            throw new UserException(UserExceptionEnum.collectSellerError);
+            LOGGER.error(GeneralException.class.getName() + ":" + GeneralExceptionEnum.SAVE_DATABASE_ERROR.getMsg());
+            LOGGER.error("at " + this.getClass().getName() + ".collectSeller(" +
+                    this.getClass().getSimpleName() + ".java:377)");
+            throw new GeneralException(GeneralExceptionEnum.SAVE_DATABASE_ERROR);
         }
         //清除缓存
         redisUtil.del("CollectSeller:"+ collect.getUserId());
@@ -395,7 +399,7 @@ public class UserServiceImpl implements UserService {
         }
         List<Seller> sellerList = userMapper.listCollectSellerByUserId(userId);
         if (sellerList.size() == 0){
-            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
         }
         redisUtil.set(cacheFlag + userId, JsonUtil.objectToJson(sellerList));
         return sellerList;
@@ -426,7 +430,7 @@ public class UserServiceImpl implements UserService {
         //更新用户头像url
         int result = userMapper.updateUserHeadIcon(file.getOriginalFilename(),userId);
         if (result != 1){
-            throw new UserException(UserExceptionEnum.UpdateUserHeadIconError);
+            throw new UserException(UserExceptionEnum.UPDATE_USER_HEAD_ICON_ERROR);
         }else{
             //删除缓存
             redisUtil.del(token);
@@ -451,15 +455,15 @@ public class UserServiceImpl implements UserService {
      * @return org.springframework.security.core.userdetails.UserDetails
      */
     @Override
-    public UserDetails loadUserByUsername(String telephone) throws UsernameNotFoundException {
-        User user = userMapper.getUserByTelephone(telephone);
-        if (user == null){
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userMapper.getUserByTelephone(username);
+        if (user == null) {
             throw new UsernameNotFoundException("没有该用户");
         }
         //获取人员的权限
         List<Role> roleList = roleMapper.listRoleByPeopleId(user.getUserNo());
         UserLogin userLogin = new UserLogin();
-        userLogin.setTelephone(telephone);
+        userLogin.setTelephone(username);
         userLogin.setRoles(roleList);
         return userLogin;
     }

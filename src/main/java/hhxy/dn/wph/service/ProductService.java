@@ -1,5 +1,6 @@
 package hhxy.dn.wph.service;
 
+import com.github.pagehelper.PageInfo;
 import hhxy.dn.wph.entity.Brand;
 import hhxy.dn.wph.entity.Category;
 import hhxy.dn.wph.entity.ProductAttribute;
@@ -42,7 +43,7 @@ public interface ProductService {
      * @param countOfPage 每页显示数量
      * @return java.util.List<hhxy.dn.wph.entity.Product>
      */
-    List<Product> listProductBySellerId(Integer sellerId,Integer page,Integer countOfPage);
+    PageInfo<Product> listProductBySellerId(Integer sellerId, Integer page, Integer countOfPage);
 
     /**
      * 根据商品ID查询商品的所有颜色
@@ -104,4 +105,13 @@ public interface ProductService {
      * @return java.util.List<hhxy.dn.wph.entity.ProductAttribute>
      */
     List<ProductAttribute> listProductAttributeByCategoryId(Integer categoryId);
+
+    /**
+     * 检索商品
+     * @param condition
+     * @param pageNum
+     * @param pageCount
+     * @return java.util.List<hhxy.dn.wph.entity.Product>
+     */
+    PageInfo<Product> findProductInSeller(ProductSelectCondition condition,Integer pageNum,Integer pageCount);
 }

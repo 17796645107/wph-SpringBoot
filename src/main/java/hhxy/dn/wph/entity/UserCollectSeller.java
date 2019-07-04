@@ -6,18 +6,9 @@ package hhxy.dn.wph.entity;
  * 用户关注商家实体类
  */
 public class UserCollectSeller {
-    private Integer id;
     private Integer userId;
     private Integer sellerId;
     private Seller seller;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getUserId() {
         return userId;

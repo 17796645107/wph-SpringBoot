@@ -157,10 +157,10 @@ public interface UserService extends UserDetailsService {
 
     /**
      * 根据手机号码加载用户
-     * @param telephone
+     * @param username
      * @return org.springframework.security.core.userdetails.UserDetails
      * @throws UsernameNotFoundException
      */
     @Override
-    UserDetails loadUserByUsername(String telephone) throws UsernameNotFoundException;
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

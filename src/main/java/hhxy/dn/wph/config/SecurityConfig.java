@@ -1,6 +1,8 @@
 
 package hhxy.dn.wph.config;
 
+import hhxy.dn.wph.handle.SecurityAuthenticationFailureHandler;
+import hhxy.dn.wph.handle.SecurityAuthenticationSuccessHandler;
 import hhxy.dn.wph.handle.UserAccessDeniedHandle;
 import hhxy.dn.wph.interceptor.UrlInterceptor;
 import hhxy.dn.wph.service.impl.UserServiceImpl;
@@ -40,25 +42,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *  URL拦截器
      */
     @Autowired
-    UrlInterceptor urlInterceptor;
+    private UrlInterceptor urlInterceptor;
 
     /**
-     *  用户信息接口实现类
+     *  登录认证类
      */
     @Autowired
-    UserServiceImpl userDetailsService;
+    private UserAuthenticationProvider authenticationProvider;
 
     /**
-     *  UrlManager
+     *  访问控制决策
      */
     @Autowired
-    UrlAccessDecisionManager urlAccessDecisionManager;
+    private UrlAccessDecisionManager urlAccessDecisionManager;
 
     /**
      *  用户登录权限异常捕获类
      */
     @Autowired
-    UserAccessDeniedHandle userAccessDeniedHandle;
+    private UserAccessDeniedHandle userAccessDeniedHandle;
+
+    /**
+     * 自定义成功处理器
+     */
+    @Autowired
+    private SecurityAuthenticationSuccessHandler authenticationSuccessHandler;
+
+    /**
+     * 自定义失败处理器
+     */
+    @Autowired
+    private SecurityAuthenticationFailureHandler authenticationFailureHandler;
 
     /**
      * 定义认证用户信息获取来源，密码校验规则等
@@ -67,8 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //注入userDetailsService，需要实现userDetailsService接口
-        auth.userDetailsService(userDetailsService);
+        //自定义登录认证
+        auth.authenticationProvider(authenticationProvider);
     }
 
     /**
@@ -79,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //配置安全策略
-        http
+        /*http
             .authorizeRequests()
                 .anyRequest().permitAll()
                 //没有权限返回的请求URL
@@ -87,8 +101,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().logout().permitAll()//定义logout不需要验证
                 //防止跨站请求伪造
                 .and().cors()
-                .and().csrf().disable();
-        /*http.authorizeRequests()
+                .and().csrf().disable();*/
+        http.authorizeRequests()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <Obj extends FilterSecurityInterceptor> Obj postProcess(Obj obj) {
@@ -99,13 +113,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                //自定义登录路径
+                .loginProcessingUrl("/user/login")
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
+                /*.usernameParameter("username")
+                .passwordParameter("pwd")*/
                 .permitAll()
                 .failureHandler(new AuthenticationFailureHandler() {
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+
                         httpServletResponse.setContentType("application/json;charset=utf-8");
                         PrintWriter out = httpServletResponse.getWriter();
                         StringBuffer sb = new StringBuffer();
@@ -141,7 +159,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .exceptionHandling()
-                .accessDeniedHandler(userAccessDeniedHandle);*/
+                .accessDeniedHandler(userAccessDeniedHandle);
 
     }
 

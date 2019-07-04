@@ -42,13 +42,13 @@ public interface UserMapper {
      * @param telephone
      * @return hhxy.dn.wph.entity.User
      */
-    @Select("select" + USER_FIELD + "from"+ USER + "where telephone = #{telephone} and status = 1")
+    @Select("select" + USER_FIELD + "from"+ USER + "where telephone = #{username} and status = 1")
     @Results(id = "userResultMap",value = {
             @Result(id = true,column = "id",property = "id"),
             @Result(column = "user_no",property = "userNo"),
             @Result(column = "head_image",property = "headImage"),
     })
-    User getUserByTelephone(String telephone);
+    User getUserByTelephone(String username);
 
     /**
      * 查询用户密码

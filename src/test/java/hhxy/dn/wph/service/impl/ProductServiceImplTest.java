@@ -46,8 +46,8 @@ public class ProductServiceImplTest {
 
     @Test
     public void findProductInSeller() {
-        List<Product> productList = productService.findProductInSeller(1,43,null,null,null);
-        productList.forEach(product -> System.out.println(product));
+//        List<Product> productList = productService.findProductInSeller(1,43,null,null,null);
+//        productList.forEach(product -> System.out.println(product));
     }
 
     /*@Test

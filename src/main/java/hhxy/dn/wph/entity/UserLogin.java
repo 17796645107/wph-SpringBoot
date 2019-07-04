@@ -16,13 +16,21 @@ import java.util.List;
  */
 public class UserLogin implements UserDetails {
 
-    @Pattern(regexp = AccountValidatorUtil.REGEX_MOBILE,message = "手机号码格式不正确")//验证手机号
-    private String telephone;//手机号
-    @Pattern(regexp = AccountValidatorUtil.REGEX_PASSWORD,message = "密码格式不正确")//验证密码
-    private String pwd;//密码
+    /**
+     * 验证手机号
+     */
+    @Pattern(regexp = AccountValidatorUtil.REGEX_MOBILE,message = "手机号码格式不正确")
+    private String telephone;
+    /**
+     * 验证密码
+     */
+    @Pattern(regexp = AccountValidatorUtil.REGEX_PASSWORD,message = "密码格式不正确")
+    private String pwd;
     private List<Role> roles;
 
-    //返回用户所有角色的封装，一个Role对应一个GrantedAuthority
+    /**
+     * 返回用户所有角色的封装，一个Role对应一个GrantedAuthority
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

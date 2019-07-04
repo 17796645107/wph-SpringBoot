@@ -6,17 +6,41 @@ import java.util.Date;
 /**
  * @Author: 邓宁
  * @Date: Created in 14:11 2019/5/3
+ * 订单商品详情
  */
-//订单商品详情
 public class OrderProduct implements Serializable {
 
-    private Integer id;//自动编号
-    private Integer product_id;//商品ID
-    private Integer order_id;//订单编号
-    private Integer product_number;//商品数量
-    private Integer product_size;//商品尺寸
-    private Integer product_color;//商品颜色
-    private Date create;
+    /**
+     * 自动编号
+     */
+    private Integer id;
+    /**
+     * 商品ID
+     */
+    private Integer productId;
+    /**
+     * 订单编号
+     */
+    private Integer orderId;
+    /**
+     * 商品数量
+     */
+    private Integer productNumber;
+    /**
+     * 商品尺寸
+     */
+    private Integer productSize;
+    /**
+     * 商品颜色
+     */
+    private Integer productColor;
+    /**
+     * 创建时间
+     */
+    private String created;
+    /**
+     * 商品类,一对一
+     */
     private Product product;
 
     public Integer getId() {
@@ -27,52 +51,52 @@ public class OrderProduct implements Serializable {
         this.id = id;
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
-    public Integer getOrder_id() {
-        return order_id;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setOrder_id(Integer order_id) {
-        this.order_id = order_id;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    public Integer getProduct_number() {
-        return product_number;
+    public Integer getProductNumber() {
+        return productNumber;
     }
 
-    public void setProduct_number(Integer product_number) {
-        this.product_number = product_number;
+    public void setProductNumber(Integer productNumber) {
+        this.productNumber = productNumber;
     }
 
-    public Integer getProduct_size() {
-        return product_size;
+    public Integer getProductSize() {
+        return productSize;
     }
 
-    public void setProduct_size(Integer product_size) {
-        this.product_size = product_size;
+    public void setProductSize(Integer productSize) {
+        this.productSize = productSize;
     }
 
-    public Integer getProduct_color() {
-        return product_color;
+    public Integer getProductColor() {
+        return productColor;
     }
 
-    public void setProduct_color(Integer product_color) {
-        this.product_color = product_color;
+    public void setProductColor(Integer productColor) {
+        this.productColor = productColor;
     }
 
-    public Date getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
     public Product getProduct() {

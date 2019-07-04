@@ -36,6 +36,8 @@ public class UrlInterceptor implements FilterInvocationSecurityMetadataSource {
     @Autowired
     RoleService roleService;
 
+
+
     /**
      * 接收用户请求的地址，返回访问该地址需要的所有权限
      * @param object
@@ -48,6 +50,10 @@ public class UrlInterceptor implements FilterInvocationSecurityMetadataSource {
         //获取请求地址
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
         LOGGER.info("requestUrl = {}",requestUrl);
+
+        if ("user/login".equals(requestUrl) || "user/register".equals(requestUrl)){
+            return null;
+        }
 
         //获取请求资源
         Resource resource = resourceService.getResourceByUrl(requestUrl);

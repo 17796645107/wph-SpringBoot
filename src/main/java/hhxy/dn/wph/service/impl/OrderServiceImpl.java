@@ -144,7 +144,7 @@ public class OrderServiceImpl implements OrderService {
         //查询数据库
         List<Order> orderList = orderMapper.listOrderByUserId(userId);
         if (orderList.isEmpty()){
-            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
         }
         //开始分页
         PageHelper.startPage(page,countOfPage);

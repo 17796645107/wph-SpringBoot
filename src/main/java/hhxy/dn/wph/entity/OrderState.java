@@ -5,8 +5,8 @@ import java.util.Date;
 /**
  * @Author: 邓宁
  * @Date: Created in 14:15 2019/5/3
+ * 订单状态
  */
-//订单状态
 public class OrderState {
     private Integer id;
     private String state;

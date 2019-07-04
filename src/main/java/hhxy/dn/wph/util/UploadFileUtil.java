@@ -2,7 +2,6 @@ package hhxy.dn.wph.util;
 
 import hhxy.dn.wph.enums.UserExceptionEnum;
 import hhxy.dn.wph.exception.UserException;
-import hhxy.dn.wph.service.impl.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,7 +37,7 @@ public class UploadFileUtil {
             Files.write(path, bytes);
         }catch (IOException e){
             LOGGER.error("文件上传异常={}",e);
-            throw new UserException(UserExceptionEnum.UploadFileError);
+            throw new UserException(UserExceptionEnum.UPLOAD_FILE_ERROR);
         }
     }
 }

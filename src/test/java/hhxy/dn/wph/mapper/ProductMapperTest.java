@@ -151,6 +151,11 @@ public class ProductMapperTest extends TestTemplate {
 
     @Test
     public void listProductInSeller() {
+        /*long time = System.currentTimeMillis();
+        List<Product> productList = productMapper.listProductInSeller(1,43,
+                139,1,1);
+        productList.forEach(System.out::println);
+        System.out.println(System.currentTimeMillis() - time);*/
     }
 
     /*@Test

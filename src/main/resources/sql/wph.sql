@@ -67,10 +67,10 @@ DROP TABLE IF EXISTS `tb_cart`;
 CREATE TABLE `tb_cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '购物车ID',
   `user_id` int(11) DEFAULT NULL COMMENT '用户编号',
-  `product_id` int(11) DEFAULT NULL COMMENT '商品编号',
-  `product_number` int(11) DEFAULT NULL COMMENT '商品数量',
-  `product_color` varchar(255) DEFAULT NULL COMMENT '商品颜色',
-  `product_size` varchar(255) DEFAULT NULL COMMENT '商品尺寸',
+  `productId` int(11) DEFAULT NULL COMMENT '商品编号',
+  `productNumber` int(11) DEFAULT NULL COMMENT '商品数量',
+  `productColor` varchar(255) DEFAULT NULL COMMENT '商品颜色',
+  `productSize` varchar(255) DEFAULT NULL COMMENT '商品尺寸',
   `status` tinyint(4) DEFAULT '1' COMMENT '购物车状态',
   `create` datetime DEFAULT NULL COMMENT '创建时间',
   `updated` datetime DEFAULT NULL COMMENT '修改时间',
@@ -342,7 +342,7 @@ DROP TABLE IF EXISTS `tb_log_base`;
 CREATE TABLE `tb_log_base` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '物流单号',
   `courier_id` varchar(255) DEFAULT NULL COMMENT '快递点ID',
-  `order_id` int(11) DEFAULT NULL COMMENT '订单ID',
+  `orderId` int(11) DEFAULT NULL COMMENT '订单ID',
   `status` varchar(255) DEFAULT NULL,
   `create` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
@@ -413,11 +413,11 @@ CREATE TABLE `tb_order_channer` (
 DROP TABLE IF EXISTS `tb_order_product`;
 CREATE TABLE `tb_order_product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(255) NOT NULL COMMENT '商品id',
-  `order_id` int(11) NOT NULL COMMENT '订单id',
-  `product_number` int(11) DEFAULT NULL COMMENT '商品数量',
-  `product_size` varchar(255) DEFAULT NULL COMMENT '商品尺寸',
-  `product_color` varchar(255) DEFAULT NULL COMMENT '商品颜色',
+  `productId` int(255) NOT NULL COMMENT '商品id',
+  `orderId` int(11) NOT NULL COMMENT '订单id',
+  `productNumber` int(11) DEFAULT NULL COMMENT '商品数量',
+  `productSize` varchar(255) DEFAULT NULL COMMENT '商品尺寸',
+  `productColor` varchar(255) DEFAULT NULL COMMENT '商品颜色',
   `create` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='订单-商品详情表';
@@ -475,7 +475,7 @@ DROP TABLE IF EXISTS `tb_pay_info`;
 CREATE TABLE `tb_pay_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
-  `order_id` varchar(255) DEFAULT NULL COMMENT '订单ID',
+  `orderId` varchar(255) DEFAULT NULL COMMENT '订单ID',
   `pay_platform` varchar(255) DEFAULT NULL COMMENT '支付平台',
   `platform_number` varchar(255) DEFAULT NULL COMMENT '第三方流水号',
   `platform_status` varchar(255) DEFAULT NULL COMMENT '支付状态',
@@ -602,7 +602,7 @@ INSERT INTO `tb_product_attribute` VALUES ('44', '衣门襟', '1', '1', '2019-05
 DROP TABLE IF EXISTS `tb_product_attribute_relation`;
 CREATE TABLE `tb_product_attribute_relation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL COMMENT '商品ID',
+  `productId` int(11) NOT NULL COMMENT '商品ID',
   `attribute_id` int(11) DEFAULT NULL COMMENT '属性ID',
   `value_id` int(11) DEFAULT NULL COMMENT '属性值ID',
   `status` int(11) DEFAULT '1' COMMENT '状态',
@@ -836,13 +836,13 @@ INSERT INTO `tb_product_attribute_value` VALUES ('101', '44', '后拉链', '1', 
 DROP TABLE IF EXISTS `tb_product_color`;
 CREATE TABLE `tb_product_color` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '颜色id',
-  `product_id` int(11) DEFAULT NULL COMMENT '商品ID',
+  `productId` int(11) DEFAULT NULL COMMENT '商品ID',
   `color` varchar(255) NOT NULL COMMENT '颜色',
   `status` int(255) DEFAULT '1' COMMENT '状态',
   `created` datetime DEFAULT NULL COMMENT '创建时间',
   `updated` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
+  KEY `productId` (`productId`),
   KEY `color` (`color`)
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8 COMMENT='商品颜色表';
 
@@ -884,7 +884,7 @@ DROP TABLE IF EXISTS `tb_product_evaluation`;
 CREATE TABLE `tb_product_evaluation` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品评价',
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
-  `product_id` int(11) DEFAULT NULL COMMENT '商品ID',
+  `productId` int(11) DEFAULT NULL COMMENT '商品ID',
   `context` varchar(255) DEFAULT NULL COMMENT '内容',
   `status` varchar(255) DEFAULT '1' COMMENT '状态',
   `created` datetime DEFAULT NULL COMMENT '发表时间',
@@ -901,14 +901,14 @@ CREATE TABLE `tb_product_evaluation` (
 DROP TABLE IF EXISTS `tb_product_image`;
 CREATE TABLE `tb_product_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图片ID',
-  `product_id` int(11) NOT NULL COMMENT '商品ID',
+  `productId` int(11) NOT NULL COMMENT '商品ID',
   `image` varchar(255) NOT NULL COMMENT '图片路径',
   `color_id` int(11) NOT NULL,
   `status` tinyint(255) NOT NULL DEFAULT '1' COMMENT '状态',
   `created` datetime DEFAULT NULL COMMENT '创建时间',
   `updated` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
+  KEY `productId` (`productId`),
   KEY `tb_product_images_ibfk_2` (`color_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8 COMMENT='商品图片表';
 
@@ -1076,16 +1076,16 @@ INSERT INTO `tb_product_image` VALUES ('280', '2019052502', '98659d23-b114-4b7b-
 DROP TABLE IF EXISTS `tb_product_num`;
 CREATE TABLE `tb_product_num` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '库存ID',
-  `product_id` int(11) NOT NULL COMMENT '商品ID',
-  `product_color` varchar(255) NOT NULL COMMENT '商品颜色',
-  `product_size` varchar(255) NOT NULL COMMENT '商品尺寸',
+  `productId` int(11) NOT NULL COMMENT '商品ID',
+  `productColor` varchar(255) NOT NULL COMMENT '商品颜色',
+  `productSize` varchar(255) NOT NULL COMMENT '商品尺寸',
   `num` int(11) NOT NULL COMMENT '库存',
   `created` datetime DEFAULT NULL COMMENT '创建时间',
   `updated` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
-  KEY `product_color` (`product_color`),
-  KEY `product_size` (`product_size`)
+  KEY `productId` (`productId`),
+  KEY `productColor` (`productColor`),
+  KEY `productSize` (`productSize`)
 ) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8 COMMENT='商品库存表';
 
 -- ----------------------------
@@ -1227,13 +1227,13 @@ INSERT INTO `tb_product_num` VALUES ('162', '2019052502', '粉红', 'S', '100', 
 DROP TABLE IF EXISTS `tb_product_size`;
 CREATE TABLE `tb_product_size` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) DEFAULT NULL,
+  `productId` int(11) DEFAULT NULL,
   `size` varchar(255) NOT NULL,
   `status` tinyint(4) DEFAULT '1',
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
+  KEY `productId` (`productId`),
   KEY `size` (`size`)
 ) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8 COMMENT='商品尺寸表';
 
@@ -1475,9 +1475,9 @@ DROP TABLE IF EXISTS `tb_user_collect_product`;
 CREATE TABLE `tb_user_collect_product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
+  `productId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`)
+  KEY `productId` (`productId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户商品收藏类';
 
 -- ----------------------------

@@ -145,7 +145,7 @@ public class UserController {
         String token = CookieUtil.getCookieValue(request,"token");
         //如果用户没有携带Token令牌
         if (!redisUtil.hasKey(token)){
-            throw new UserException(UserExceptionEnum.Unqualified);
+            throw new UserException(UserExceptionEnum.UNQUALIFIED_ERROR);
         }
         redisUtil.del(token);
         return ResultUtil.success();
@@ -330,4 +330,8 @@ public class UserController {
         return ResultUtil.success(result);
     }
 
+    @RequestMapping("/test1")
+    public Result test(){
+        return ResultUtil.success();
+    }
 }

@@ -66,7 +66,7 @@ public class GoodCartServiceImpl implements GoodCartService {
         }
         List<Cart> cartList = goodCartMapper.listGoodCartByUserId(userId);
         if (cartList.isEmpty()){
-            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
         }
         redisUtil.set(cacheKey,JsonUtil.objectToJson(cartList));
         return cartList;

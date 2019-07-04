@@ -313,6 +313,7 @@ public interface ProductMapper {
 
     /**
      * 检索商品
+     * @param condition 检索条件
      * @param sellerId
      * @param categoryId
      * @param sizeId
@@ -322,9 +323,7 @@ public interface ProductMapper {
      */
     @SelectProvider(type = ProductProvider.class,method = "findProductInSeller")
     @ResultMap(value = "productResultMap")
-    List<Product> listProductInSeller(
-            @Param("sellerId") Integer sellerId,@Param("categoryId") Integer categoryId,
-            @Param("sizeId")Integer sizeId,@Param("type") Integer type, @Param("hasNum")Integer hasNum);
+    List<Product> listProductInSeller(ProductSelectCondition condition);
 
 
     /*@Update("update tb_product set product_no = #{productNo} where id = #{productId}")

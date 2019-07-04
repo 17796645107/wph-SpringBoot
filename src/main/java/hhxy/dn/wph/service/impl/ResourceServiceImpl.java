@@ -25,7 +25,7 @@ public class ResourceServiceImpl implements ResourceService {
         List<Resource> resourceList = resourceMapper.listResource();
         //结果为空,抛出NOT_FOUND异常
         if (resourceList.isEmpty()){
-            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND);
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
         }
 
         //判断URL前缀是否一致

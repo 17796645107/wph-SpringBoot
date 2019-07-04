@@ -3,6 +3,7 @@ package hhxy.dn.wph.mapper.provider;
 import hhxy.dn.wph.entity.ProductAttributeRelation;
 import hhxy.dn.wph.entity.Product;
 import hhxy.dn.wph.entity.ProductNum;
+import hhxy.dn.wph.entity.ProductSelectCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
@@ -113,27 +114,25 @@ public class ProductProvider {
      * @param hasNum 是否有库存
      * @return java.util.List<hhxy.dn.wph.entity.Product>
      */
-    public String findProductInSeller(
-            @Param("sellerId") Integer sellerId,@Param("categoryId") Integer categoryId,
-            @Param("sizeId")Integer sizeId,@Param("type") Integer type, @Param("hasNum")Integer hasNum){
+    public String findProductInSeller(ProductSelectCondition condition){
         return new SQL(){
             {
-                SELECT("p.*");
-                FROM("tb_product p ,tb_product_size s,tb_product_num n");
-                WHERE("p.product_id = s.product_id");
-                WHERE("p.product_id = n.product_id");
+                SELECT_DISTINCT("p.*");
+                FROM("tb_product p");
+                LEFT_OUTER_JOIN("tb_product_size s on p.id = s.product_id");
+                LEFT_OUTER_JOIN("tb_product_num n on p.id = n.product_id");
                 WHERE("p.seller_id = #{sellerId}");
-                if (categoryId != null){
+                if (condition.getCategoryId() != null){
                     WHERE("p.category_id = #{categoryId}");
                 }
-                if (sizeId != null){
-                    WHERE("s.size_id = #{sizeId}");
+                if (condition.getProductSizeId() != null){
+                    WHERE("s.id = #{productSizeId}");
                 }
-                if (hasNum != null && hasNum == 1){
+                if (condition.getHasNum() != null && condition.getHasNum() == 1){
                     WHERE("n.num > 0");
                 }
-                if (type != null){
-                    switch (type){
+                if (condition.getType() != null){
+                    switch (condition.getType()){
                         case 1:
                             ORDER_BY("p.price");
                             break;
@@ -147,12 +146,21 @@ public class ProductProvider {
         }.toString();
         /*  SELECT p.*, s.*,n.*
             FROM tb_product p ,tb_product_size s,tb_product_num n
-            where p.product_id = s.product_id and p.product_id = n.product_id
+            where p.id = s.product_id and p.id = n.product_id
             and p.seller_id = 1
             and p.category_id = 43
-            and s.size_id = 139
+            and s.id = 139
             and n.num > 0
             ORDER BY p.price
          */
+        /*SELECT DISTINCT p.*
+                FROM tb_product p
+        LEFT OUTER JOIN tb_product_size s on p.id = s.product_id
+        LEFT OUTER JOIN tb_product_num n on p.id = n.product_id
+        WHERE p.seller_id = 1
+        and p.category_id = 43
+        and s.id = 139
+        and n.num > 0
+        ORDER BY p.price*/
     }
 }

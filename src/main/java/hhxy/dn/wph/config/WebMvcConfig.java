@@ -19,13 +19,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private LoginInterceptor loginInterceptor;
 
-    //不拦截的路径
+    /**
+     * 不拦截的路径
+     */
     private String[]excludePath={"/Resource/**","/wph/**","/view/user/user_login.html","/view/index/index.html"};
-     /** @Description:重写添加拦截器方法，添加登录拦截器
+
+    /** @Description:重写添加拦截器方法，添加登录拦截器
      * @param: [registry]
-     * @return: void*/
-
-
+     * @return: void
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截哪些路径("/**"代表拦截所有路径)

@@ -1,5 +1,6 @@
 package hhxy.dn.wph.controller;
 
+import com.github.pagehelper.PageInfo;
 import hhxy.dn.wph.entity.Brand;
 import hhxy.dn.wph.entity.Category;
 import hhxy.dn.wph.entity.ProductAttribute;
@@ -76,7 +77,7 @@ public class ProductController {
     public Result listProductBySellerId(@PathVariable Integer sellerId,
             @RequestParam(value = "page",defaultValue = "1",required = false)Integer page,
             @RequestParam(value = "countOfPage",defaultValue = "50",required = false)Integer countOfPage){
-        List<Product> productList = productService.listProductBySellerId(sellerId,page,countOfPage);
+        PageInfo<Product> productList = productService.listProductBySellerId(sellerId,page,countOfPage);
         return ResultUtil.success(productList);
     }
 
@@ -159,4 +160,19 @@ public class ProductController {
         return ResultUtil.success(attributeList);
     }
 
+    /**
+     * 根据条件检索商品
+     * @param sellerId
+     * @param categoryId
+     * @param sizeId
+     * @param type
+     * @param hasNum
+     * @return hhxy.dn.wph.entity.Result
+     */
+    @RequestMapping("/listProductInSellerByCondition/{pageNum}/{pageCount}")
+    public Result listProductInSellerByCondition(@RequestBody ProductSelectCondition condition,
+                    @PathVariable Integer pageNum,@PathVariable Integer pageCount){
+        PageInfo<Product> productList = productService.findProductInSeller(condition,pageNum,pageCount);
+        return ResultUtil.success(productList);
+    }
 }

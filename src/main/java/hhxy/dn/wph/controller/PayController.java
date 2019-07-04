@@ -38,15 +38,15 @@ public class PayController {
 
     @RequestMapping("/payment")
     public Result pay(
-                    @RequestParam("WIDout_trade_no") String out_trade_no,
-                    @RequestParam("WIDtotal_amount")String total_amount,
+                    @RequestParam("WIDout_trade_no") String outTradeNo,
+                    @RequestParam("WIDtotal_amount")String totalAmount,
                     @RequestParam("WIDsubject")String subject,
                     @RequestParam("WIDbody")String body){
-        String result = payService.pay(out_trade_no,total_amount,subject,body);
+        String result = payService.pay(outTradeNo,totalAmount,subject,body);
         return ResultUtil.success(result);
     }
 
-    /*
+    /**
      * @Description:异步回调: 第三方支付接口发一个后台通知给商户平台，一般场景用户修改订单信息。
      * @param: [request, response]
      * @return: hhxy.dn.wph.entity.Result
@@ -72,8 +72,8 @@ public class PayController {
             }
             params.put(name, valueStr);
         }
-
-        boolean signVerified = false; //调用SDK验证签名
+        //调用SDK验证签名
+        boolean signVerified = false;
         try {
             signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type);
         } catch (AlipayApiException e) {
@@ -85,32 +85,33 @@ public class PayController {
         3、校验通知中的seller_id（或者seller_email) 是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）
         4、验证app_id是否为该商户本身。
         */
-        if(signVerified) {//验证成功
+        //验证成功
+        if(signVerified) {
             //商户订单号
-            String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+            String outTradeNo = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
 
             //支付宝交易号
-            String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
+            String tradeNo = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
 
             //交易状态
-            String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
+            String tradeStatus = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
 
-            if(trade_status.equals("TRADE_FINISHED")){
+            if("TRADE_FINISHED".equals(tradeStatus)){
                 //判断该笔订单是否在商户网站中已经做过处理
                 //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 //如果有做过处理，不执行商户的业务程序
                 throw new OrderException(OrderExceptionEnum.ORDER_EXCEPTION_ENUM);
                 //注意：
                 //退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
-            }else if (trade_status.equals("TRADE_SUCCESS")){
+            }else if ("TRADE_SUCCESS".equals(tradeStatus)){
                 //判断该笔订单是否在商户网站中已经做过处理
                 //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 //如果有做过处理，不执行商户的业务程序
-                Order order = orderService.getOrderByOrderId(out_trade_no);
+                Order order = orderService.getOrderByOrderId(outTradeNo);
                 if (order == null){
                     throw new OrderException(OrderExceptionEnum.ORDER_EXCEPTION_ENUM);
                 }
-                int result = orderService.updateOrderSetPayNo(out_trade_no,trade_no);
+                int result = orderService.updateOrderSetPayNo(outTradeNo,tradeNo);
                 if (result != 1){
                     throw new OrderException(OrderExceptionEnum.ORDER_UPDATE_STATE_ERROR);
                 }
@@ -160,7 +161,7 @@ public class PayController {
         return ResultUtil.success();*/
     }
 
-    /*
+    /**
      * @Description:同步回调: 整个支付流程完毕，使用同步方式将参数重定向给商户平台，一般场景用于展示结果。
      * @param: [request, response]
      * @return: hhxy.dn.wph.entity.Result
@@ -182,8 +183,8 @@ public class PayController {
             valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
         }
-
-        boolean signVerified = false; //调用SDK验证签名
+        //调用SDK验证签名
+        boolean signVerified = false;
         try {
             signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type);
         } catch (AlipayApiException e) {
@@ -205,16 +206,16 @@ public class PayController {
         //——请在这里编写您的程序（以下代码仅作参考）——
         if(signVerified) {
             //商户订单号
-            String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+            String outTradeNo = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
             //支付宝交易号
-            String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
+            String tradeNo = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
             //付款金额
-            String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
+            String totalAmount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 
             Order order = new Order();
-            order.setOrderNo(out_trade_no);
-            order.setPayNo(trade_no);
-            order.setProductTotal(Double.valueOf(total_amount));
+            order.setOrderNo(outTradeNo);
+            order.setPayNo(tradeNo);
+            order.setProductTotal(Double.valueOf(totalAmount));
             return ResultUtil.success(order);
         }else {
             return ResultUtil.error(-2,"验签失败");
