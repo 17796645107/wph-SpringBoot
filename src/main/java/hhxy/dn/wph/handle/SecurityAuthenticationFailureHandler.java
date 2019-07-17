@@ -1,9 +1,4 @@
 package hhxy.dn.wph.handle;
-/**
- * @Author 邓宁
- * @Date Created in 23:14 2019/7/2
- * @Description
- */
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -24,6 +19,6 @@ public class SecurityAuthenticationFailureHandler implements AuthenticationFailu
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        System.out.println("success");
+        System.out.println("fail");
     }
 }

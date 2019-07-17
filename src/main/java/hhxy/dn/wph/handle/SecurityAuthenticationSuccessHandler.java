@@ -1,8 +1,4 @@
-package hhxy.dn.wph.handle; /**
- * @Author 邓宁
- * @Date Created in 23:14 2019/7/2
- * @Description
- */
+package hhxy.dn.wph.handle;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -23,6 +19,6 @@ public class SecurityAuthenticationSuccessHandler implements AuthenticationSucce
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-
+        System.out.println("success");
     }
 }

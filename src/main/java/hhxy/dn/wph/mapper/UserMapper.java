@@ -39,7 +39,7 @@ public interface UserMapper {
 
     /**
      * 查询用户信息
-     * @param telephone
+     * @param username 手机号码
      * @return hhxy.dn.wph.entity.User
      */
     @Select("select" + USER_FIELD + "from"+ USER + "where telephone = #{username} and status = 1")

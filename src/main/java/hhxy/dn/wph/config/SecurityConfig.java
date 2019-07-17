@@ -4,6 +4,7 @@ package hhxy.dn.wph.config;
 import hhxy.dn.wph.handle.SecurityAuthenticationFailureHandler;
 import hhxy.dn.wph.handle.SecurityAuthenticationSuccessHandler;
 import hhxy.dn.wph.handle.UserAccessDeniedHandle;
+import hhxy.dn.wph.interceptor.UrlAuthenticationEntryPointInterceptor;
 import hhxy.dn.wph.interceptor.UrlInterceptor;
 import hhxy.dn.wph.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,21 +24,29 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @Author: 邓宁
  * @Date: Created in 20:50 2018/11/24
  * Spring security 安全控制中心
  */
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    /**
+     * 身份验证
+     */
+    @Autowired
+    private UrlAuthenticationEntryPointInterceptor urlAuthenticationEntryPoint;
     /**
      *  URL拦截器
      */
@@ -51,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserAuthenticationProvider authenticationProvider;
 
     /**
-     *  访问控制决策
+     *  访问控制策略(授权)
      */
     @Autowired
     private UrlAccessDecisionManager urlAccessDecisionManager;
@@ -84,7 +93,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //自定义登录认证
         auth.authenticationProvider(authenticationProvider);
     }
-
     /**
      * 定义安全策略
      * @param http
@@ -102,7 +110,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //防止跨站请求伪造
                 .and().cors()
                 .and().csrf().disable();*/
-        http.authorizeRequests()
+        //关闭csrf验证
+        http.csrf().disable()
+                //token验证
+                .httpBasic().authenticationEntryPoint(urlAuthenticationEntryPoint)
+                //所有人都可以访问
+                .and()
+                .authorizeRequests()
+                .antMatchers("/connect").permitAll()
+                .and()
+                .authorizeRequests()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <Obj extends FilterSecurityInterceptor> Obj postProcess(Obj obj) {
@@ -117,47 +134,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/user/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
-                /*.usernameParameter("username")
-                .passwordParameter("pwd")*/
-                .permitAll()
-                .failureHandler(new AuthenticationFailureHandler() {
-                    @Override
-                    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-
-                        httpServletResponse.setContentType("application/json;charset=utf-8");
-                        PrintWriter out = httpServletResponse.getWriter();
-                        StringBuffer sb = new StringBuffer();
-                        sb.append("{\"status\":\"error\",\"msg\":\"");
-                        if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
-                            sb.append("用户名或密码输入错误，登录失败!");
-                        } else if (e instanceof DisabledException) {
-                            sb.append("账户被禁用，登录失败，请联系管理员!");
-                        } else {
-                            sb.append("登录失败!");
-                        }
-                        sb.append("\"}");
-                        out.write(sb.toString());
-                        out.flush();
-                        out.close();
-                    }
-                })
-                .successHandler(new AuthenticationSuccessHandler() {
-                    @Override
-                    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-                        httpServletResponse.setContentType("application/json;charset=utf-8");
-                        PrintWriter out = httpServletResponse.getWriter();
-                        String s = "{\"status\":\"success\",\"msg\":"  + "}";
-                        out.write(s);
-                        out.flush();
-                        out.close();
-                    }
-                })
                 .and()
                 .logout()
                 .permitAll()
                 .and()
-                .csrf()
-                .disable()
+
                 .exceptionHandling()
                 .accessDeniedHandler(userAccessDeniedHandle);
 

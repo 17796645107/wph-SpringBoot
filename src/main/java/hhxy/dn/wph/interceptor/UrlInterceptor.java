@@ -51,10 +51,6 @@ public class UrlInterceptor implements FilterInvocationSecurityMetadataSource {
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
         LOGGER.info("requestUrl = {}",requestUrl);
 
-        if ("user/login".equals(requestUrl) || "user/register".equals(requestUrl)){
-            return null;
-        }
-
         //获取请求资源
         Resource resource = resourceService.getResourceByUrl(requestUrl);
         if (resource == null){

@@ -1,6 +1,7 @@
 package hhxy.dn.wph.config;
 
 import hhxy.dn.wph.service.UserService;
+import hhxy.dn.wph.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,12 +25,14 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = (String) authentication.getPrincipal();
         //表单输入的用户名
-        String password = (String) authentication.getCredentials();
+        String username = (String) authentication.getPrincipal();
         //表单输入的密码
+        String password = (String) authentication.getCredentials();
+
+        //获取用户信息
         UserDetails userInfo = userService.loadUserByUsername(username);
-        boolean matches = new BCryptPasswordEncoder().matches(password, userInfo.getPassword());
+        boolean matches = new BCryptPasswordEncoder().matches(MD5Util.getMD5(password), userInfo.getPassword());
         if (!matches) {
             throw new BadCredentialsException("The password is incorrect!!");
         }

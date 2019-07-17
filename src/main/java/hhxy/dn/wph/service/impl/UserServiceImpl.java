@@ -450,20 +450,25 @@ UserServiceImpl implements UserService {
     }
 
     /**
-     * 根据手机号码加载用户
+     * 用户认证根据手机号码加载用户
      * @param telephone
      * @return org.springframework.security.core.userdetails.UserDetails
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //获取用户信息
         User user = userMapper.getUserByTelephone(username);
         if (user == null) {
             throw new UsernameNotFoundException("没有该用户");
         }
+        //获取用户密码
+        String password = userMapper.getPasswordByUserId(user.getId());
         //获取人员的权限
         List<Role> roleList = roleMapper.listRoleByPeopleId(user.getUserNo());
+
         UserLogin userLogin = new UserLogin();
         userLogin.setTelephone(username);
+        userLogin.setPwd(password);
         userLogin.setRoles(roleList);
         return userLogin;
     }
