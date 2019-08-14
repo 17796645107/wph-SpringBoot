@@ -113,9 +113,9 @@ public class UserController {
         //从Cookie中获取Token
         String tokenCookie = CookieUtil.getCookieValue(request,"token");
         if (StringUtils.isNotBlank(tokenCookie)){
-            //判断Rdis中是否存此Token,
+            //判断Redis中是否存此Token,
             if (redisUtil.hasKey(tokenCookie)){
-                //根据Token返回Redie中用户信息
+                //根据Token返回Redis中用户信息
                 return redisUtil.get(tokenCookie).toString();
             }
         }

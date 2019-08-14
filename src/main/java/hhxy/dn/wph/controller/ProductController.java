@@ -161,12 +161,10 @@ public class ProductController {
     }
 
     /**
-     * 根据条件检索商品
-     * @param sellerId
-     * @param categoryId
-     * @param sizeId
-     * @param type
-     * @param hasNum
+     *
+     * @param condition
+     * @param pageNum
+     * @param pageCount
      * @return hhxy.dn.wph.entity.Result
      */
     @RequestMapping("/listProductInSellerByCondition/{pageNum}/{pageCount}")
