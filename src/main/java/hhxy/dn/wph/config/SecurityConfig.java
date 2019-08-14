@@ -6,6 +6,7 @@ import hhxy.dn.wph.handle.SecurityAuthenticationSuccessHandler;
 import hhxy.dn.wph.handle.UserAccessDeniedHandle;
 import hhxy.dn.wph.interceptor.UrlAuthenticationEntryPointInterceptor;
 //import hhxy.dn.wph.interceptor.UrlInterceptor;
+import hhxy.dn.wph.interceptor.UrlInterceptor;
 import hhxy.dn.wph.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -51,8 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      *  URL拦截器
      */
-    /*@Autowired
-    private UrlInterceptor urlInterceptor;*/
+    @Autowired
+    private UrlInterceptor urlInterceptor;
 
     /**
      *  登录认证类
