@@ -9,10 +9,14 @@ import java.lang.reflect.Field;
 /**
  * @Author: 邓宁
  * @Date: Created in 20:52 2019/6/18
+ * 反射工具类
  */
-//反射工具类
 public class ReflectUtil {
-    //获取成员变量
+    /**
+     * 获取成员变量
+     * @param c
+     * @return java.lang.String
+     */
     public static String getField(Class c){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(" ");
@@ -29,5 +33,6 @@ public class ReflectUtil {
 
     public static void main(String[] args) {
         System.out.println(getField(Seller.class));
+        System.out.println(MD5Util.getMD5("123456"));
     }
 }

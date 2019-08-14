@@ -51,7 +51,7 @@ logging:
     #日志打印级别，mapper打印SQL语句
     hhxy.dn.wph: DEBUG
     #Spring security 日志
-    #org.springframework.security: DEBUG
+    org.springframework.security: DEBUG
 
 #用户头像存放地址
 UPLOAD_URL: E:\Vue_projects\vue14_test01\static\user\headIcon\

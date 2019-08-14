@@ -302,7 +302,11 @@ public class ProductServiceImpl implements ProductService{
      */
     @Override
     public PageInfo<Product> findProductInSeller(ProductSelectCondition condition,Integer pageNum,Integer pageCount){
-
+        /*final String productListKey = "ProductListBySellerId:"+ condition.getSellerId() +":Page"+ pageNum;
+        if (redisUtil.hasKey(productListKey)){
+            String productListCache = (String) redisUtil.get(productListKey);
+            return JsonUtil.jsonToPojo(productListCache,PageInfo.class);
+        }*/
         List<Product> productList = productMapper.listProductInSeller(condition);
         PageHelper.startPage(pageNum,pageCount);
         PageInfo<Product> productPageInfo = new PageInfo<>(productList);

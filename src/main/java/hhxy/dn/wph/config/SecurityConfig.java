@@ -5,7 +5,7 @@ import hhxy.dn.wph.handle.SecurityAuthenticationFailureHandler;
 import hhxy.dn.wph.handle.SecurityAuthenticationSuccessHandler;
 import hhxy.dn.wph.handle.UserAccessDeniedHandle;
 import hhxy.dn.wph.interceptor.UrlAuthenticationEntryPointInterceptor;
-import hhxy.dn.wph.interceptor.UrlInterceptor;
+//import hhxy.dn.wph.interceptor.UrlInterceptor;
 import hhxy.dn.wph.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -47,11 +47,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Autowired
     private UrlAuthenticationEntryPointInterceptor urlAuthenticationEntryPoint;
+
     /**
      *  URL拦截器
      */
-    @Autowired
-    private UrlInterceptor urlInterceptor;
+    /*@Autowired
+    private UrlInterceptor urlInterceptor;*/
 
     /**
      *  登录认证类
@@ -84,6 +85,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SecurityAuthenticationFailureHandler authenticationFailureHandler;
 
     /**
+     * 所有人可访问的路径
+     */
+    String[] allowPath = {"/seller/*","/product/*"};
+
+    /**
      * 定义认证用户信息获取来源，密码校验规则等
      * @param auth
      * @return void
@@ -100,8 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //配置安全策略
-        /*http
+        http
             .authorizeRequests()
                 .anyRequest().permitAll()
                 //没有权限返回的请求URL
@@ -109,15 +114,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().logout().permitAll()//定义logout不需要验证
                 //防止跨站请求伪造
                 .and().cors()
-                .and().csrf().disable();*/
-        //关闭csrf验证
+                .and().csrf().disable();
+        /*//关闭csrf验证
         http.csrf().disable()
                 //token验证
                 .httpBasic().authenticationEntryPoint(urlAuthenticationEntryPoint)
                 //所有人都可以访问
                 .and()
                 .authorizeRequests()
-                .antMatchers("/connect").permitAll()
+                .antMatchers(allowPath).permitAll()
+                //自定义验证
                 .and()
                 .authorizeRequests()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
@@ -136,17 +142,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authenticationFailureHandler)
                 .and()
                 .logout()
+                .logoutUrl("/user/logout")
                 .permitAll()
                 .and()
-
                 .exceptionHandling()
-                .accessDeniedHandler(userAccessDeniedHandle);
-
+                .accessDeniedHandler(userAccessDeniedHandle);*/
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring()
-//                .antMatchers("/global/**","/static/**");
-    }
+    public void configure(WebSecurity web) throws Exception { }
 }
