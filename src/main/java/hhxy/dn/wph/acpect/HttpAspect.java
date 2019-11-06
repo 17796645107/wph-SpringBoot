@@ -13,9 +13,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 用户模块方法调用记录切面类
  * @Author: 邓宁
  * @Date: Created in 11:41 2018/10/25
- * 用户方法调用记录切面类
  */
 @Aspect
 @Component
@@ -72,8 +72,7 @@ public class HttpAspect {
 
     /**
      * 获取返回信息
-     * @param object
-     * @return void
+     * @param object 切面
      */
     @AfterReturning(returning = "object",pointcut = "log()")
     public void logAfterReturning(Object object){
