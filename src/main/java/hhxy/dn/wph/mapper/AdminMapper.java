@@ -1,5 +1,9 @@
+/*
+  @deprecated asd
+ */
 package hhxy.dn.wph.mapper;
-
+import hhxy.dn.wph.mapper.provider.AdminProvider;
+import org.apache.ibatis.annotations.InsertProvider;
 import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.mapper.provider.AdminProvider;
 import org.apache.ibatis.annotations.*;
@@ -8,12 +12,16 @@ import org.apache.ibatis.annotations.Result;
 import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 18:14 2019/5/14
+ * @author 邓宁
  */
 
 public interface AdminMapper {
 
+    /**
+     *
+     * @param category 分类
+     * @return int
+     */
     @InsertProvider(type = AdminProvider.class,method = "saveCategory")
     int saveCategory(Category category);
 
