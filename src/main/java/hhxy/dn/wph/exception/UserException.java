@@ -3,8 +3,8 @@ package hhxy.dn.wph.exception;
 import hhxy.dn.wph.enums.UserExceptionEnum;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 9:04 2018/11/29
+ * @author 邓宁
+ * @date Created in 9:04 2018/11/29
  * 用户自定义异常类
  */
 public class UserException extends RuntimeException {
@@ -15,7 +15,7 @@ public class UserException extends RuntimeException {
     private Integer code;
 
     /**
-     * @Description 构造方法
+     *  构造方法
      */
     public UserException(UserExceptionEnum userExceptionEnum){
         super(userExceptionEnum.getMsg());
@@ -23,7 +23,7 @@ public class UserException extends RuntimeException {
     }
 
     /**
-     * @Description 构造方法
+     *  构造方法
      */
     public UserException(String messgae,Integer code){
         super(messgae);

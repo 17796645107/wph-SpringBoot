@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 15:26 2019/6/13
+ * @author 邓宁
+ * @date Created in 15:26 2019/6/13
  */
 @Service
 public class ResourceServiceImpl implements ResourceService {

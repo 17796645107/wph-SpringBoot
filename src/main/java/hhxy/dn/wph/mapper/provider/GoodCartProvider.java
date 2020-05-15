@@ -5,8 +5,8 @@ import hhxy.dn.wph.util.DateUtil;
 import org.apache.ibatis.jdbc.SQL;
 import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 /**
- * @Author: 邓宁
- * @Date: Created in 21:09 2019/4/28
+ * @author 邓宁
+ * @date Created in 21:09 2019/4/28
  */
 public class GoodCartProvider {
 

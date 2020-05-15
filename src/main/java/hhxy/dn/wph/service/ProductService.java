@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 21:48 2018/11/4
+ * @author 邓宁
+ * @date Created in 21:48 2018/11/4
  */
 
 public interface ProductService {
@@ -31,40 +31,40 @@ public interface ProductService {
 
     /**
      * 根据商品ID(主键)查询商品
-     * @param productId
-     * @return hhxy.dn.wph.entity.Product
+     * @param productId 商品ID(主键)
+     * @return Product
      */
-    Product getProductById(Integer productId);
+    Product getProductById(String productId);
 
     /**
      * 分页查询,根据商家查询商品
      * @param sellerId 商户ID
-     * @param page 当前页数
-     * @param countOfPage 每页显示数量
-     * @return java.util.List<hhxy.dn.wph.entity.Product>
+     * @param pageIndex 当前页数
+     * @param pageCount 每页显示数量
+     * @return PageInfo<Product>
      */
-    PageInfo<Product> listProductBySellerId(Integer sellerId, Integer page, Integer countOfPage);
+    PageInfo<Product> listProductBySellerId(Integer sellerId, Integer pageIndex, Integer pageCount);
 
     /**
      * 根据商品ID查询商品的所有颜色
      * @param productId 商品ID
      * @return java.util.List<hhxy.dn.wph.entity.ProductColor>
      */
-    List<ProductColor> listProductColorByProductId(Integer productId);
+    List<ProductColor> listProductColorByProductId(String productId);
 
     /**
      * 根据商品ID查询商品的所有尺寸
      * @param productId 商品ID
      * @return java.util.List<hhxy.dn.wph.entity.ProductSize>
      */
-    List<ProductSize> listProductSizeByProductId(Integer productId);
+    List<ProductSize> listProductSizeByProductId(String productId);
 
     /**
      * 根据商品ID查询商品的所有图片
      * @param productId 商品ID
      * @return java.util.List<hhxy.dn.wph.entity.ProductImage>
      */
-    List<ProductImage> listProductImageByProductId(Integer productId);
+    List<ProductImage> listProductImageByProductId(String productId);
 
     /**
      * 动态查询商品库存,
@@ -114,4 +114,7 @@ public interface ProductService {
      * @return java.util.List<hhxy.dn.wph.entity.Product>
      */
     PageInfo<Product> findProductInSeller(ProductSelectCondition condition,Integer pageNum,Integer pageCount);
+
+    List<Category> listCategoryTree();
+
 }

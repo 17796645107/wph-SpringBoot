@@ -1,8 +1,8 @@
 package hhxy.dn.wph.enums;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 16:56 2019/6/8
+ * @author 邓宁
+ * @date Created in 16:56 2019/6/8
  */
 
 public enum SellerExceptionEnum {

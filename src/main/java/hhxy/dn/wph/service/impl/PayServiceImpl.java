@@ -9,8 +9,8 @@ import hhxy.dn.wph.service.PayService;
 import org.springframework.stereotype.Service;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 14:07 2019/5/4
+ * @author 邓宁
+ * @date Created in 14:07 2019/5/4
  */
 
 @Service

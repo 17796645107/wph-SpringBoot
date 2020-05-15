@@ -16,8 +16,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.lang.reflect.Method;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 22:20 2019/4/29
+ * @author 邓宁
+ * @date Created in 22:20 2019/4/29
  * Redis配置类
  */
 

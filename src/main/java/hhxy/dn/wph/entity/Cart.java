@@ -3,49 +3,45 @@ package hhxy.dn.wph.entity;
 import java.io.Serializable;
 import java.util.Date;
 /**
- * @Author: 邓宁
- * @Date: Created in 13:39 2018/11/12
+ * @author 邓宁
+ * @date Created in 13:39 2018/11/12
  * 购物车类
  */
 public class Cart implements Serializable {
     /**
-     * @Description 主键
+     *  主键
      */
     private Integer id;
     /**
-     * @Description 用户ID
+     *  用户ID
      */
     private Integer userId;
     /**
-     * @Description 商品ID
+     *  商品ID
      */
     private Integer productId;
     /**
-     * @Description 商品数量
+     *  商品数量
      */
     private Integer productNumber;
     /**
-     * @Description 商品颜色
+     *  商品颜色
      */
     private String productColor;
     /**
-     * @Description 商品尺寸
+     *  商品尺寸
      */
     private String productSize;
     /**
-     * @Description 状态
+     *  状态
      */
     private Integer status;
     /**
-     * @Description 创建时间
+     *  创建时间
      */
     private String created;
     /**
-     * @Description 更新时间
-     */
-    private String updated;
-    /**
-     * @Description 商品实体类,一对一
+     *  商品实体类,一对一
      */
     private Product product;
 
@@ -115,13 +111,7 @@ public class Cart implements Serializable {
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
 
     public Product getProduct() {
         return product;
@@ -142,7 +132,6 @@ public class Cart implements Serializable {
                 ", productSize='" + productSize + '\'' +
                 ", status=" + status +
                 ", created='" + created + '\'' +
-                ", updated='" + updated + '\'' +
                 ", product=" + product +
                 '}';
     }

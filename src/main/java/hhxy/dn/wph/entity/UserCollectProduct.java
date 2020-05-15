@@ -1,8 +1,8 @@
 package hhxy.dn.wph.entity;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 23:10 2019/5/3
+ * @author 邓宁
+ * @date Created in 23:10 2019/5/3
  */
 //用户收藏商品实体类
 public class UserCollectProduct {

@@ -3,8 +3,8 @@ package hhxy.dn.wph.exception;
 import hhxy.dn.wph.enums.SellerExceptionEnum;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 16:53 2019/6/8
+ * @author 邓宁
+ * @date Created in 16:53 2019/6/8
  */
 
 public class SellerException extends RuntimeException{

@@ -4,8 +4,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 15:21 2019/5/12
+ * @author 邓宁
+ * @date Created in 15:21 2019/5/12
  */
 
 //部署到Tomcat的启动类

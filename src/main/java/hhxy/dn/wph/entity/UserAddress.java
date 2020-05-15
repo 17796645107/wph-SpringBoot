@@ -5,8 +5,8 @@ import hhxy.dn.wph.util.DateUtil;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 12:23 2018/11/16
+ * @author 邓宁
+ * @date Created in 12:23 2018/11/16
  * 用户收货地址表
  */
 public class UserAddress {
@@ -22,7 +22,7 @@ public class UserAddress {
     private Integer isDefault;//是否默认收货地址a
     private Integer status;//状态
     private String created;//创建时间
-    private String updated;//更新时间
+    //更新时间
 
     public Integer getId() {
         return id;
@@ -120,13 +120,7 @@ public class UserAddress {
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
 
     @Override
     public String toString() {
@@ -143,7 +137,6 @@ public class UserAddress {
                 ", isDefault=" + isDefault +
                 ", status=" + status +
                 ", created=" + created +
-                ", updated=" + updated +
-                '}';
+'}';
     }
 }

@@ -5,8 +5,8 @@ import hhxy.dn.wph.util.DateUtil;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 12:15 2018/11/30
+ * @author 邓宁
+ * @date Created in 12:15 2018/11/30
  * 商品颜色
  */
 public class ProductColor {
@@ -17,7 +17,7 @@ public class ProductColor {
     /**
      * 商品ID
      */
-    private Integer productId;
+    private String productId;
     /**
      * 颜色
      */
@@ -33,7 +33,7 @@ public class ProductColor {
     /**
      *
      */
-    private String updated;
+
 
     public ProductColor() {
         this.status = 1;
@@ -47,11 +47,11 @@ public class ProductColor {
         this.id = id;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -79,13 +79,7 @@ public class ProductColor {
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
 
     @Override
     public String toString() {
@@ -95,7 +89,7 @@ public class ProductColor {
                 ", color='" + color + '\'' +
                 ", status=" + status +
                 ", created='" + created + '\'' +
-                ", updated='" + updated + '\'' +
+
                 '}';
     }
 }

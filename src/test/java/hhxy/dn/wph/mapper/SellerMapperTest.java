@@ -13,8 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 12:10 2019/5/24
+ * @author 邓宁
+ * @date Created in 12:10 2019/5/24
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -54,7 +54,7 @@ public class SellerMapperTest {
 //                "XXXL",
         };
         ProductSize productSize = new ProductSize();
-        productSize.setProductId(p_id);
+        //productSize.setProductId(p_id);
         for (String s : size) {
             productSize.setSize(s);
             sellerMapper.saveProductSize(productSize);
@@ -64,9 +64,9 @@ public class SellerMapperTest {
     @Test
     public void saveProductColor() {
         ProductColor productColor = new ProductColor();
-        productColor.setProductId(p_id);
+        //productColor.setProductId(p_id);
         ProductImage productImage = new ProductImage();
-        productImage.setProductId(p_id);
+        //productImage.setProductId(p_id);
 
 //        String[]colors = {"默认"};
         String[]colors = {
@@ -104,10 +104,10 @@ public class SellerMapperTest {
 
     @Test
     public void saveProductNum(){
-        List<ProductColor> productColorList = productMapper.listProductColorByProductId(p_id);
+        /*List<ProductColor> productColorList = productMapper.listProductColorByProductId(p_id);
         List<ProductSize> productSizeList = productMapper.listProductSizeByProductId(p_id);
         ProductNum productNum = new ProductNum();
-        productNum.setProductId(p_id);
+        //productNum.setProductId(p_id);
         productNum.setNum(888);
         productColorList.forEach(productColor -> {
             productNum.setProductColor(productColor.getColor());
@@ -115,7 +115,7 @@ public class SellerMapperTest {
                 productNum.setProductSize(productSize.getSize());
                 sellerMapper.saveProductNum(productNum);
             });
-        });
+        });*/
     }
 
     @Test

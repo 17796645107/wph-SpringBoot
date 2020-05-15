@@ -4,8 +4,8 @@ import hhxy.dn.wph.enums.GoodCartExceptionEnum;
 import hhxy.dn.wph.enums.UserExceptionEnum;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 13:36 2019/4/12
+ * @author 邓宁
+ * @date Created in 13:36 2019/4/12
  */
 
 public class GoodCartException extends RuntimeException{

@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 20:59 2019/4/5
+ * @author 邓宁
+ * @date Created in 20:59 2019/4/5
  */
 
 public class DateUtil {

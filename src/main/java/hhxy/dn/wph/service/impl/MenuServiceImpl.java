@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 21:29 2018/12/8
+ * @author 邓宁
+ * @date Created in 21:29 2018/12/8
  */
 @Service
 public class MenuServiceImpl implements MenuService {

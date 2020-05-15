@@ -6,8 +6,8 @@ import org.apache.ibatis.jdbc.SQL;
 
 import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 /**
- * @Author: 邓宁
- * @Date: Created in 22:33 2018/11/12
+ * @author 邓宁
+ * @date Created in 22:33 2018/11/12
  * 动态SQL
  */
 
@@ -15,8 +15,8 @@ public class UserProvider {
 
     /**
      * 更新用户信息
-     * @param user
-     * @return java.lang.String
+     * @param user 用户信息
+     * @return sql
      */
     public String updateUser(User user){
         return new SQL(){
@@ -43,17 +43,16 @@ public class UserProvider {
                 if (user.getHeadImage() != null){
                     SET("head_image = #{headImage}");
                 }
-                SET("updated = #{updated}");
                 WHERE("id = #{id}");
-                WHERE("status = 1");
+                WHERE("state = 1");
             }
         }.toString();
     }
 
     /**
      * 添加用户收货地址
-     * @param address
-     * @return java.lang.String
+     * @param address 收货地址
+     * @return sql
      */
     public String saveUserAddress(UserAddress address){
         return new SQL(){
@@ -74,8 +73,8 @@ public class UserProvider {
 
     /**
      * 更新用户收货地址
-     * @param address
-     * @return java.lang.String
+     * @param address 收货地址
+     * @return sql
      */
     public String updateUserAddress(UserAddress address){
         return new SQL(){
@@ -102,9 +101,8 @@ public class UserProvider {
                 if(address.getTelephone() != null){
                     SET("telephone = #{telephone}");
                 }
-                SET("updated = #{updated}");
                 WHERE("id = #{id}");
-                WHERE("status = 1");
+                WHERE("state = 1");
             }
         }.toString();
     }

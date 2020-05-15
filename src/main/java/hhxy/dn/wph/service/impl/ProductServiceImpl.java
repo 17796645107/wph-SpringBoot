@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 21:48 2018/11/4
+ * @author 邓宁
+ * @date Created in 21:48 2018/11/4
  */
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -36,18 +36,11 @@ public class ProductServiceImpl implements ProductService{
 
     /**
      * 查询商户所有的商品二级目录（店铺的所有分类）
-     * @param seller_id
-     * @return java.util.List<hhxy.dn.wph.entity.Category>
+     * @param sellerId
+     * @return List<Category>
      */
     @Override
     public List<Category> listCategoryBySellerId(Integer sellerId) {
-        String cacheKey = "SecondaryCategory:";
-        //查询缓存
-        if (redisUtil.hasKey(cacheKey + sellerId)){
-            String cache = (String) redisUtil.get(cacheKey + sellerId);
-            return JsonUtil.jsonToList(cache,Category.class);
-        }
-        //查询数据库
         List<Category> secondaryCategoryList = productMapper.listCategoryBySellerId(sellerId);
         secondaryCategoryList.forEach(category -> {
             //统计每种分类的商品数量
@@ -57,14 +50,13 @@ public class ProductServiceImpl implements ProductService{
         //查询结果为空。则抛出异常
         validIsEmpty(secondaryCategoryList.isEmpty());
         //写入缓存
-        redisUtil.set(cacheKey + sellerId,JsonUtil.objectToJson(secondaryCategoryList));
         return secondaryCategoryList;
     }
 
     /**
      * 验证查询结果是否为空
      * @param empty List.isEmpty()方法,
-     * @return void
+
      */
     private void validIsEmpty(boolean empty) {
         if (empty) {
@@ -74,111 +66,76 @@ public class ProductServiceImpl implements ProductService{
 
     /**
      * 根据一级目录查询所有的商品尺寸
-     * @param categoryId
-     * @return java.util.List<hhxy.dn.wph.entity.ProductSize>
+     * @param categoryId 一级目录
+     * @return List<ProductSize>
      */
     @Override
     public List<ProductSize> listProductSizeByCategoryId(Integer categoryId) {
-        String cacheKey = "ProductSize:";
-        //查询缓存
-        if (redisUtil.hasKey(cacheKey + categoryId)){
-            String cache = (String) redisUtil.get(cacheKey + categoryId);
-            return JsonUtil.jsonToList(cache,ProductSize.class);
-        }
-        //查询数据库
         List<ProductSize> productSizeList = productMapper.listProductSizeByCategoryId(categoryId);
         //查询结果为空。则抛出异常
         validIsEmpty(productSizeList.isEmpty());
-        //写入缓存
-        redisUtil.set(cacheKey + categoryId,JsonUtil.objectToJson(productSizeList));
         return productSizeList;
     }
 
     /**
      * 根据商品ID查询商品
-     * @param productId
-     * @return hhxy.dn.wph.entity.Product
+     * @param productId 商品ID(主键)
+     * @return Product
      */
     @Override
-    public Product getProductById(Integer productId) {
-        final String cacheKey = "Product:"+ productId;
-        if(redisUtil.hasKey(cacheKey)){
-            String productCache = (String) redisUtil.get(cacheKey);
-            return JsonUtil.jsonToPojo(productCache,Product.class);
-        }
+    public Product getProductById(String productId) {
         Product product = productMapper.getProductById(productId);
         validIsEmpty(product == null);
-        redisUtil.set(cacheKey,JsonUtil.objectToJson(product));
         return product;
     }
 
     /**
      * 获取商品分类目录
      * @param parentId
-     * @return java.util.List<hhxy.dn.wph.entity.Category>
+     * @return List<Category>
      */
     @Override
     public List<Category> listCategoryByParentId(Integer parentId) {
-        final String categoryKey = "Category:";
-        if (redisUtil.hasKey(categoryKey + parentId)){
-            String categoryList = (String) redisUtil.get(categoryKey + parentId);
-            return  JsonUtil.jsonToList(categoryList,Category.class);
-        }
+
         List<Category> categories = productMapper.listCategoryByParentId(parentId);
         //如果查询结果为空，抛出异常，（空结果禁止写入缓存）！
         validIsEmpty(categories.isEmpty());
-        redisUtil.set(categoryKey + parentId, JsonUtil.objectToJson(categories));
         return categories;
     }
 
     /**
-     * @Description: 根据商品分类查询商品
-     * @param: [categoryId, page, countOfPage]商品分类Id，当前页，页面商品数量
-     * @return: java.util.List<hhxy.dn.wph.entity.Product>
+     * 根据商品分类查询商品
+     * @param categoryId 分类ID
+     * @param page 当前页数
+     * @param countOfPage 页面显示数量
+     * @return List<Product>
      */
     @Override
     public List<Product> listProductByCategoryId(Integer categoryId, Integer page, Integer countOfPage) {
-        final String productListKey = "ProductListByCategoryId:"+ categoryId +":Page" + page;
-        if (redisUtil.hasKey(productListKey)){
-            String products = (String) redisUtil.get(productListKey);
-            return JsonUtil.jsonToList(products,Product.class);
-        }
         List<Product> productList = productMapper.listProductByCategoryId(categoryId);
         validIsEmpty(productList.isEmpty());
-        redisUtil.set(productListKey,JsonUtil.objectToJson(productList));
         return productList;
     }
 
     /**
      * 查询品牌列表
      * @param categoryId
-     * @return java.util.List<hhxy.dn.wph.entity.Brand>
+     * @return List<Brand>
      */
     @Override
     public List<Brand> listBrandByCategoryId(Integer categoryId) {
-        final String brandKey = "Brand:";
-        if (redisUtil.hasKey(brandKey + categoryId)){
-            String cache = (String) redisUtil.get(brandKey + categoryId);
-            return JsonUtil.jsonToList(cache,Brand.class);
-        }
         List<Brand> brandList = productMapper.listBrandByCategoryId(categoryId);
         validIsEmpty(brandList.isEmpty());
-        redisUtil.set(brandKey + categoryId,JsonUtil.objectToJson(brandList));
         return brandList;
     }
 
     /**
-     * @Description:根据商品分类获取商品属性列表和商品属性值列表
-     * @param: [categoryId]
-     * @return: java.util.List<hhxy.dn.wph.entity.ProductAttribute>
+     * 根据商品分类获取商品属性列表和商品属性值列表
+     * @param categoryId
+     * @return List<ProductAttribute>
      */
     @Override
     public List<ProductAttribute> listProductAttributeByCategoryId(Integer categoryId) {
-        final String productAttributeKey = "ProductAttributeByCategoryId:";
-        if (redisUtil.hasKey(productAttributeKey + categoryId)){
-            String cache = (String) redisUtil.get(productAttributeKey + categoryId);
-            return JsonUtil.jsonToList(cache,ProductAttribute.class);
-        }
         //获取商品属性
         List<ProductAttribute> productAttributeList = productMapper.listProductAttributeByCategoryId(categoryId);
         productAttributeList.forEach(productAttribute -> {
@@ -187,66 +144,59 @@ public class ProductServiceImpl implements ProductService{
             productAttribute.setAttributeValues(productAttributeValueList);
         });
         validIsEmpty(productAttributeList.isEmpty());
-        redisUtil.set(productAttributeKey + categoryId,JsonUtil.objectToJson(productAttributeList));
         return productAttributeList;
     }
 
     /**
-     * @Description:根据商户查询商品
-     * @param: [sellerId, page, countOfPage]
-     * @return: java.util.List<hhxy.dn.wph.entity.Product>
+     * 根据商户查询商品
+     * @param sellerId 商户ID
+     * @param pageIndex 当前页数
+     * @param pageCount 每页显示数量
+     * @return PageInfo<Product>
      */
     @Override
-    public PageInfo<Product> listProductBySellerId(Integer sellerId,Integer page,Integer countOfPage) {
-        final String productListKey = "ProductListBySellerId:"+ sellerId +":Page"+ page;
-        if (redisUtil.hasKey(productListKey)){
-            String productListCache = (String) redisUtil.get(productListKey);
-            return JsonUtil.jsonToPojo(productListCache,PageInfo.class);
-        }
+    public PageInfo<Product> listProductBySellerId(Integer sellerId,Integer pageIndex, Integer pageCount) {
         List<Product> productList = productMapper.listProductBySellerId(sellerId);
         validIsEmpty(productList.isEmpty());
-
         //开始分页
-        PageHelper.startPage(page,countOfPage);
+        PageHelper.startPage(pageIndex,pageCount);
         //把查询结果传给PageInfo,生成分页
-        PageInfo<Product> productPageInfo = new PageInfo<>(productList);
-        //写入缓存
-        redisUtil.set(productListKey,JsonUtil.objectToJson(productPageInfo));
-        return productPageInfo;
+
+        return new PageInfo<>(productList);
     }
 
     /**
-     * @Description 查询商品颜色列表
+     * 查询商品颜色列表
      * @param productId
-     * @return java.util.List<hhxy.dn.wph.entity.ProductColor>
+     * @return List<ProductColor>
      */
     @Override
-    public List<ProductColor> listProductColorByProductId(Integer productId) {
+    public List<ProductColor> listProductColorByProductId(String productId) {
         return productMapper.listProductColorByProductId(productId);
     }
 
     /**
-     * @Description 查询商品尺寸列表
+     *  查询商品尺寸列表
      * @param productId
-     * @return java.util.List<hhxy.dn.wph.entity.ProductSize>
+     * @return List<ProductSize>
      */
     @Override
-    public List<ProductSize> listProductSizeByProductId(Integer productId) {
+    public List<ProductSize> listProductSizeByProductId(String productId) {
         return productMapper.listProductSizeByProductId(productId);
     }
 
     /**
-     * @Description 查询商品图片
+     *  查询商品图片
      * @param productId
-     * @return java.util.List<hhxy.dn.wph.entity.ProductImage>
+     * @return List<ProductImage>
      */
     @Override
-    public List<ProductImage> listProductImageByProductId(Integer productId) {
+    public List<ProductImage> listProductImageByProductId(String productId) {
         return productMapper.listProductImageByProductId(productId);
     }
 
     /**
-     * @Description 查询商品库存
+     *  查询商品库存
      * @param productNum
      * @return java.lang.Integer
      */
@@ -261,11 +211,11 @@ public class ProductServiceImpl implements ProductService{
         return num;
     }
 
-    public List<Product> findProductByArrtibute(List<ProductAttributeRelation> attributeRelations){
+    private List<Product> findProductByAttribute(List<ProductAttributeRelation> attributeRelations){
         Integer[] productIdArray = null;
         for (int i = 0; i < attributeRelations.size(); i++) {
             if (i == 0){
-                List<Integer> productId = productMapper.listProductIdByArrtibute(attributeRelations.get(i));
+                List<Integer> productId = productMapper.listProductIdByAttribute(attributeRelations.get(i));
                 productIdArray = listToArray(productId);
             }else{
                 List<Integer> productId = productMapper.listProductId(attributeRelations.get(i),productIdArray);
@@ -282,7 +232,7 @@ public class ProductServiceImpl implements ProductService{
         return  null;
     }
 
-    public Integer[] listToArray(List<Integer> productIdList){
+    private Integer[] listToArray(List<Integer> productIdList){
         int size = productIdList.size();
         Integer[]array = new Integer[productIdList.size()];
         for (int i = 0; i < size; i++) {
@@ -292,13 +242,11 @@ public class ProductServiceImpl implements ProductService{
     }
 
     /**
-     * @Description 检索商品
-     * @param sellerId
-     * @param secoundCategoryId
-     * @param sizeId
-     * @param type
-     * @param hasNum
-     * @return java.util.List<hhxy.dn.wph.entity.Product>
+     * 分页检索商品
+     * @param condition
+     * @param pageNum
+     * @param pageCount
+     * @return PageInfo<Product>
      */
     @Override
     public PageInfo<Product> findProductInSeller(ProductSelectCondition condition,Integer pageNum,Integer pageCount){
@@ -309,8 +257,13 @@ public class ProductServiceImpl implements ProductService{
         }*/
         List<Product> productList = productMapper.listProductInSeller(condition);
         PageHelper.startPage(pageNum,pageCount);
-        PageInfo<Product> productPageInfo = new PageInfo<>(productList);
-        return  productPageInfo;
+
+        return new PageInfo<>(productList);
+    }
+
+    @Override
+    public List<Category> listCategoryTree() {
+        return productMapper.CATEGORY_LIST();
     }
 
     /*@Transactional(rollbackFor = Exception.class)

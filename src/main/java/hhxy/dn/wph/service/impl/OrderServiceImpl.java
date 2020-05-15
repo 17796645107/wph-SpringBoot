@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 14:53 2019/5/3
+ * @author 邓宁
+ * @date Created in 14:53 2019/5/3
  * 订单业务实现类
  */
 @Service
@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 创建订单
-     * @param order
+     * @param order 订单信息
      * @return java.lang.Integer
      */
     @Override
@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 
         //创建订单
         order.setOrderNo(IDUtil.createOrderID());
-        order.setStatus(1);
+        order.setState(1);
         order.setCreated(DateUtil.getDate());
         int result = orderMapper.saveOrder(order);
         if (result != 1){
@@ -87,25 +87,24 @@ public class OrderServiceImpl implements OrderService {
                 throw new GoodCartException(GoodCartExceptionEnum.DELETE_CART_ERROR);
             }
             //更新商品库存
-            int results2 = productMapper.updateProductNum(goodCart.getProduct().getId(),goodCart.getProductColor(),goodCart.getProductSize(),goodCart.getProductNumber());
+            int results2 = productMapper.updateProductNum(goodCart.getProduct().getDefaultImage().getProductId(),goodCart.getProductColor(),goodCart.getProductSize(),goodCart.getProductNumber());
             if (results2 != 1){
                 throw new ProductException(ProductExceptionEnum.UPDATE_PRODUCT_NUM_ERROR);
             }
         }
         //清除缓存
         //批量模糊删除
-        Set<String> keys = redisTemplate.keys("OrderList:" + order.getUserId() + "*");
-        redisTemplate.delete(keys);
+        //Set<String> keys = redisTemplate.keys("OrderList:" + order.getUserId() + "*");
+        //redisTemplate.delete(keys);
 
         return order.getId();
     }
 
     /**
      * 检查商品库存
-     * @param order
-     * @return void
+     * @param order 订单信息
      */
-    private  void checkProductNum(Order order){
+    private void checkProductNum(Order order){
         List<Cart> goodList = order.getGoodCartList();
         ProductNum productNum = new ProductNum();
         Integer num = 0;
@@ -130,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
      * @param userId
      * @param page 当前页
      * @param countOfPage 每页显示数量
-     * @return com.github.pagehelper.PageInfo<hhxy.dn.wph.entity.Order>
+     * @return PageInfo<Order>
      */
     @Override
     public PageInfo<Order> listOrderPage(Integer userId, Integer page, Integer countOfPage) {
@@ -168,7 +167,6 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 删除订单
      * @param orderNo
-     * @return void
      */
     @Override
     public void deleteOrderByNo(Integer orderNo) {

@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 13:48 2018/11/12
+ * @author 邓宁
+ * @date Created in 13:48 2018/11/12
  */
 
 @RestController
@@ -21,9 +21,9 @@ public class OrderController {
     private OrderService orderService;
 
     /**
-     * @Description: 创建订单
-     * @param: [order]
-     * @return: [order_no]订单编号
+     * 创建订单
+     * @param order 订单信息
+     * @return 订单编号
      */
     @RequestMapping("/createdOrder")
     public Result createOrder(@RequestBody Order order){
@@ -32,9 +32,9 @@ public class OrderController {
     }
 
     /**
-     * @Description: 获取订单信息列表
-     * @param: [userId]用户ID
-     * @return: hhxy.dn.wph.entity.Result
+     * 获取订单信息列表
+     * @param userId 用户ID
+     * @return Result
      */
     @RequestMapping("/getOrderByUserID/{userId}")
     public Result listOrderByUserId(@PathVariable Integer userId,
@@ -45,11 +45,11 @@ public class OrderController {
     }
 
     /**
-     * @Description: 获取一条订单信息
-     * @param: [orderNO]订单编号
-     * @return: hhxy.dn.wph.entity.Result
+     * 获取一条订单信息
+     * @param orderNo 订单编号
+     * @return Result
      */
-    @GetMapping("/getOrderByOrderNO/{orderNO}")
+    @GetMapping("/getOrderByOrderNO/{orderNo}")
     public Result getOrderByOrderNo(@PathVariable Integer orderNo){
         Order order = orderService.getOrderByNo(orderNo);
         return ResultUtil.success(order);
@@ -58,7 +58,7 @@ public class OrderController {
     /**
      * 删除订单
      * @param orderNo
-     * @return hhxy.dn.wph.entity.Result
+     * @return Result
      */
     @RequestMapping("/deleteOrderByNO/{orderNO}")
     public Result deleteOrderByNo(@PathVariable Integer orderNo){

@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 /**
- * @Author: 邓宁
- * @Date: Created in 23:46 2019/4/29
+ * @author 邓宁
+ * @date Created in 23:46 2019/4/29
  */
 //Redis工具类
 @Component
@@ -353,8 +353,7 @@ public final class RedisUtil {
      */
     public long setRemove(String key, Object... values) {
         try {
-            Long count = redisTemplate.opsForSet().remove(key, values);
-            return count;
+            return redisTemplate.opsForSet().remove(key, values);
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -407,7 +406,6 @@ public final class RedisUtil {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @param time 时间(秒)
      * @return 436
      */
     public boolean lSet(String key, Object value) {
@@ -441,7 +439,6 @@ public final class RedisUtil {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @param time 时间(秒)
      * @return 472
      */
     public boolean lSet(String key, List<Object> value) {

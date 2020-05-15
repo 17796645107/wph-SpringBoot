@@ -5,8 +5,8 @@ import hhxy.dn.wph.util.DateUtil;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 19:41 2019/4/8
+ * @author 邓宁
+ * @date Created in 19:41 2019/4/8
  * 商品图片类
  */
 public class ProductImage {
@@ -17,7 +17,7 @@ public class ProductImage {
     /**
      * 商品ID
      */
-    private Integer productId;
+    private String productId;
     /**
      * 图片URL
      */
@@ -37,7 +37,7 @@ public class ProductImage {
     /**
      *
      */
-    private String updated;
+
 
     public Integer getId() {
         return id;
@@ -47,11 +47,11 @@ public class ProductImage {
         this.id = id;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -87,13 +87,7 @@ public class ProductImage {
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
 
     @Override
     public String toString() {
@@ -104,7 +98,7 @@ public class ProductImage {
                 ", colorId=" + colorId +
                 ", status=" + status +
                 ", created='" + created + '\'' +
-                ", updated='" + updated + '\'' +
+
                 '}';
     }
 }

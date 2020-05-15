@@ -5,8 +5,8 @@ import hhxy.dn.wph.util.DateUtil;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 12:15 2018/11/30
+ * @author 邓宁
+ * @date Created in 12:15 2018/11/30
  * 商品尺寸表
  */
 public class ProductSize {
@@ -17,7 +17,7 @@ public class ProductSize {
     /**
      * 商品ID
      */
-    private Integer productId;
+    private String productId;
     /**
      * 商品尺寸
      */
@@ -30,10 +30,8 @@ public class ProductSize {
      * 创建时间
      */
     private String created;
-    /**
-     * 更新时间
-     */
-    private String updated;
+
+
 
     public Integer getId() {
         return id;
@@ -43,11 +41,11 @@ public class ProductSize {
         this.id = id;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -75,13 +73,7 @@ public class ProductSize {
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
 
     @Override
     public String toString() {
@@ -91,7 +83,7 @@ public class ProductSize {
                 ", size='" + size + '\'' +
                 ", status=" + status +
                 ", created='" + created + '\'' +
-                ", updated='" + updated + '\'' +
+
                 '}';
     }
 }

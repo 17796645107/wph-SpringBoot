@@ -1,15 +1,16 @@
 package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
+
 /**
- *   @Author 邓宁
- *   @Date Created in 2019/6/19
- *   @Description 商品类目
+ * 商品类目
+ * @author 邓宁宁
+ * @date Created in 2019/6/19
  */
 public class Category implements Serializable {
     /**
-     *
+     * ID
      */
     private Integer id;
     /**
@@ -31,15 +32,16 @@ public class Category implements Serializable {
     /**
      * 状态
      */
-    private Integer status;
+    private Integer state;
     /**
      * 创建时间
      */
     private String created;
     /**
-     * 更新时间
+     * 子节点
      */
-    private String updated;
+    private List<Category> children;
+
     /**
      * 统计此类目的商品数量
      */
@@ -87,12 +89,12 @@ public class Category implements Serializable {
         this.adminId = adminId;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getState() {
+        return state;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public String getCreated() {
@@ -103,14 +105,6 @@ public class Category implements Serializable {
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
     public Integer getProductCount() {
         return productCount;
     }
@@ -119,18 +113,11 @@ public class Category implements Serializable {
         this.productCount = productCount;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", categoryName='" + categoryName + '\'' +
-                ", categorySort=" + categorySort +
-                ", parentId=" + parentId +
-                ", adminId=" + adminId +
-                ", status=" + status +
-                ", created='" + created + '\'' +
-                ", updated='" + updated + '\'' +
-                ", productCount=" + productCount +
-                '}';
+    public List<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Category> children) {
+        this.children = children;
     }
 }

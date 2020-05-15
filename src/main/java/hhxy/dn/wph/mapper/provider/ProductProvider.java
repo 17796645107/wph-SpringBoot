@@ -11,18 +11,18 @@ import org.apache.ibatis.jdbc.SQL;
 import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 21:47 2018/11/19
+ * @author 邓宁
+ * @date Created in 21:47 2018/11/19
  * 商品动态SQL类
  */
 public class ProductProvider {
 
     /**
      * 根据一级目录查询所有的商品尺寸
-     * @param primary_id
+     * @param categoryId 一级目录Id
      * @return java.lang.String
      */
-    public String findAllProductSizeByPrimaryCategoryId(Integer categotyId){
+    public String findAllProductSizeByPrimaryCategoryId(Integer categoryId){
         StringBuffer sql = new StringBuffer();
         sql.append("SELECT distinct size " +
                     "FROM tb_product_size " +
@@ -32,7 +32,7 @@ public class ProductProvider {
                                         "WHERE category_id in (" +
                                                             "SELECT id " +
                                                             "FROM tb_category " +
-                                                            "WHERE parent_id = #{categotyId}" +
+                                                            "WHERE parent_id = #{categoryId}" +
                                         ")" +
                     ")" +
                     "ORDER BY id");
@@ -41,7 +41,7 @@ public class ProductProvider {
 
     /**
      * 查询商品库存
-     * @param productNum
+     * @param productNum 商品库存参数
      * @return java.lang.String
      */
     public String findProductNum(ProductNum productNum){
@@ -68,12 +68,8 @@ public class ProductProvider {
      * @param productNumber
      * @return java.lang.String
      */
-    public String updateProductNum(
-            @Param("productId") Integer productId,
-            @Param("productColor") String productColor,
-            @Param("productSize") String productSize,
-            @Param("productNumber") Integer productNumber){
-
+    public String updateProductNum(@Param("productId") Integer productId, @Param("productColor") String productColor,
+            @Param("productSize") String productSize, @Param("productNumber") Integer productNumber){
         return new SQL(){
             {
                 UPDATE(PRODUCT_NUM);
@@ -87,32 +83,27 @@ public class ProductProvider {
 
     public String findProductByArrtibute(@Param("attributeRelation") ProductAttributeRelation attributeRelation,
                                          @Param("productIdArray") Integer[] productIdList){
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(
                 "select product_id from "+ PRODUCT_ATTRIBUTE_RELATION +
                 "where attribute_id = #{attributeRelation.attributeId} "+
                 "and value_id = #{attributeRelation.valueId} " +
                 "and product_id in ("
         );
         for (int i = 0 ,l = productIdList.length;i < l;i++) {
-            stringBuffer.append(productIdList[i]);
+            stringBuilder.append(productIdList[i]);
             if (i == l-1){
                 break;
             }
-            stringBuffer.append(",");
+            stringBuilder.append(",");
         }
-        stringBuffer.append(")");
-        return stringBuffer.toString();
+        stringBuilder.append(")");
+        return stringBuilder.toString();
     }
 
     /**
      * 检索商品
-     * @param sellerId
-     * @param categoryId
-     * @param sizeId
-     * @param type 排序类型 1:价格,2:收藏
-     * @param hasNum 是否有库存
-     * @return java.util.List<hhxy.dn.wph.entity.Product>
+     * @param condition 检索条件
      */
     public String findProductInSeller(ProductSelectCondition condition){
         return new SQL(){
@@ -131,6 +122,7 @@ public class ProductProvider {
                 if (condition.getHasNum() != null && condition.getHasNum() == 1){
                     WHERE("n.num > 0");
                 }
+                WHERE("p.state = 1");
                 if (condition.getType() != null){
                     switch (condition.getType()){
                         case 1:

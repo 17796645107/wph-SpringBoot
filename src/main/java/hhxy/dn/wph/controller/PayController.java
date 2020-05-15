@@ -23,8 +23,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 14:05 2019/5/4
+ * @author 邓宁
+ * @date Created in 14:05 2019/5/4
  */
 @RequestMapping("/pay")
 @RestController
@@ -47,9 +47,9 @@ public class PayController {
     }
 
     /**
-     * @Description:异步回调: 第三方支付接口发一个后台通知给商户平台，一般场景用户修改订单信息。
-     * @param: [request, response]
-     * @return: hhxy.dn.wph.entity.Result
+     * :异步回调: 第三方支付接口发一个后台通知给商户平台，一般场景用户修改订单信息。
+     * @param [request, response]
+     * @return Result
      */
     @RequestMapping("/notify")
     public Result alipayNotifyNotice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
@@ -162,9 +162,9 @@ public class PayController {
     }
 
     /**
-     * @Description:同步回调: 整个支付流程完毕，使用同步方式将参数重定向给商户平台，一般场景用于展示结果。
-     * @param: [request, response]
-     * @return: hhxy.dn.wph.entity.Result
+     * :同步回调: 整个支付流程完毕，使用同步方式将参数重定向给商户平台，一般场景用于展示结果。
+     * @param [request, response]
+     * @return Result
      */
     @RequestMapping("/return")
     public Result alipayReturnNotice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {

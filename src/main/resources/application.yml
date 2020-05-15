@@ -16,7 +16,7 @@ spring:
     #driver-class-name: com.mysql.cj.jdbc.Driver
     #url: jdbc:mysql://localhost:3306/wph?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=true
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/wph?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/yiren?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 123456
   #Redis缓存数据库
@@ -50,8 +50,6 @@ logging:
     root: warn
     #日志打印级别，mapper打印SQL语句
     hhxy.dn.wph: DEBUG
-    #Spring security 日志
-#    org.springframework.security: DEBUG
 
 #用户头像存放地址
 UPLOAD_URL: E:\Vue_projects\vue14_test01\static\user\headIcon\

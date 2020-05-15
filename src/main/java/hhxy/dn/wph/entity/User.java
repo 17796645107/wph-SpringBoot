@@ -1,30 +1,22 @@
 package hhxy.dn.wph.entity;
 
-import hhxy.dn.wph.util.DateUtil;
-import hhxy.dn.wph.util.IDUtil;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import hhxy.dn.wph.util.ValidatorUtil;
 
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import javax.validation.constraints.Pattern;
 
 /**
  * 用户表
- * @Author: 邓宁
- * @Date: Created in 13:38 2018/11/12
+ *
+ * @author 邓宁
+ * @date Created in 13:38 2018/11/12
  */
-public class User{
+public class User {
     /**
      * 自动编号
      */
     private Integer id;
     /**
-     *
+     * 用户编号
      */
     private String userNo;
     /**
@@ -33,8 +25,30 @@ public class User{
     private String nickname;
     /**
      * 手机号
+     * 使用SpringMVC @Valid 进行参数验证
+     * regexp 正则表达式
+     * message 错误提示信息
      */
+    @Pattern(regexp = ValidatorUtil.REGEX_MOBILE,message = "手机号码格式不正确")
     private String telephone;
+
+    /**
+     * 密码
+     * 使用SpringMVC @Valid 进行参数验证
+     * regexp 正则表达式
+     * message 错误提示信息
+     */
+    @Pattern(regexp = ValidatorUtil.REGEX_PASSWORD,message = "密码格式不正确")
+    private String password;
+
+    /**
+     * 手机验证码
+     * 使用SpringMVC @Valid 进行参数验证
+     * regexp 正则表达式
+     * message 错误提示信息
+     */
+    @Pattern(regexp = "^\\d{6}$",message = "手机验证码格式不正确")
+    private String telephoneCode;
     /**
      * 真实姓名
      */
@@ -67,10 +81,6 @@ public class User{
      * 创建时间
      */
     private String created;
-    /**
-     * 更新时间
-     */
-    private String updated;
 
     public Integer getId() {
         return id;
@@ -168,12 +178,20 @@ public class User{
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getTelephoneCode() {
+        return telephoneCode;
+    }
+
+    public void setTelephoneCode(String telephoneCode) {
+        this.telephoneCode = telephoneCode;
     }
 
     @Override
@@ -183,6 +201,8 @@ public class User{
                 ", userNo='" + userNo + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", telephone='" + telephone + '\'' +
+                ", password='" + password + '\'' +
+                ", telephoneCode='" + telephoneCode + '\'' +
                 ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
                 ", birthday='" + birthday + '\'' +
@@ -190,8 +210,7 @@ public class User{
                 ", vip='" + vip + '\'' +
                 ", headImage='" + headImage + '\'' +
                 ", status=" + status +
-                ", created=" + created +
-                ", updated=" + updated +
+                ", created='" + created + '\'' +
                 '}';
     }
 }

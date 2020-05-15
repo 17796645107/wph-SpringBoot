@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 14:11 2019/5/3
+ * @author 邓宁
+ * @date Created in 14:11 2019/5/3
  * 订单商品详情
  */
 public class OrderProduct implements Serializable {

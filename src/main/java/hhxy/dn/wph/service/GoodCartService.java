@@ -5,8 +5,8 @@ import hhxy.dn.wph.entity.Cart;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 22:10 2019/4/28
+ * @author 邓宁
+ * @date Created in 22:10 2019/4/28
  */
 
 public interface GoodCartService {
@@ -14,21 +14,21 @@ public interface GoodCartService {
     /**
      * 添加一条购物车记录
      * @param goodCart
-     * @return void
+
      */
     void saveGoodCart(Cart goodCart);
 
     /**
      *  查询购物车列表
      * @param userId
-     * @return java.util.List<hhxy.dn.wph.entity.Cart>
+     * @return List<Cart>
      */
     List<Cart> listGoodCartByUserId(Integer userId);
 
     /**
      * 删除一条购物车记录
      * @param id
-     * @return void
+
      */
     void deleteGoodCartById(Integer id);
 
@@ -42,14 +42,14 @@ public interface GoodCartService {
     /**
      * 查询购物车列表
      * @param idList 购物车ID数组
-     * @return java.util.List<hhxy.dn.wph.entity.Cart>
+     * @return List<Cart>
      */
     List<Cart> listGoodCartByIdList(int[] idList);
 
     /**
      * 更新购物车
      * @param goodCart
-     * @return void
+
      */
     void updateGoodCartById(Cart goodCart);
 }

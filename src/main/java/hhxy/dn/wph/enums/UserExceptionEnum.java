@@ -1,8 +1,8 @@
 package hhxy.dn.wph.enums;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 16:12 2018/11/9
+ * @author 邓宁
+ * @date Created in 16:12 2018/11/9
  * 用户异常信息枚举
  */
 
@@ -23,7 +23,7 @@ public enum UserExceptionEnum {
     NULL_FILE_ERROR(1009,"文件为空，请重新上传!"),
     UPLOAD_FILE_ERROR(1010,"文件上传异常!"),
     UPDATE_USER_HEAD_ICON_ERROR(1011,"更新用户头像错误：操作数据库失败！"),
-    TELEHPNE_ERROR(1012,"手机号已经注册"),
+    TELEPHONE_ERROR(1012,"手机号已经注册"),
     DELETE_SEARCH_HISTORY_ERROR(1013,"删除搜索记录失败"),
     DELETE_DEFAULT_ADDRESS__Error(1014,"无法删除默认收货地址"),
     ;

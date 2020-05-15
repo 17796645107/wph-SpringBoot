@@ -4,8 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 14:12 2019/5/4
+ * @author 邓宁
+ * @date Created in 14:12 2019/5/4
  */
 /**
  *类名：AlipayConfig

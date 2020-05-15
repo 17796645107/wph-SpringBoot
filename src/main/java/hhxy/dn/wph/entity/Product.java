@@ -1,12 +1,8 @@
 package hhxy.dn.wph.entity;
 
-import hhxy.dn.wph.util.DateUtil;
-
-import java.util.Date;
-
 /**
- * @Author: 邓宁
- * @Date: Created in 12:45 2018/11/16
+ * @author 邓宁
+ * @date Created in 12:45 2018/11/16
  * 商品基本信息表
  */
 public class Product {
@@ -57,15 +53,12 @@ public class Product {
     /**
      * 状态。1：正常；0：删除
      */
-    private Integer status;
+    private Integer state;
     /**
      * 创建时间
      */
     private String created;
-    /**
-     * 更新时间
-     */
-    private String updated;
+
     /**
      * 商品默认展示的图片
      */
@@ -164,12 +157,12 @@ public class Product {
         this.isNew = isNew;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getState() {
+        return state;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public String getCreated() {
@@ -178,14 +171,6 @@ public class Product {
 
     public void setCreated(String created) {
         this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
     }
 
     public ProductImage getDefaultImage() {
@@ -218,9 +203,7 @@ public class Product {
                 ", collect=" + collect +
                 ", isHot=" + isHot +
                 ", isNew=" + isNew +
-                ", status=" + status +
                 ", created=" + created +
-                ", updated=" + updated +
                 ", defaultImage=" + defaultImage +
                 ", seller=" + seller +
                 '}';

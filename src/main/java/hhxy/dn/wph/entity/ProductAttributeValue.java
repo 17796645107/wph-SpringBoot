@@ -5,8 +5,8 @@ import hhxy.dn.wph.util.DateUtil;
 import java.io.Serializable;
 import java.util.Date;
 /**
- * @Author: 邓宁
- * @Date: Created in 21:49 2018/11/4
+ * @author 邓宁
+ * @date Created in 21:49 2018/11/4
  * 商品属性值
  */
 public class ProductAttributeValue implements Serializable {

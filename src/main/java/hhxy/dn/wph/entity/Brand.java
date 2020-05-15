@@ -3,8 +3,8 @@ package hhxy.dn.wph.entity;
 import java.io.Serializable;
 import java.util.Date;
 /**
- * @Author: 邓宁
- * @Date: Created in 13:39 2018/11/12
+ * @author 邓宁
+ * @date Created in 13:39 2018/11/12
  * 品牌类
  */
 public class Brand implements Serializable {
@@ -24,10 +24,6 @@ public class Brand implements Serializable {
      * 创建时间
      */
     private String created;
-    /**
-     * 更新时间
-     */
-    private String updated;
 
     private static final long serialVersionUID = 1L;
 
@@ -63,13 +59,7 @@ public class Brand implements Serializable {
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
 
     @Override
     public String toString() {
@@ -78,7 +68,7 @@ public class Brand implements Serializable {
                 ", brandName='" + brandName + '\'' +
                 ", brandIcon='" + brandIcon + '\'' +
                 ", created='" + created + '\'' +
-                ", updated='" + updated + '\'' +
+
                 '}';
     }
 }

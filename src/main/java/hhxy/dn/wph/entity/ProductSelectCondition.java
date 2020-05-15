@@ -1,12 +1,12 @@
 package hhxy.dn.wph.entity; /**
  * @Author 邓宁
  * @Date Created in 21:25 2019/6/30
- * @Description
+ *
  */
 
 /**
- *   @Author: 邓宁
- *   @Date: Created in 21:25 2019/6/30
+ *   @author 邓宁
+ *   @date Created in 21:25 2019/6/30
  *   @Describe: 查询商品条件
  */
 public class ProductSelectCondition {

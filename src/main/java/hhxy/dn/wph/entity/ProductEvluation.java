@@ -12,7 +12,7 @@ public class ProductEvluation implements Serializable {
 
     private String context;//评论内容
 
-    private String status;//状态
+    private String state;//状态
 
     private Date create;//创建时间
 
@@ -51,11 +51,11 @@ public class ProductEvluation implements Serializable {
     }
 
     public String getStatus() {
-        return status;
+        return state;
     }
 
     public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+        this.state = status == null ? null : status.trim();
     }
 
     public Date getCreate() {

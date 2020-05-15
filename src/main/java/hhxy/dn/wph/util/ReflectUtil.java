@@ -7,8 +7,8 @@ import hhxy.dn.wph.entity.UserAddress;
 import java.lang.reflect.Field;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 20:52 2019/6/18
+ * @author 邓宁
+ * @date Created in 20:52 2019/6/18
  * 反射工具类
  */
 public class ReflectUtil {

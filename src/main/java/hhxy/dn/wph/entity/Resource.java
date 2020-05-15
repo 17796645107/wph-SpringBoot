@@ -2,18 +2,18 @@ package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
 /**
- * @Description URL资源类
- * @Date: 2019/6/22
- * @Author: 邓宁
+ *  URL资源类
+ * @date 2019/6/22
+ * @author 邓宁
  */
 public class Resource implements Serializable {
     private Integer id;
     /**
-     * @Description URL路径
+     *  URL路径
      */
     private String url;
     /**
-     * @Description 资源名称
+     *  资源名称
      */
     private String resourceName;
 

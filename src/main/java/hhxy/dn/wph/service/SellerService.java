@@ -1,13 +1,16 @@
 package hhxy.dn.wph.service;
 
+import com.github.pagehelper.PageInfo;
+import hhxy.dn.wph.entity.Product;
 import hhxy.dn.wph.entity.SellerAccount;
 import hhxy.dn.wph.entity.Seller;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 16:27 2019/4/7
+ * @author 邓宁
+ * @date Created in 16:27 2019/4/7
  */
 
 public interface SellerService {
@@ -39,4 +42,23 @@ public interface SellerService {
      * @return hhxy.dn.wph.entity.Seller
      */
     Seller login(SellerAccount sellerAccount);
+
+    /**
+     *
+     * @param sellerId
+     * @param pageIndex
+     * @param pageCount
+     * @return PageInfo
+     */
+    PageInfo pageListProductById(int sellerId,int pageIndex, int pageCount);
+
+    /**
+     *  @param product
+     * @param file
+     * @param colors
+     * @param sizes
+     */
+    void addProduct(Product product, MultipartFile[] file, String[] colors, String[] sizes);
+
+    void updateProduct(int productId);
 }

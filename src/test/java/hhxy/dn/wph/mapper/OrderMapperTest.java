@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.*;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 22:23 2019/5/23
+ * @author 邓宁
+ * @date Created in 22:23 2019/5/23
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

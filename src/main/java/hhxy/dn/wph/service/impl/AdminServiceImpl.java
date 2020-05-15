@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 23:10 2019/5/15
+ * @author 邓宁
+ * @date Created in 23:10 2019/5/15
  */
 @Service
 public class AdminServiceImpl {
@@ -38,7 +38,7 @@ public class AdminServiceImpl {
             attribute.setId(1);
             attribute.setIsSearch(1);
             attribute.setCreated(DateUtil.getDate());
-            attribute.setStatus(1);
+            attribute.setState(1);
             adminMapper.saveAttribute(attribute);
             r1 = attribute.getId();
         }

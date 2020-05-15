@@ -11,14 +11,13 @@ import java.util.List;
 import static hhxy.dn.wph.constant.DataBaseTableConstant.CART;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 22:31 2019/4/28
+ * @author 邓宁
+ * @date Created in 22:31 2019/4/28
  */
 
 public interface CartMapper {
 
-    final String CART_FIELD = " id,user_id,product_id,product_number,product_color,product_size,status,created," +
-            "updated ";
+    String CART_FIELD = " id,user_id,product_id,product_number,product_color,product_size,state,created ";
 
     /**
      * 根据ID查询单条购物车记录
@@ -26,7 +25,7 @@ public interface CartMapper {
      * @return hhxy.dn.wph.entity.Cart
      */
     @Select("select"+ CART_FIELD +
-            "from"+ CART +" where id = #{id} and status = 1")
+            "from"+ CART +" where id = #{id} and state = 1")
     @Results(id = "GoodCartMap",value = {
             @Result(column = "product_color",property = "productColor"),
             @Result(column = "product_size",property = "productSize"),
@@ -57,7 +56,7 @@ public interface CartMapper {
      */
     @Select("select id from"+ CART +
             "where user_id = #{userId} and product_id = #{productId} " +
-            "and  product_color = #{productColor} and product_size = #{productSize} and status = 1")
+            "and  product_color = #{productColor} and product_size = #{productSize} and state = 1")
     Integer getCartId(Cart goodCart);
 
     /**
@@ -68,16 +67,16 @@ public interface CartMapper {
      */
     @Update("update"+ CART +
             "set product_number = product_number + #{number} " +
-            "where id = #{cartId} and status = 1")
+            "where id = #{cartId} and state = 1")
     int updateGoodCartNumber(@Param("cartId") Integer cartId, @Param("number") Integer number);
 
     /**
      * 根据用户ID查询所有购物车记录
      * @param userId
-     * @return java.util.List<hhxy.dn.wph.entity.Cart>
+     * @return List<Cart>
      */
     @Select("select"+ CART_FIELD +
-            "from"+ CART +"where user_id = #{userId} and status = 1")
+            "from"+ CART +"where user_id = #{userId} and state = 1")
     @ResultMap(value = "GoodCartMap")
     List<Cart> listGoodCartByUserId(Integer userId);
 
@@ -94,15 +93,15 @@ public interface CartMapper {
      * @param userId
      * @return java.lang.Integer
      */
-    @Select("select COUNT(*) FROM"+ CART +"where user_id = #{userId}  and status = 1")
+    @Select("select COUNT(*) FROM"+ CART +"where user_id = #{userId}  and state = 1")
     Integer getCartCount(Integer userId);
 
     /**
      *  更新购物车状态
      * @param id 购物车ID
-     * @return void
+
      */
-    @Update("update"+ CART + "set status = 0 where id = #{id}")
+    @Update("update"+ CART + "set state = 0 where id = #{id}")
     void updateGoodCartStatusById(Integer id);
 
     /**

@@ -8,8 +8,8 @@ import org.apache.ibatis.jdbc.SQL;
 import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 15:19 2019/5/3
+ * @author 邓宁
+ * @date Created in 15:19 2019/5/3
  */
 
 public class OrderProvider {
@@ -23,13 +23,14 @@ public class OrderProvider {
         return new SQL(){
             {
                 INSERT_INTO(ORDER);
-                VALUES("id","#{id}");
+                VALUES("order_no","#{orderNo}");
                 VALUES("user_id","#{userId}");
                 VALUES("address_id","#{addressId}");
                 VALUES("product_total","#{productTotal}");
                 VALUES("order_count","#{orderCount}");
                 VALUES("pay_channel","#{payChannel}");
                 VALUES("pay_no","#{payNo}");
+                VALUES("state","#{state}");
                 VALUES("created","#{created}");
             }
         }.toString();
@@ -45,7 +46,7 @@ public class OrderProvider {
         return new SQL(){
             {
                 INSERT_INTO(ORDER_PRODUCT);
-                VALUES("product_id","#{goodCart.product.productId}");
+                VALUES("product_id","#{goodCart.product.defaultImage.productId}");
                 VALUES("order_id","#{orderId}");
                 VALUES("product_number","#{goodCart.productNumber}");
                 VALUES("product_size","#{goodCart.productSize}");

@@ -3,8 +3,8 @@ package hhxy.dn.wph.exception;
 import hhxy.dn.wph.enums.OrderExceptionEnum;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 19:53 2019/5/10
+ * @author 邓宁
+ * @date Created in 19:53 2019/5/10
  */
 
 public class OrderException extends RuntimeException {

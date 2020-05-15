@@ -7,8 +7,8 @@ import java.util.List;
 
 import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 /**
- * @Author: 邓宁
- * @Date: Created in 15:17 2019/6/13
+ * @author 邓宁
+ * @date Created in 15:17 2019/6/13
  */
 
 public interface ResourceMapper {

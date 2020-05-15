@@ -22,8 +22,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 17:26 2019/6/14
+ * @author 邓宁
+ * @date Created in 17:26 2019/6/14
  */
 //用户Mapper接口测试
 public class UserMapperTest extends TestTemplate {
@@ -43,11 +43,11 @@ public class UserMapperTest extends TestTemplate {
 
     @Test
     public void userPasswordRegister() {
-        UserPassword userPassword = new UserPassword();
+        /*UserPassword userPassword = new UserPassword();
         userPassword.setUserId(26);
         userPassword.setPassword("123456");
         Integer result = userMapper.saveUserPassword(userPassword);
-        LOGGER.info("result = {}",result);
+        LOGGER.info("result = {}",result);*/
     }
 
     @Test
@@ -77,7 +77,6 @@ public class UserMapperTest extends TestTemplate {
         user.setEmail("222@qq.com");
         user.setName("大傻子");
         user.setBirthday(DateUtil.getBirthday());
-        user.setUpdated(DateUtil.getDate());
         int result = userMapper.updateUser(user);
         assertEquals(result,1);
     }
@@ -109,7 +108,6 @@ public class UserMapperTest extends TestTemplate {
         address.setArea("河南工程学院西区1");
         address.setPostcode("66666661");
         address.setTelephone("133337137191");
-        address.setUpdated(DateUtil.getDate());
         int result = userMapper.updateUserAddressById(address);
         assertEquals(result,1);
     }
@@ -176,7 +174,6 @@ public class UserMapperTest extends TestTemplate {
         User user = new User();
         user.setId(26);
         user.setHeadImage("avatar_89373029_1496285287409.jpg");
-        user.setUpdated(DateUtil.getDate());
         int result = userMapper.updateUser(user);
         assertEquals(result,1);
     }

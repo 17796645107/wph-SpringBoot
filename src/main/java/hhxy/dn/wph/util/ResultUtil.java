@@ -3,8 +3,8 @@ package hhxy.dn.wph.util;
 import hhxy.dn.wph.entity.Result;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 13:58 2018/11/12
+ * @author 邓宁
+ * @date Created in 13:58 2018/11/12
  */
 
 public class ResultUtil {

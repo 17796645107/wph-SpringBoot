@@ -5,21 +5,21 @@ import java.util.Date;
 
 /**
  * @Date Created by sang on 2017/12/28.
- * @Author: 邓宁宁
+ * @author 邓宁宁
  * 角色类
  */
 public class Role implements Serializable {
     private Integer id;
     /**
-     * @Description 角色名称
+     *  角色名称
      */
     private String name;
     /**
-     * @Description 角色
+     *  角色
      */
     private String nameZh;
     /**
-     * @Description 创建时间
+     *  创建时间
      */
     private String created;
 

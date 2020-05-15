@@ -7,8 +7,8 @@ import hhxy.dn.wph.entity.ProductAttributeValue;
 import org.apache.ibatis.jdbc.SQL;
 import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 /**
- * @Author: 邓宁
- * @Date: Created in 18:20 2019/5/14
+ * @author 邓宁
+ * @date Created in 18:20 2019/5/14
  */
 
 public class AdminProvider {
@@ -44,10 +44,10 @@ public class AdminProvider {
         return new SQL(){
             {
                 INSERT_INTO(PRODUCT_ATTRIBUTE_RELATION);
-                VALUES("product_id","#{productId}");
+                VALUES("productId","#{productId}");
                 VALUES("attribute_id","#{attributeId}");
                 VALUES("value_id","#{valueId}");
-                VALUES("status", "#{status}");
+                VALUES("state", "#{status}");
                 VALUES("created", "#{created}");
             }
         }.toString();

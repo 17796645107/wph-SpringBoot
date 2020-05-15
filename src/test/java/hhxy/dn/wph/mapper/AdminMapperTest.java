@@ -14,8 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 18:28 2019/5/14
+ * @author 邓宁
+ * @date Created in 18:28 2019/5/14
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,7 +41,7 @@ public class AdminMapperTest {
             category.setParentId(7);
             category.setAdminId(1);
             category.setCreated(DateUtil.getDate());
-            category.setStatus(1);
+            category.setState(1);
             adminMapper.saveCategory(category);
         });
     }
@@ -57,7 +57,7 @@ public class AdminMapperTest {
             attribute.setIsSearch(1);
             attribute.setId(1);
             attribute.setCreated(DateUtil.getDate());
-            attribute.setStatus(1);
+            attribute.setState(1);
             adminMapper.saveAttribute(attribute);
         });
 

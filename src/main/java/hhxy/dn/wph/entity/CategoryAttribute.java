@@ -2,21 +2,21 @@ package hhxy.dn.wph.entity;
 
 import java.io.Serializable;
 /**
- * @Author: 邓宁
- * @Date: Created in 13:39 2018/11/12
+ * @author 邓宁
+ * @date Created in 13:39 2018/11/12
  * 类目属性类
  */
 public class CategoryAttribute implements Serializable {
     /**
-     * @Description 主键
+     *  主键
      */
     private Integer id;
     /**
-     * @Description 类目ID
+     *  类目ID
      */
     private Integer categoryId;
     /**
-     * @Description 属性ID
+     *  属性ID
      */
     private Integer attributeId;
 

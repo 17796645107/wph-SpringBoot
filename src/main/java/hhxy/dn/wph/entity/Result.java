@@ -1,8 +1,8 @@
 package hhxy.dn.wph.entity;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 16:12 2018/11/9
+ * @author 邓宁
+ * @date Created in 16:12 2018/11/9
  */
 /*
  * 响应 最终返回信息

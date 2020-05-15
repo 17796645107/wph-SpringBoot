@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 13:22 2019/4/12
+ * @author 邓宁
+ * @date Created in 13:22 2019/4/12
  */
 
 @Service
@@ -26,25 +26,25 @@ public class GoodCartServiceImpl implements GoodCartService {
     @Autowired
     private CartMapper goodCartMapper;
 
-    @Autowired
-    private RedisUtil redisUtil;
-
     /**
      * 添加商品到购物车
-     * @param goodCart
-     * @return void
+     * @param goodCart 购物车信息
      */
     @Override
     public void saveGoodCart(Cart goodCart) {
         //判断购物车是否存在了这个商品
         Integer cartId = goodCartMapper.getCartId(goodCart);
-        //存在
+        //此购物车已存在
         if(cartId != null){
             //只更新购物车数量
-            Integer result = goodCartMapper.updateGoodCartNumber(cartId,goodCart.getProductNumber());
-        }else{
-            //不存在,将商品添加到购物车
-            Integer result = goodCartMapper.saveCart(goodCart);
+            int result = goodCartMapper.updateGoodCartNumber(cartId,goodCart.getProductNumber());
+            if (result != 1){
+                throw new GoodCartException(GoodCartExceptionEnum.GOODCART_ADD_EXCEPTION);
+            }
+        }
+        //此购物车不存在,将商品添加到购物车
+        else{
+            int result = goodCartMapper.saveCart(goodCart);
             if (result != 1){
                 throw new GoodCartException(GoodCartExceptionEnum.GOODCART_ADD_EXCEPTION);
             }
@@ -52,30 +52,22 @@ public class GoodCartServiceImpl implements GoodCartService {
     }
 
     /**
-     * @Description: 根据用户ID获取购物车信息
-     * @param: [userId]
-     * @return: java.util.List<hhxy.dn.wph.entity.GoodCart>
+     * 根据用户ID获取购物车信息
+     * @param userId 用户Id
+     * @return List<Cart>
      */
     @Override
     public List<Cart> listGoodCartByUserId(Integer userId){
-        //缓存Key
-        String cacheKey = "GoodCartListByUserId:";
-        if (redisUtil.hasKey(cacheKey)){
-            String cache = (String) redisUtil.get(cacheKey);
-            return JsonUtil.jsonToList(cache,Cart.class);
-        }
         List<Cart> cartList = goodCartMapper.listGoodCartByUserId(userId);
         if (cartList.isEmpty()){
             throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
         }
-        redisUtil.set(cacheKey,JsonUtil.objectToJson(cartList));
         return cartList;
     }
 
     /**
-     * @Description:删除一条购物车记录
-     * @param: [id]
-     * @return: void
+     * 删除一条购物车记录
+     * @param id 购物车Id
      */
     @Override
     public void deleteGoodCartById(Integer id) {
@@ -86,9 +78,9 @@ public class GoodCartServiceImpl implements GoodCartService {
     }
 
     /**
-     * @Description: 获取购物车数量
-     * @param: [userId]
-     * @return: java.lang.Integer
+     * 获取购物车数量
+     * @param userId 用户Id
+     * @return java.lang.Integer
      */
     @Override
     public Integer getCartCount(Integer userId) {
@@ -96,9 +88,9 @@ public class GoodCartServiceImpl implements GoodCartService {
     }
 
     /**
-     * @Description: 获取购物车列表
-     * @param: [idList]购物车ID数组
-     * @return: java.util.List<hhxy.dn.wph.entity.GoodCart>
+     * 获取购物车列表
+     * @param idList 购物车ID数组
+     * @return List<Cart>
      */
     @Override
     public List<Cart> listGoodCartByIdList(int[] idList) {
@@ -111,8 +103,7 @@ public class GoodCartServiceImpl implements GoodCartService {
 
     /**
      * 更新购物车
-     * @param goodCart
-     * @return void
+     * @param goodCart 购物车信息
      */
     @Override
     public void updateGoodCartById(Cart goodCart) {

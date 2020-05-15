@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 22:59 2018/10/26
+ * @author 邓宁
+ * @date Created in 22:59 2018/10/26
  * 异常捕获类
  */
 @ControllerAdvice
 public class ExceptionHandle {
     /**
-     * @Description 日志
+     *  日志
      */
     private static  final Logger logger= LoggerFactory.getLogger(ExceptionHandle.class);
 
     /**
      * 异常处理
      * @param e 异常信息
-     * @return hhxy.dn.wph.entity.Result
+     * @return Result
      */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)

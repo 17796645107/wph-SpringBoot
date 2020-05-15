@@ -1,8 +1,8 @@
 package hhxy.dn.wph.enums;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 13:43 2019/4/12
+ * @author 邓宁
+ * @date Created in 13:43 2019/4/12
  * 购物车模块异常枚举信息
  */
 
@@ -13,11 +13,11 @@ public enum GoodCartExceptionEnum{
     DELETE_CART_ERROR(3003,"删除购物车记录失败"),
     ;
     /**
-     * @Description 返回码
+     *  返回码
      */
     private Integer code;
     /**
-     * @Description 返回信息
+     *  返回信息
      */
     private String msg;
 

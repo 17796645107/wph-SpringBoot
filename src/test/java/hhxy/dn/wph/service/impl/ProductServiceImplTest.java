@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 11:07 2019/6/1
+ * @author 邓宁
+ * @date Created in 11:07 2019/6/1
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,7 +41,7 @@ public class ProductServiceImplTest {
         relation2.setValueId(62);
         productAttributeRelations.add(relation2);
 
-        productService.findProductByArrtibute(productAttributeRelations);
+        //productService.findProductByAttribute(productAttributeRelations);
     }
 
     @Test

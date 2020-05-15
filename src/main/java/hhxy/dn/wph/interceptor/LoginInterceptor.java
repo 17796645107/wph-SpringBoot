@@ -15,8 +15,8 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 15:02 2018/11/23
+ * @author 邓宁
+ * @date Created in 15:02 2018/11/23
  */
 //用户登录拦截器
 //@Component

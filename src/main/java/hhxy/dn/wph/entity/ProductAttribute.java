@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 /**
- * @Author: 邓宁
- * @Date: Created in 21:49 2018/11/4
+ * @author 邓宁
+ * @date Created in 21:49 2018/11/4
  * 商品属性类
  */
 public class ProductAttribute implements Serializable {
@@ -26,7 +26,7 @@ public class ProductAttribute implements Serializable {
     /**
      * 状态
      */
-    private int status;
+    private int state;
     /**
      * 创建时间
      */
@@ -72,12 +72,12 @@ public class ProductAttribute implements Serializable {
         this.isSearch = isSearch;
     }
 
-    public int getStatus() {
-        return status;
+    public int getState() {
+        return state;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setState(int state) {
+        this.state = state;
     }
 
     public List<ProductAttributeValue> getAttributeValues() {
@@ -94,7 +94,6 @@ public class ProductAttribute implements Serializable {
                 "id=" + id +
                 ", attrName='" + attrName + '\'' +
                 ", isSearch=" + isSearch +
-                ", status=" + status +
                 ", created='" + created + '\'' +
                 ", attributeValues=" + attributeValues +
                 '}';

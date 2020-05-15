@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 23:52 2019/5/6
+ * @author 邓宁
+ * @date Created in 23:52 2019/5/6
  */
 @RestController
 @RequestMapping("/security")

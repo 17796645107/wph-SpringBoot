@@ -13,31 +13,79 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 13:52 2019/5/12
+ * 文件上传工具类
+ * @author 邓宁
+ * @date Created in 13:52 2019/5/12
  */
 
 public class UploadFileUtil {
 
+    /**
+     * 用户头像保存路径
+     */
+    private final static String userHeadPath = "D:\\JetBrains\\workspace\\wph-vue\\static\\user\\headIcon\\";
+    /**
+     * 用户头像保存路径
+     */
+    private final static String productImagePath = "D:\\JetBrains\\workspace\\wph-vue\\static\\product\\";
+    /**
+     * 日志
+     */
     private static final Logger LOGGER= LoggerFactory.getLogger(UploadFileUtil.class);
 
-    public static void uploadFile(MultipartFile file,String url){
+    /**
+     * 上传用户头像
+     * @param file 图片文件
+     */
+    public static void uploadUserIcon(MultipartFile file){
         if (Objects.isNull(file) || file.isEmpty()){
-            throw new UserException(UserExceptionEnum.CODE_ERROR);
+            throw new UserException(UserExceptionEnum.NULL_FILE_ERROR);
         }
         //上传图片
         try {
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(url + file.getOriginalFilename());
+            Path path = Paths.get(userHeadPath + file.getOriginalFilename());
             //如果没有files文件夹，则创建
             if (!Files.isWritable(path)) {
-                Files.createDirectories(Paths.get(url));
+                Files.createDirectories(Paths.get(userHeadPath));
             }
             //文件写入指定路径
             Files.write(path, bytes);
         }catch (IOException e){
-            LOGGER.error("文件上传异常={}",e);
+            LOGGER.error("文件上传异常",e);
             throw new UserException(UserExceptionEnum.UPLOAD_FILE_ERROR);
+        }
+    }
+    /**
+     * 上传用户头像
+     * @param file 图片文件
+     */
+    public static void uploadProductImage(MultipartFile file){
+        if (Objects.isNull(file) || file.isEmpty()){
+            throw new UserException(UserExceptionEnum.NULL_FILE_ERROR);
+        }
+        //上传图片
+        try {
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(productImagePath + file.getOriginalFilename());
+            //如果没有files文件夹，则创建
+            if (!Files.isWritable(path)) {
+                Files.createDirectories(Paths.get(productImagePath));
+            }
+            //文件写入指定路径
+            Files.write(path, bytes);
+        }catch (IOException e){
+            LOGGER.error("文件上传异常",e);
+            throw new UserException(UserExceptionEnum.UPLOAD_FILE_ERROR);
+        }
+    }
+    /**
+     * 上传图片
+     * @param file 图片文件
+     */
+    public static void uploadFiles(MultipartFile[] file){
+        for (MultipartFile multipartFile : file) {
+            uploadProductImage(multipartFile);
         }
     }
 }

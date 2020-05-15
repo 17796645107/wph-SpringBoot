@@ -3,8 +3,8 @@ package hhxy.dn.wph.entity;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 14:15 2019/5/3
+ * @author 邓宁
+ * @date Created in 14:15 2019/5/3
  * 订单状态
  */
 public class OrderState {

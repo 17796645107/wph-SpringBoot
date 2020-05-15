@@ -3,8 +3,8 @@ package hhxy.dn.wph.entity;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 23:08 2018/11/21
+ * @author 邓宁
+ * @date Created in 23:08 2018/11/21
  * 用户搜索记录类
  */
 public class UserSearch {

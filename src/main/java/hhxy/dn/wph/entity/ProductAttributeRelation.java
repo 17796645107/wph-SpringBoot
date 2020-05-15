@@ -3,8 +3,8 @@ package hhxy.dn.wph.entity;
 import java.io.Serializable;
 import java.util.Date;
 /**
- * @Author: 邓宁
- * @Date: Created in 21:49 2018/11/4
+ * @author 邓宁
+ * @date Created in 21:49 2018/11/4
  * 商品属性与属性值对应关系
  */
 public class ProductAttributeRelation implements Serializable {
@@ -32,10 +32,8 @@ public class ProductAttributeRelation implements Serializable {
      * 创建时间
      */
     private String created;
-    /**
-     * 更新时间
-     */
-    private String updated;
+
+
 
     private static final long serialVersionUID = 1L;
 
@@ -87,11 +85,5 @@ public class ProductAttributeRelation implements Serializable {
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
 }

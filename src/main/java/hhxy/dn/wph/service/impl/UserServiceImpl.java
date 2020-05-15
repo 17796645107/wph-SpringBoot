@@ -7,7 +7,6 @@ import hhxy.dn.wph.enums.GeneralExceptionEnum;
 import hhxy.dn.wph.enums.UserExceptionEnum;
 import hhxy.dn.wph.exception.GeneralException;
 import hhxy.dn.wph.exception.UserException;
-import hhxy.dn.wph.mapper.RoleMapper;
 import hhxy.dn.wph.mapper.UserMapper;
 import hhxy.dn.wph.service.UserService;
 import hhxy.dn.wph.util.*;
@@ -15,55 +14,38 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 13:38 2018/11/12
+ * @author 邓宁
+ * @date Created in 13:38 2018/11/12
  * 用户信息接口实现类
  */
 @Service
 public class
 UserServiceImpl implements UserService {
 
-    /**
-     * 用户上传头像存储地址
-     */
-    @Value("${UPLOAD_URL}")
-    private final String UPLOAD_URL = "";
-
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private RoleMapper roleMapper;
-
     @Autowired
     private RedisUtil redisUtil;
 
     /**
      * 用户注册
-     * @param userRegister
-     * @return void
+     * @param userRegister 用户注册信息
      */
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void userRegister(UserRegister userRegister) {
+    public void userRegister(User userRegister) {
         //校验手机验证码
         validateTelephoneCode(userRegister.getTelephone(),userRegister.getTelephoneCode());
         //创建用户对象
@@ -78,14 +60,8 @@ UserServiceImpl implements UserService {
             redisUtil.del(userRegister.getTelephone());
             throw new UserException(UserExceptionEnum.REGISTER_ERROR);
         }
-        //获取自增主键ID
-        Integer userId = user.getId();
-        //创建用户密码对象
-        UserPassword userPwd = new UserPassword();
-        userPwd.setUserId(userId);
-        userPwd.setPassword(userRegister.getPassword());
         //注册用户密码
-        int resultUserPwd = userMapper.saveUserPassword(userPwd);
+        int resultUserPwd = userMapper.saveUserPassword(user);
         if (resultUserPwd < 1){
             //异常时销毁Redis中短信验证码
             redisUtil.del(userRegister.getTelephone());
@@ -95,11 +71,10 @@ UserServiceImpl implements UserService {
 
     /**
      * 校验手机验证码
-     * @param telephone
-     * @param code
-     * @return void
+     * @param telephone 手机号
+     * @param code 手机验证码
      */
-    public void validateTelephoneCode(String telephone,String code){
+    private void validateTelephoneCode(String telephone, String code){
         //缓存中不存在手机验证码
         if (!redisUtil.hasKey(telephone)){
             throw new UserException(UserExceptionEnum.CODE_ERROR);
@@ -116,20 +91,15 @@ UserServiceImpl implements UserService {
 
     /**
      * 用户登录
-     * @param telephone
-     * @param password
-     * @return hhxy.dn.wph.entity.User
+     * @param telephone 手机号
+     * @param password 密码
+     * @return 用户信息
      */
     @Override
     public User userLogin(String telephone,String password) {
         //查询用户基本信息
-        User user = userMapper.getUserByTelephone(telephone);
+        User user = userMapper.getUserByTelephoneAndPassword(telephone,MD5Util.getMD5(password));
         if (user == null){
-            throw new UserException(UserExceptionEnum.LOGIN_ERROR);
-        }
-        //查询用户加密之后的密码
-        String userPwd = userMapper.getPasswordByUserId(user.getId());
-        if (!MD5Util.getMD5(password).equals(userPwd)){
             throw new UserException(UserExceptionEnum.LOGIN_ERROR);
         }
         return user;
@@ -137,21 +107,19 @@ UserServiceImpl implements UserService {
 
     /**
      * 查询手机号是否注册
-     * @param telephone
-     * @return void
+     * @param telephone 手机号
      */
     @Override
     public void userCheckTelephone(String telephone) {
         String result = userMapper.getTelephone(telephone);
         if (result != null){
-            throw new UserException(UserExceptionEnum.TELEHPNE_ERROR);
+            throw new UserException(UserExceptionEnum.TELEPHONE_ERROR);
         }
     }
 
     /**
      * 发送短信验证码
-     * @param telephone
-     * @return void
+     * @param telephone 手机号
      */
     @Override
     public void userSendCode(String telephone) throws ClientException {
@@ -178,55 +146,23 @@ UserServiceImpl implements UserService {
 
     /**
      * 生成图片验证码
-     * @param response
-     * @param session
-     * @return void
+     * @param response Req
+     * @param session seession
      */
     @Override
     public void userImageCode(HttpServletResponse response, HttpSession session)throws IOException  {
-        //设置response头信息
-        //禁止缓存
-        response.setHeader("Pragma", "No-cache");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setDateHeader("Expires", 0);
-        response.setContentType("image/jpeg");
-        //随机字符串
-        String randomString= ValidateCodeUtil.getRandomString();
-        //放入的session中
-        session.setAttribute("VALIDATE_CODE", randomString);
-        //随机颜色
-        Color color = ValidateCodeUtil.getRandomColor();
-        //反色
-        Color reverseColor = ValidateCodeUtil.getReverseColor(color);
-        //创建一个彩色图片
-        BufferedImage img = new BufferedImage(ValidateCodeUtil.width, ValidateCodeUtil.height, BufferedImage.TYPE_INT_BGR);
-        //获取绘图对象
-        Graphics2D g = img.createGraphics();
-        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
-        g.setColor(color);
-        g.fillRect(0, 0, ValidateCodeUtil.width, ValidateCodeUtil.height);
-        g.setColor(reverseColor);
-        g.drawString(randomString, 18, 20);
-        g.dispose();
-        ImageIO.write(img, "JPEG", response.getOutputStream());
-        response.getOutputStream().flush();
+        ImageCodeUtil.getImageCode(response,session);
     }
 
     /**
      * 更新用户信息
      * @param user
-     * @param token
-     * @return void
      */
     @Override
-    public void updateUser(User user,String token) {
-        user.setUpdated(DateUtil.getDate());
+    public void updateUser(User user) {
         int result = userMapper.updateUser(user);
         if (result != 1){
-            throw new UserException(UserExceptionEnum.UPDATE_USER_ERROR);
-        }else{
-            //删除缓存
-            redisUtil.del(token);
+            throw new GeneralException(GeneralExceptionEnum.UPDATE_DATABASE_ERROR);
         }
     }
 
@@ -265,13 +201,13 @@ UserServiceImpl implements UserService {
     }
 
     /**
-     * @Description: 更新默认收货地址
-     * @param: [userId, addressId]
-     * @return: int
+     * 更新默认收货地址
+     * @param userId
+     * @param addressId
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer updateDefaultUserAddress(Integer userId,Integer addressId) {
+    public void updateDefaultUserAddress(Integer userId, Integer addressId) {
         //把此用户的所有收货地址都重置为非默认收货地址
         Integer result1 = userMapper.updateAllUserAddressById(userId);
         if (result1 == null){
@@ -285,7 +221,6 @@ UserServiceImpl implements UserService {
             //清除缓存
             redisUtil.del("UserAddress:" + userId);
         }
-        return 0;
     }
 
     /**
@@ -369,7 +304,6 @@ UserServiceImpl implements UserService {
     /**
      * 用户关注商铺
      * @param collect
-     * @return void
      */
     @Override
     public void collectSeller(UserCollectSeller collect) {
@@ -407,33 +341,27 @@ UserServiceImpl implements UserService {
 
     /**
      * 根据用户编号获取用户信息
-     * @param userId
-     * @return hhxy.dn.wph.entity.User
+     * @param userId 用户编号
+     * @return User
      */
     @Override
     public User getUserDetail(Integer userId) {
-        User user = userMapper.getUserById(userId);
-        return user;
+        return userMapper.getUserById(userId);
     }
 
     /**
      * 上传用户头像
-     * @param file
-     * @param token
-     * @param userId
-     * @return void
+     * @param file 头像文件
+     * @param userId 用户ID
      */
     @Override
-    public void saveUserHeadIcon(MultipartFile file,String token,Integer userId) {
+    public void saveUserHeadIcon(MultipartFile file,Integer userId) {
         //上传图片
-        UploadFileUtil.uploadFile(file,UPLOAD_URL);
+        UploadFileUtil.uploadUserIcon(file);
         //更新用户头像url
         int result = userMapper.updateUserHeadIcon(file.getOriginalFilename(),userId);
         if (result != 1){
-            throw new UserException(UserExceptionEnum.UPDATE_USER_HEAD_ICON_ERROR);
-        }else{
-            //删除缓存
-            redisUtil.del(token);
+            throw new GeneralException(GeneralExceptionEnum.UPDATE_DATABASE_ERROR);
         }
     }
 
@@ -449,27 +377,4 @@ UserServiceImpl implements UserService {
         return collect == null ? "false" : "true";
     }
 
-    /**
-     * 用户认证根据手机号码加载用户
-     * @param telephone
-     * @return org.springframework.security.core.userdetails.UserDetails
-     */
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //获取用户信息
-        User user = userMapper.getUserByTelephone(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("没有该用户");
-        }
-        //获取用户密码
-        String password = userMapper.getPasswordByUserId(user.getId());
-        //获取人员的权限
-        List<Role> roleList = roleMapper.listRoleByPeopleId(user.getUserNo());
-
-        UserLogin userLogin = new UserLogin();
-        userLogin.setTelephone(username);
-        userLogin.setPwd(password);
-        userLogin.setRoles(roleList);
-        return userLogin;
-    }
 }

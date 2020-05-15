@@ -17,8 +17,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 10:07 2019/6/15
+ * @author 邓宁
+ * @date Created in 10:07 2019/6/15
  */
 
 public class UserServiceTest extends TestTemplate {
@@ -33,7 +33,7 @@ public class UserServiceTest extends TestTemplate {
     @Test
     public void userRegister() {
         redisUtil.set("12345678900","123456",60*5);
-        UserRegister userRegister = new UserRegister();
+        User userRegister = new User();
         userRegister.setTelephone("12345678900");
         userRegister.setPassword("123456");
         userRegister.setTelephoneCode("123456");
@@ -69,7 +69,7 @@ public class UserServiceTest extends TestTemplate {
         User user = new User();
         user.setId(26);
         user.setSex("男");
-        userService.updateUser(user,"3efc2f43-4a73-4b34-82e7-52da6ab131fd");
+        userService.updateUser(user);
     }
 
     @Test
@@ -98,7 +98,6 @@ public class UserServiceTest extends TestTemplate {
         address.setArea("河南工程学院西区2");
         address.setPostcode("6666666");
         address.setTelephone("13333713719");
-        address.setUpdated(DateUtil.getDate());
         userService.updateUserAddress(address);
     }
 

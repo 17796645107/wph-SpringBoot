@@ -13,41 +13,51 @@ import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 import static hhxy.dn.wph.constant.FieldConstant.*;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 13:39 2018/11/12
+ * @author 邓宁
+ * @date Created in 13:39 2018/11/12
  */
 public interface UserMapper {
-
     /**
      * 注册用户基本信息
      * @param user 用户实体User
-     * @return java.lang.Integer
+     * @return 影响结果记录数
      */
-    @Insert("insert into"+ USER +
-            "(user_no,telephone,created)" +
-            "values(#{userNo},#{telephone},#{created})")
+    @Insert("insert into"+ USER + "(user_no,telephone,created)" + "values(#{userNo},#{telephone},#{created})")
     @Options(useGeneratedKeys = true,keyProperty = "id")
     Integer saveUser(User user);
 
     /**
      * 注册用户密码
-     * @param userPassword
+     * @param userPassword 用户信息
      * @return java.lang.Integer
      */
-    @Insert("insert into" + USER_PWD + "(user_id,password)values(#{userId},#{password})")
-    Integer saveUserPassword(UserPassword userPassword);
+    @Insert("insert into" + USER_PWD + "(user_id,password)values(#{id},#{password})")
+    Integer saveUserPassword(User userPassword);
 
     /**
-     * 查询用户信息
-     * @param username 手机号码
-     * @return hhxy.dn.wph.entity.User
+     * 用户登录，判断账号密码
+     * @param telephone 手机号码
+     * @param password 密码
+     * @return User
      */
-    @Select("select" + USER_FIELD + "from"+ USER + "where telephone = #{username} and status = 1")
+    @Select("select tu.id, user_no, nickname, telephone, name, sex, birthday, email, vip, head_image " +
+            "from tb_user tu left join tb_user_pwd tup on tu.id = tup.user_id " +
+            "where tu.telephone = #{telephone} and tup.password = #{password} " +
+            "and tu.state = 1")
     @Results(id = "userResultMap",value = {
             @Result(id = true,column = "id",property = "id"),
             @Result(column = "user_no",property = "userNo"),
             @Result(column = "head_image",property = "headImage"),
     })
+    User getUserByTelephoneAndPassword(@Param("telephone") String telephone,@Param("password") String password);
+
+    /**
+     * 查询用户信息
+     * @param username 手机号码
+     * @return User
+     */
+    @Select("select" + USER_FIELD + "from"+ USER + "where telephone = #{username} and state = 1")
+    @ResultMap(value = "userResultMap")
     User getUserByTelephone(String username);
 
     /**
@@ -95,7 +105,7 @@ public interface UserMapper {
      * @param userId
      * @return java.lang.Integer
      */
-    @Update("update"+ USER_ADDRESS +"set is_default = 0 where user_id = #{userId} and status = 1")
+    @Update("update"+ USER_ADDRESS +"set is_default = 0 where user_id = #{userId} and state = 1")
     Integer updateAllUserAddressById(Integer userId);
 
     /**
@@ -103,7 +113,7 @@ public interface UserMapper {
      * @param id 收货地址ID
      * @return java.lang.Integer
      */
-    @Update("update"+ USER_ADDRESS +"set is_default = 1 where id = #{id} and status = 1")
+    @Update("update"+ USER_ADDRESS +"set is_default = 1 where id = #{id} and state = 1")
     Integer updateDefaultUserAddressById(Integer id);
 
     /**
@@ -177,10 +187,10 @@ public interface UserMapper {
     /**
      * 更新用户头像
      * @param originalFilename 图片路径
-     * @param userId
+     * @param userId 用户Id
      * @return java.lang.Integer
      */
-    @Update("update"+ USER +"set head_image = #{originalFilename} where user_id = #{userId}")
+    @Update("update"+ USER +"set head_image = #{originalFilename} where id = #{userId}")
     Integer updateUserHeadIcon(@Param("originalFilename")String originalFilename,@Param("userId") Integer userId);
 
     /**
@@ -203,7 +213,7 @@ public interface UserMapper {
      * @param id
      * @return hhxy.dn.wph.entity.User
      */
-    @Select("select"+ USER_FIELD +"from"+ USER +"where id = #{id} and status = 1")
+    @Select("select"+ USER_FIELD +"from"+ USER +"where id = #{id} and state = 1")
     @ResultMap(value = "userResultMap")
     User getUserById(Integer id);
 
@@ -214,4 +224,6 @@ public interface UserMapper {
      */
     @Select("select is_default from" + USER_ADDRESS +" where id = #{addressId}")
     int getUserAddressIsDefaultById(Integer addressId);
+
+
 }

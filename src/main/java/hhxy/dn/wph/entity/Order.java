@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 14:01 2019/5/3
+ * @author 邓宁
+ * @date Created in 14:01 2019/5/3
  * 订单实体类
  */
 
@@ -42,7 +42,7 @@ public class Order implements Serializable {
     /**
      * 订单状态
      */
-    private Integer status;
+    private Integer state;
     /**
      * 第三方支付流水号
      */
@@ -112,12 +112,12 @@ public class Order implements Serializable {
         this.payChannel = payChannel;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getState() {
+        return state;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public String getPayNo() {
@@ -154,7 +154,6 @@ public class Order implements Serializable {
                 ", productTotal=" + productTotal +
                 ", orderCount=" + orderCount +
                 ", payChannel=" + payChannel +
-                ", status=" + status +
                 ", payNo='" + payNo + '\'' +
                 ", created='" + created + '\'' +
                 ", goodCartList=" + goodCartList +

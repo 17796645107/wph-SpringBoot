@@ -1,8 +1,8 @@
 package hhxy.dn.wph.service;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 14:07 2019/5/4
+ * @author 邓宁
+ * @date Created in 14:07 2019/5/4
  */
 
 public interface PayService {

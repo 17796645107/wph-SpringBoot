@@ -5,8 +5,8 @@ import hhxy.dn.wph.util.DateUtil;
 import java.util.Date;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 12:16 2018/11/30
+ * @author 邓宁
+ * @date Created in 12:16 2018/11/30
  * 商品库存
  */
 public class ProductNum {
@@ -17,7 +17,7 @@ public class ProductNum {
     /**
      * 商品ID
      */
-    private Integer productId;
+    private String productId;
     /**
      * 商品颜色
      */
@@ -34,10 +34,8 @@ public class ProductNum {
      * 创建时间
      */
     private String created;
-    /**
-     * 更新时间
-     */
-    private String updated;
+
+
 
     public Integer getId() {
         return id;
@@ -47,11 +45,11 @@ public class ProductNum {
         this.id = id;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -87,11 +85,5 @@ public class ProductNum {
         this.created = created;
     }
 
-    public String getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
 }

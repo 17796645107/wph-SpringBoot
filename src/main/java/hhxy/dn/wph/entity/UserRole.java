@@ -3,20 +3,20 @@ package hhxy.dn.wph.entity;
 import java.io.Serializable;
 
 /**
- * @Description 用户-角色
- * @Author: 邓宁宁
- * @Date: 2019/6/22
+ *  用户-角色
+ * @author 邓宁宁
+ * @date 2019/6/22
  */
 public class UserRole implements Serializable {
     private Integer id;
 
     /**
-     * @Description 用户名
+     *  用户名
      */
     private String username;
 
     /**
-     * @Description 角色ID
+     *  角色ID
      */
     private Integer roleId;
 

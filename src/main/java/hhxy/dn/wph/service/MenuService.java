@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 12:14 2018/12/7
+ * @author 邓宁
+ * @date Created in 12:14 2018/12/7
  */
 
 public interface MenuService {

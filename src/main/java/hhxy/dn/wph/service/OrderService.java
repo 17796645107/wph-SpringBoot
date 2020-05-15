@@ -4,8 +4,8 @@ import com.github.pagehelper.PageInfo;
 import hhxy.dn.wph.entity.Order;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 14:53 2019/5/3
+ * @author 邓宁
+ * @date Created in 14:53 2019/5/3
  */
 
 public interface OrderService {
@@ -36,7 +36,7 @@ public interface OrderService {
     /**
      * 删除订单
      * @param orderNo 订单编号
-     * @return void
+
      */
     void deleteOrderByNo(Integer orderNo);
 

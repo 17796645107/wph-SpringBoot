@@ -9,8 +9,8 @@ import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 12:53 2019/6/12
+ * @author 邓宁
+ * @date Created in 12:53 2019/6/12
  */
 
 public interface RoleMapper {

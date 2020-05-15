@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 用户模块方法调用记录切面类
- * @Author: 邓宁
- * @Date: Created in 11:41 2018/10/25
+ * @author 邓宁
+ * @date Created in 11:41 2018/10/25
  */
 @Aspect
 @Component
@@ -24,8 +24,6 @@ public class HttpAspect {
 
     /**
      * 切点
-     * @param
-     * @return void
      */
     @Pointcut("execution(public * hhxy.dn.wph.controller.UserController.*(..))")
     public static void log(){ }
@@ -33,7 +31,6 @@ public class HttpAspect {
     /**
      * 在方法之前调用
      * @param joinPoint
-     * @return void
      */
     @Before("log()")
     public void logBefore(JoinPoint joinPoint){
@@ -61,7 +58,7 @@ public class HttpAspect {
     /**
      * 在方法之后调用
      * @param
-     * @return void
+
      */
     /*@After("log()")
     public void logAfter(Object o){

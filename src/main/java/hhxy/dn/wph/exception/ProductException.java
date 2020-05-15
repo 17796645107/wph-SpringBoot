@@ -4,8 +4,8 @@ import hhxy.dn.wph.enums.ProductExceptionEnum;
 import hhxy.dn.wph.enums.UserExceptionEnum;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 9:04 2018/11/29
+ * @author 邓宁
+ * @date Created in 9:04 2018/11/29
  */
 //商品自定义异常类
 public class ProductException extends RuntimeException {

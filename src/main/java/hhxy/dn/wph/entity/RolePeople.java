@@ -5,22 +5,22 @@ import hhxy.dn.wph.entity.Role;
 import java.io.Serializable;
 import java.util.List;
 /**
- * @Description 人员-角色类
- * @Date: 2019/6/22
- * @Author: 邓宁
+ *  人员-角色类
+ * @date 2019/6/22
+ * @author 邓宁
  */
 public class RolePeople implements Serializable {
     private Integer id;
     /**
-     * @Description 人员ID(用户,商户,管理员)
+     *  人员ID(用户,商户,管理员)
      */
     private Integer peopleNo;
     /**
-     * @Description 角色ID
+     *  角色ID
      */
     private Integer roleId;
     /**
-     * @Description 角色类
+     *  角色类
      */
     private Role role;
 

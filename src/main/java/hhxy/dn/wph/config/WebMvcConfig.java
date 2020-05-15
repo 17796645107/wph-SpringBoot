@@ -7,8 +7,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 15:21 2018/11/23
+ * @author 邓宁
+ * @date Created in 15:21 2018/11/23
  * //拦截器
  *
  * */
@@ -24,9 +24,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     private String[]excludePath={"/Resource/**","/wph/**","/view/user/user_login.html","/view/index/index.html"};
 
-    /** @Description:重写添加拦截器方法，添加登录拦截器
-     * @param: [registry]
-     * @return: void
+    /** :重写添加拦截器方法，添加登录拦截器
+     * @param [registry]
+     * @return void
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

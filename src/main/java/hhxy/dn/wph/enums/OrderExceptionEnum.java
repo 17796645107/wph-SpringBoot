@@ -1,8 +1,8 @@
 package hhxy.dn.wph.enums;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 20:16 2019/5/10
+ * @author 邓宁
+ * @date Created in 20:16 2019/5/10
  */
 
 public enum OrderExceptionEnum {

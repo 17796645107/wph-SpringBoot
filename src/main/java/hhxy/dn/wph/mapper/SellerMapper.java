@@ -13,13 +13,13 @@ import static hhxy.dn.wph.constant.DataBaseTableConstant.*;
 import java.util.List;
 
 /**
- * @Author: 邓宁
- * @Date: Created in 16:28 2019/4/7
+ * @author 邓宁
+ * @date Created in 16:28 2019/4/7
  */
 
 public interface SellerMapper {
-    final String SELLER_FIELD = " id,brand_id,name,show_image,type,status,created,updated ";
-    final String BRAND_FIELD = " id,brand_name,brand_icon ";
+    String SELLER_FIELD = " id,brand_id,name,show_image,type,state,created ";
+    String BRAND_FIELD = " id,brand_name,brand_icon ";
 
     /**
      * 根据分类ID获取商户信息
@@ -28,7 +28,7 @@ public interface SellerMapper {
      */
     @Select("select"+ SELLER_FIELD +
             "from"+ SELLER +
-            "where type = #{categoryId} and status = 1")
+            "where type = #{categoryId} and state = 1")
     @Results(id = "SellerMap",value = {
             @Result(property = "showImage",column = "show_image"),
             @Result(property = "brand",column = "brand_id",
@@ -41,8 +41,8 @@ public interface SellerMapper {
 
     /**
      * 根据品牌ID获取品牌信息
-     * @param brandId
-     * @return hhxy.dn.wph.entity.Brand
+     * @param brandId 品牌ID
+     * @return Brand
      */
     @Select("select"+ BRAND_FIELD +
             "from"+ BRAND +"" +
@@ -56,12 +56,12 @@ public interface SellerMapper {
 
     /**
      * 根据商户ID获取商户信息
-     * @param sellerId
-     * @return hhxy.dn.wph.entity.Seller
+     * @param sellerId 商户ID
+     * @return Seller
      */
     @Select("select"+ SELLER_FIELD +
             "from"+ SELLER +
-            "where id = #{sellerId} and status = 1")
+            "where id = #{sellerId} and state = 1")
     @ResultMap(value = "SellerMap")
     Seller getSellerById(Integer sellerId);
 
@@ -79,6 +79,7 @@ public interface SellerMapper {
      * @return int
      */
     @InsertProvider(type = SellerProvider.class,method = "saveProduct")
+    @Options(keyProperty = "id",useGeneratedKeys = true)
     int saveProduct(Product product);
 
     /**
@@ -95,7 +96,7 @@ public interface SellerMapper {
      * @return int
      */
     @InsertProvider(type = SellerProvider.class,method = "saveProductColor")
-    @Options(keyProperty = "color_id",useGeneratedKeys = true)
+    @Options(keyProperty = "id",useGeneratedKeys = true)
     int saveProductColor(ProductColor productColor);
 
     /**
@@ -129,4 +130,15 @@ public interface SellerMapper {
     @Select("select seller_id from"+ SELLER_ACCOUNT +
             "where seller_username = #{sellerUsername} and seller_password = #{sellerPassword}")
     Integer getSellerId(SellerAccount sellerAccount);
+
+    /**
+     *
+     * @param sellerId
+     * @return
+     */
+    @Select("select ")
+    List<Product> listProductById(int sellerId);
+
+    @UpdateProvider(type = SellerProvider.class,method = "updateProduct")
+    void updateProduct(Product product);
 }
