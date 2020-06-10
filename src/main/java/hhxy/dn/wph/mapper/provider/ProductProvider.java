@@ -68,7 +68,7 @@ public class ProductProvider {
      * @param productNumber
      * @return java.lang.String
      */
-    public String updateProductNum(@Param("productId") Integer productId, @Param("productColor") String productColor,
+    public String updateProductNum(@Param("productId") String productId, @Param("productColor") String productColor,
             @Param("productSize") String productSize, @Param("productNumber") Integer productNumber){
         return new SQL(){
             {
@@ -154,5 +154,17 @@ public class ProductProvider {
         and s.id = 139
         and n.num > 0
         ORDER BY p.price*/
+    }
+
+    public String listProductByTitle(String productTitle){
+        return new SQL(){
+            {
+                SELECT("*");
+                FROM("tb_product p");
+                WHERE("title like concat('%',#{productTitle},'%') escape '/'");
+
+            }
+        }.toString();
+
     }
 }

@@ -226,4 +226,6 @@ public interface UserMapper {
     int getUserAddressIsDefaultById(Integer addressId);
 
 
+    @Select("select nickname from tb_user where nickname like CONCAT('%',#{string},'%')")
+    String test(String string);
 }

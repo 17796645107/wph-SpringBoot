@@ -5,6 +5,10 @@ import hhxy.dn.wph.entity.Brand;
 import hhxy.dn.wph.entity.Category;
 import hhxy.dn.wph.entity.ProductAttribute;
 import hhxy.dn.wph.entity.*;
+import hhxy.dn.wph.enums.GeneralExceptionEnum;
+import hhxy.dn.wph.enums.ProductExceptionEnum;
+import hhxy.dn.wph.exception.GeneralException;
+import hhxy.dn.wph.exception.ProductException;
 import hhxy.dn.wph.service.ProductService;
 import hhxy.dn.wph.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,12 +179,23 @@ public class ProductController {
     }
 
     /**
-     *
-     * @return
+     * 废弃
+     * @return Result
      */
     @RequestMapping("/categoryTree")
     public Result listCategoryTree(){
         List<Category> categoryList = productService.listCategoryTree();
         return ResultUtil.success(categoryList);
     }
+
+    @GetMapping("/searchProduct/{userId}/{productTitle}")
+    public Result userSearchProduct(@PathVariable int userId,@PathVariable String productTitle){
+        if (productTitle == null){
+            throw new GeneralException(GeneralExceptionEnum.NOT_FOUND_ERROR);
+        }
+        List<Product> productList = productService.searchProduct(userId,productTitle);
+        return ResultUtil.success(productList);
+
+    }
+
 }

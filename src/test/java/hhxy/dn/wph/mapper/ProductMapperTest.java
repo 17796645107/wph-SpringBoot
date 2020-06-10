@@ -160,6 +160,12 @@ public class ProductMapperTest extends TestTemplate {
         LOGGER.info("json={}",JsonUtil.objectToJson(categoryList));
     }
 
+    @Test
+    public void listProductByTitle() {
+        List<Product> productList = productMapper.listProductByTitle("//");
+        productList.forEach(System.out::println);
+    }
+
     /*@Test
     public void update(){
         List<Integer> idList = productMapper.listProductId();

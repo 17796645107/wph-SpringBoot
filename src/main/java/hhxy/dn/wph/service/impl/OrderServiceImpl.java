@@ -134,12 +134,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public PageInfo<Order> listOrderPage(Integer userId, Integer page, Integer countOfPage) {
         //Redis key
-        String cacheKey = "OrderList:" + userId + ":Page" + page;
+       /* String cacheKey = "OrderList:" + userId + ":Page" + page;
         //查询缓存中是否存在订单缓存
         if (redisUtil.hasKey(cacheKey)){
             String cache = (String) redisUtil.get(cacheKey);
             return JsonUtil.jsonToPojo(cache,PageInfo.class);
-        }
+        }*/
         //查询数据库
         List<Order> orderList = orderMapper.listOrderByUserId(userId);
         if (orderList.isEmpty()){
@@ -150,7 +150,7 @@ public class OrderServiceImpl implements OrderService {
         //创建分页对象
         PageInfo<Order> orderPageInfo = new PageInfo<>(orderList);
         //把分页存入缓存
-        redisUtil.set(cacheKey, JsonUtil.objectToJson(orderPageInfo));
+        //redisUtil.set(cacheKey, JsonUtil.objectToJson(orderPageInfo));
         return orderPageInfo;
     }
 

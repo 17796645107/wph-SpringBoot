@@ -6,8 +6,8 @@ import hhxy.dn.wph.entity.*;
 import hhxy.dn.wph.enums.GeneralExceptionEnum;
 import hhxy.dn.wph.exception.GeneralException;
 import hhxy.dn.wph.mapper.ProductMapper;
+import hhxy.dn.wph.mapper.UserMapper;
 import hhxy.dn.wph.service.ProductService;
-import hhxy.dn.wph.util.JsonUtil;
 import hhxy.dn.wph.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     private ProductMapper productMapper;
-
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private RedisUtil redisUtil;
 
@@ -264,6 +265,18 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<Category> listCategoryTree() {
         return productMapper.CATEGORY_LIST();
+    }
+
+    @Override
+    public List<Product> searchProduct(int userId, String productTitle) {
+        userMapper.saveSearchHistory(userId,productTitle);
+        String replaceTitle = "";
+        replaceTitle = productTitle.replaceAll("/","//");
+        replaceTitle = replaceTitle.replaceAll("%","/%");
+        replaceTitle = replaceTitle.replaceAll("_","/_");
+        List<Product> productList = productMapper.listProductByTitle(replaceTitle);
+
+        return productList;
     }
 
     /*@Transactional(rollbackFor = Exception.class)

@@ -7,7 +7,6 @@ import hhxy.dn.wph.entity.ProductAttribute;
 import hhxy.dn.wph.entity.*;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author 邓宁
@@ -117,4 +116,5 @@ public interface ProductService {
 
     List<Category> listCategoryTree();
 
+    List<Product> searchProduct(int userId, String productTitle);
 }

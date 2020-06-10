@@ -38,9 +38,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RedisUtil redisUtil;
-
     /**
      * 用户注册
      * @param userRegister 用户注册信息

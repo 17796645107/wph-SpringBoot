@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,7 +28,7 @@ public class HttpAspect {
 
     /**
      * 在方法之前调用
-     * @param joinPoint
+     * @param joinPoint joinPoint
      */
     @Before("log()")
     public void logBefore(JoinPoint joinPoint){
@@ -39,7 +37,7 @@ public class HttpAspect {
         //获取HttpServletRequest
         HttpServletRequest request=attributes.getRequest();
 
-        if (logger.isDebugEnabled()){
+        if (logger.isInfoEnabled()){
             //url
             logger.info("url = {}",request.getRequestURL());
             //action
@@ -57,15 +55,13 @@ public class HttpAspect {
 
     /**
      * 在方法之后调用
-     * @param
-
      */
-    /*@After("log()")
-    public void logAfter(Object o){
-        if (logger.isDebugEnabled()){
-            logger.info(o.toString());
+    @After("log()")
+    public void logAfter(JoinPoint joinPoint){
+        if (logger.isInfoEnabled()){
+            logger.info(joinPoint.getSignature().getName()+"结束");
         }
-    }*/
+    }
 
     /**
      * 获取返回信息
@@ -73,7 +69,7 @@ public class HttpAspect {
      */
     @AfterReturning(returning = "object",pointcut = "log()")
     public void logAfterReturning(Object object){
-        if (logger.isDebugEnabled()){
+        if (logger.isInfoEnabled()){
             logger.info("response = {}",object);
         }
     }

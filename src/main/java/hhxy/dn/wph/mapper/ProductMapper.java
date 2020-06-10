@@ -314,6 +314,10 @@ public interface ProductMapper {
     })
     List<Category> CATEGORY_LIST();
 
+    @SelectProvider(type = ProductProvider.class,method = "listProductByTitle")
+    List<Product> listProductByTitle(String productTitle);
+
+
     /**
      * 根据父Id查询商品分类
      * @param parentId

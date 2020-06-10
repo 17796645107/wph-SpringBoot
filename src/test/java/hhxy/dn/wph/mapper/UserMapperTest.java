@@ -190,4 +190,10 @@ public class UserMapperTest extends TestTemplate {
         User user = userMapper.getUserById(26);
         LOGGER.info(user.toString());
     }
+
+    @Test
+    public void test(){
+        String s = userMapper.test("李慢慢");
+        System.out.println(s);
+    }
 }
