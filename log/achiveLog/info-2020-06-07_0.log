@@ -1,0 +1,30 @@
+2020-06-07 23:39:01.809 INFO  hhxy.dn.wph.WphApplication - Starting WphApplication on DESKTOP-J8QCU3D with PID 14064 (D:\JetBrains\workspace\VipShop\target\classes started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-06-07 23:39:01.866 INFO  hhxy.dn.wph.WphApplication - No active profile set, falling back to default profiles: default
+2020-06-07 23:39:01.946 INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-07 23:39:01.947 INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-07 23:39:02.800 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-07 23:39:02.803 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-07 23:39:02.838 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2020-06-07 23:39:03.257 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a9e4e33d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-07 23:39:03.845 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-06-07 23:39:03.858 INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-06-07 23:39:03.862 INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-06-07 23:39:03.863 INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.12
+2020-06-07 23:39:03.869 INFO  org.apache.catalina.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\Java\jdk1.8.0_121\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;D:\Python27\;D:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\apache-maven-3.2.3\bin;D:\nodejs\;D:\Git\cmd;D:\Redis\;D:\MySQL\bin;C:\Users\邓宁宁\AppData\Local\Microsoft\WindowsApps;D:\JetBrains\IntelliJ IDEA 2019.2.3\bin;D:\nodejs\node_global;C:\Users\邓宁宁\AppData\Local\Microsoft\WindowsApps;D:\JetBrains\IntelliJ IDEA 2019.2.3\bin;;D:\nodejs\node_global;;.]
+2020-06-07 23:39:03.940 INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/wph] - Initializing Spring embedded WebApplicationContext
+2020-06-07 23:39:03.940 INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1993 ms
+2020-06-07 23:39:03.979 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet statViewServlet mapped to [/druid/*]
+2020-06-07 23:39:03.981 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2020-06-07 23:39:03.983 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-06-07 23:39:03.984 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-06-07 23:39:03.984 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'formContentFilter' to: [/*]
+2020-06-07 23:39:03.984 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2020-06-07 23:39:03.984 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webStatFilter' to urls: [/*]
+2020-06-07 23:39:04.030 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-07 23:39:04.379 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-07 23:39:04.834 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-07 23:39:05.131 INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-07 23:39:05.158 INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-06-07 23:39:05.165 INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-06-07 23:39:05.177 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/wph'
+2020-06-07 23:39:05.180 INFO  hhxy.dn.wph.WphApplication - Started WphApplication in 4.188 seconds (JVM running for 5.296)

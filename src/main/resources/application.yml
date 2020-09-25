@@ -2,7 +2,7 @@ server:
   servlet:
     #项目访问路径
     context-path: /wph
-  port: 8080
+  port: 8088
   #提供HTTPS服务
 #  ssl:
 #    key-store: C:\Users\Administrator\mykeys.jks
@@ -78,5 +78,7 @@ logging:
     root: info
     hhxy.dn.wph: info
     hhxy.dn.wph.mapper: debug
+
+
 
 

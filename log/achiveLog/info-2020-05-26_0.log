@@ -1,0 +1,52 @@
+2020-05-26 21:31:23.342 INFO  hhxy.dn.wph.mapper.UserMapperTest - Starting UserMapperTest on DESKTOP-J8QCU3D with PID 16124 (started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-05-26 21:31:23.362 INFO  hhxy.dn.wph.mapper.UserMapperTest - No active profile set, falling back to default profiles: default
+2020-05-26 21:31:26.694 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-26 21:31:26.704 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-05-26 21:31:26.889 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 138ms. Found 0 repository interfaces.
+2020-05-26 21:31:28.503 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$81efee7f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-26 21:31:29.179 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-05-26 21:31:30.339 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-05-26 21:31:34.080 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-26 21:31:36.025 INFO  hhxy.dn.wph.mapper.UserMapperTest - Started UserMapperTest in 14.795 seconds (JVM running for 17.567)
+2020-05-26 21:31:37.018 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-26 21:31:37.060 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-05-26 21:31:37.068 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-05-26 21:32:24.493 INFO  hhxy.dn.wph.mapper.UserMapperTest - Starting UserMapperTest on DESKTOP-J8QCU3D with PID 15252 (started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-05-26 21:32:24.502 INFO  hhxy.dn.wph.mapper.UserMapperTest - No active profile set, falling back to default profiles: default
+2020-05-26 21:32:27.087 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-26 21:32:27.096 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-05-26 21:32:27.202 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 73ms. Found 0 repository interfaces.
+2020-05-26 21:32:28.733 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$ef79b091] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-26 21:32:29.434 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-05-26 21:32:30.575 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-05-26 21:32:33.889 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-26 21:32:35.625 INFO  hhxy.dn.wph.mapper.UserMapperTest - Started UserMapperTest in 12.521 seconds (JVM running for 14.713)
+2020-05-26 21:32:36.669 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-26 21:32:36.708 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-05-26 21:32:36.716 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-05-26 21:34:07.503 INFO  hhxy.dn.wph.mapper.UserMapperTest - Starting UserMapperTest on DESKTOP-J8QCU3D with PID 15856 (started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-05-26 21:34:07.522 INFO  hhxy.dn.wph.mapper.UserMapperTest - No active profile set, falling back to default profiles: default
+2020-05-26 21:34:09.932 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-26 21:34:09.940 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-05-26 21:34:10.084 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 90ms. Found 0 repository interfaces.
+2020-05-26 21:34:11.668 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$949f26c5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-26 21:34:12.435 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-05-26 21:34:13.609 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-05-26 21:34:17.250 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-26 21:34:19.789 INFO  hhxy.dn.wph.mapper.UserMapperTest - Started UserMapperTest in 13.667 seconds (JVM running for 16.042)
+2020-05-26 21:34:20.983 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-26 21:34:21.046 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-05-26 21:34:21.055 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-05-26 21:37:08.589 INFO  hhxy.dn.wph.mapper.UserMapperTest - Starting UserMapperTest on DESKTOP-J8QCU3D with PID 4276 (started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-05-26 21:37:08.602 INFO  hhxy.dn.wph.mapper.UserMapperTest - No active profile set, falling back to default profiles: default
+2020-05-26 21:37:11.911 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-26 21:37:11.919 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-05-26 21:37:12.051 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 92ms. Found 0 repository interfaces.
+2020-05-26 21:37:13.284 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b59a29be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-26 21:37:13.863 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-05-26 21:37:14.960 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-05-26 21:37:18.947 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-26 21:37:21.195 INFO  hhxy.dn.wph.mapper.UserMapperTest - Started UserMapperTest in 14.577 seconds (JVM running for 17.228)
+2020-05-26 21:37:22.416 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-26 21:37:22.457 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-05-26 21:37:22.472 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed

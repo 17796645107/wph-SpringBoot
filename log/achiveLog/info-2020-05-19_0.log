@@ -1,0 +1,109 @@
+2020-05-19 21:48:08.435 INFO  hhxy.dn.wph.WphApplication - Starting WphApplication on DESKTOP-J8QCU3D with PID 12032 (D:\JetBrains\workspace\VipShop\target\classes started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-05-19 21:48:08.441 INFO  hhxy.dn.wph.WphApplication - No active profile set, falling back to default profiles: default
+2020-05-19 21:48:14.024 INFO  hhxy.dn.wph.WphApplication - Started WphApplication in 6.393 seconds (JVM running for 7.724)
+2020-05-19 22:21:43.308 INFO  hhxy.dn.wph.WphApplication - Starting WphApplication on DESKTOP-J8QCU3D with PID 12032 (D:\JetBrains\workspace\VipShop\target\classes started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-05-19 22:21:43.309 INFO  hhxy.dn.wph.WphApplication - No active profile set, falling back to default profiles: default
+2020-05-19 22:21:44.892 INFO  hhxy.dn.wph.WphApplication - Started WphApplication in 1.658 seconds (JVM running for 2018.593)
+2020-05-19 22:22:09.712 INFO  hhxy.dn.wph.WphApplication - Starting WphApplication on DESKTOP-J8QCU3D with PID 12032 (D:\JetBrains\workspace\VipShop\target\classes started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-05-19 22:22:09.713 INFO  hhxy.dn.wph.WphApplication - No active profile set, falling back to default profiles: default
+2020-05-19 22:22:10.110 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-19 22:22:10.111 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-05-19 22:22:10.126 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 14ms. Found 0 repository interfaces.
+2020-05-19 22:22:10.231 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$df281056] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 22:22:10.390 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8088 (http)
+2020-05-19 22:22:10.399 INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-05-19 22:22:10.402 INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-05-19 22:22:10.403 INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.12
+2020-05-19 22:22:10.449 INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/wph] - Initializing Spring embedded WebApplicationContext
+2020-05-19 22:22:10.449 INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 731 ms
+2020-05-19 22:22:10.474 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet statViewServlet mapped to [/druid/*]
+2020-05-19 22:22:10.479 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2020-05-19 22:22:10.485 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-05-19 22:22:10.486 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-05-19 22:22:10.486 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'formContentFilter' to: [/*]
+2020-05-19 22:22:10.486 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2020-05-19 22:22:10.486 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webStatFilter' to urls: [/*]
+2020-05-19 22:22:10.531 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-05-19 22:22:10.619 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-3} inited
+2020-05-19 22:22:10.949 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-19 22:22:11.241 INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-05-19 22:22:11.321 INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-05-19 22:22:11.324 INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-05-19 22:22:11.330 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8088 (http) with context path '/wph'
+2020-05-19 22:22:11.378 INFO  hhxy.dn.wph.WphApplication - Started WphApplication in 1.717 seconds (JVM running for 2045.079)
+2020-05-19 22:22:11.383 INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-05-19 22:26:25.666 INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/wph] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-19 22:26:25.667 INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-05-19 22:26:25.684 INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 17 ms
+2020-05-19 22:28:05.962 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-19 22:28:05.965 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-3} closing ...
+2020-05-19 22:28:05.972 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-3} closed
+2020-05-19 22:28:06.716 INFO  hhxy.dn.wph.WphApplication - Starting WphApplication on DESKTOP-J8QCU3D with PID 12032 (D:\JetBrains\workspace\VipShop\target\classes started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-05-19 22:28:06.717 INFO  hhxy.dn.wph.WphApplication - No active profile set, falling back to default profiles: default
+2020-05-19 22:28:07.141 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-19 22:28:07.142 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-05-19 22:28:07.161 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19ms. Found 0 repository interfaces.
+2020-05-19 22:28:07.241 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$df281056] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 22:28:07.371 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8088 (http)
+2020-05-19 22:28:07.372 INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-05-19 22:28:07.372 INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-05-19 22:28:07.374 INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.12
+2020-05-19 22:28:07.397 INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/wph] - Initializing Spring embedded WebApplicationContext
+2020-05-19 22:28:07.397 INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 677 ms
+2020-05-19 22:28:07.419 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet statViewServlet mapped to [/druid/*]
+2020-05-19 22:28:07.419 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2020-05-19 22:28:07.420 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-05-19 22:28:07.420 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-05-19 22:28:07.420 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'formContentFilter' to: [/*]
+2020-05-19 22:28:07.420 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2020-05-19 22:28:07.420 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webStatFilter' to urls: [/*]
+2020-05-19 22:28:07.446 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-05-19 22:28:07.506 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-4} inited
+2020-05-19 22:28:07.797 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-19 22:28:08.004 INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-05-19 22:28:08.039 INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-05-19 22:28:08.040 INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-05-19 22:28:08.045 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8088 (http) with context path '/wph'
+2020-05-19 22:28:08.046 INFO  hhxy.dn.wph.WphApplication - Started WphApplication in 1.394 seconds (JVM running for 2401.746)
+2020-05-19 22:28:08.049 INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-05-19 22:28:21.886 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-19 22:28:21.895 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-4} closing ...
+2020-05-19 22:28:21.901 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-4} closed
+2020-05-19 22:28:22.836 INFO  hhxy.dn.wph.WphApplication - Starting WphApplication on DESKTOP-J8QCU3D with PID 12032 (D:\JetBrains\workspace\VipShop\target\classes started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-05-19 22:28:22.837 INFO  hhxy.dn.wph.WphApplication - No active profile set, falling back to default profiles: default
+2020-05-19 22:28:23.609 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-19 22:28:23.610 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-05-19 22:28:23.625 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+2020-05-19 22:28:23.714 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$df281056] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 22:28:23.879 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8088 (http)
+2020-05-19 22:28:23.880 INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-05-19 22:28:23.881 INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-05-19 22:28:23.881 INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.12
+2020-05-19 22:28:23.905 INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/wph] - Initializing Spring embedded WebApplicationContext
+2020-05-19 22:28:23.905 INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1063 ms
+2020-05-19 22:28:23.933 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet statViewServlet mapped to [/druid/*]
+2020-05-19 22:28:23.933 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2020-05-19 22:28:23.934 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-05-19 22:28:23.934 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-05-19 22:28:23.934 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'formContentFilter' to: [/*]
+2020-05-19 22:28:23.934 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2020-05-19 22:28:23.934 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webStatFilter' to urls: [/*]
+2020-05-19 22:28:23.967 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-05-19 22:28:24.036 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-5} inited
+2020-05-19 22:28:24.405 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-19 22:28:24.670 INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-05-19 22:28:24.705 INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-05-19 22:28:24.707 INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-05-19 22:28:24.713 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8088 (http) with context path '/wph'
+2020-05-19 22:28:24.714 INFO  hhxy.dn.wph.WphApplication - Started WphApplication in 1.935 seconds (JVM running for 2418.414)
+2020-05-19 22:28:24.718 INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-05-19 22:28:36.966 INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/wph] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-19 22:28:36.969 INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-05-19 22:28:36.994 INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 24 ms
+2020-05-19 22:28:37.017 INFO  hhxy.dn.wph.acpect.HttpAspect - url = http://localhost:8088/wph/user/getUserById/1
+2020-05-19 22:28:37.019 INFO  hhxy.dn.wph.acpect.HttpAspect - action = GET
+2020-05-19 22:28:37.019 INFO  hhxy.dn.wph.acpect.HttpAspect - ip = 127.0.0.1
+2020-05-19 22:28:37.036 INFO  hhxy.dn.wph.acpect.HttpAspect - method = hhxy.dn.wph.controller.UserController.getUserDetail
+2020-05-19 22:28:37.036 INFO  hhxy.dn.wph.acpect.HttpAspect - params = 1
+2020-05-19 22:28:37.075 INFO  hhxy.dn.wph.acpect.HttpAspect - getUserDetail结束
+2020-05-19 22:28:37.075 INFO  hhxy.dn.wph.acpect.HttpAspect - response = hhxy.dn.wph.entity.Result@114f0593

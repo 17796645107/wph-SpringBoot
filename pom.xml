@@ -7,6 +7,7 @@
     <artifactId>wph</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <!--<packaging>jar</packaging>-->
+<!--    打war包，部署到tomcat-->
     <packaging>war</packaging>
     <name>wph</name>
     <description>唯品会电子商务网站——SpringBoot+mybatis+vue实现前后端分离</description>
@@ -55,6 +56,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.47</version>
             <scope>runtime</scope>
+        </dependency>
+        <!--druid连接池-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.17</version>
         </dependency>
         <!--Mybatis整合SpringBoot-->
         <dependency>

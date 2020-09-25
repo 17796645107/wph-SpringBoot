@@ -1,0 +1,80 @@
+2020-06-18 19:35:24.093 INFO  hhxy.dn.wph.WphApplication - Starting WphApplication on DESKTOP-J8QCU3D with PID 16344 (D:\JetBrains\workspace\VipShop\target\classes started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-06-18 19:35:24.102 INFO  hhxy.dn.wph.WphApplication - No active profile set, falling back to default profiles: default
+2020-06-18 19:35:24.207 INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-18 19:35:24.207 INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-18 19:35:25.503 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-18 19:35:25.506 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-18 19:35:25.560 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34ms. Found 0 repository interfaces.
+2020-06-18 19:35:26.185 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$59ac06be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-18 19:35:27.609 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-06-18 19:35:27.840 INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-06-18 19:35:27.852 INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-06-18 19:35:27.852 INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.12
+2020-06-18 19:35:27.868 INFO  org.apache.catalina.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\Java\jdk1.8.0_121\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;D:\Python27\;D:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\apache-maven-3.2.3\bin;D:\nodejs\;D:\Git\cmd;D:\Redis\;D:\MySQL\bin;C:\Users\邓宁宁\AppData\Local\Microsoft\WindowsApps;D:\JetBrains\IntelliJ IDEA 2019.2.3\bin;D:\nodejs\node_global;C:\Users\邓宁宁\AppData\Local\Microsoft\WindowsApps;D:\JetBrains\IntelliJ IDEA 2019.2.3\bin;;D:\nodejs\node_global;;.]
+2020-06-18 19:35:28.042 INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/wph] - Initializing Spring embedded WebApplicationContext
+2020-06-18 19:35:28.042 INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3835 ms
+2020-06-18 19:35:28.124 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet statViewServlet mapped to [/druid/*]
+2020-06-18 19:35:28.125 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2020-06-18 19:35:28.135 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-06-18 19:35:28.135 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-06-18 19:35:28.136 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'formContentFilter' to: [/*]
+2020-06-18 19:35:28.136 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2020-06-18 19:35:28.136 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webStatFilter' to urls: [/*]
+2020-06-18 19:35:28.252 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-18 19:35:28.854 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-18 19:35:30.160 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-18 19:35:30.855 INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-18 19:35:30.908 INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-06-18 19:35:30.933 INFO  org.apache.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2020-06-18 19:35:30.933 INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2020-06-18 19:35:30.945 INFO  org.apache.catalina.util.LifecycleBase - The stop() method was called on component [StandardServer[-1]] after stop() had already been called. The second call will be ignored.
+2020-06-18 19:35:30.945 INFO  org.apache.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2020-06-18 19:35:30.945 INFO  org.apache.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+2020-06-18 19:35:30.949 INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-06-18 19:35:30.963 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-18 19:35:30.988 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-18 19:35:30.994 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-18 19:36:25.159 INFO  hhxy.dn.wph.WphApplication - Starting WphApplication on DESKTOP-J8QCU3D with PID 13776 (D:\JetBrains\workspace\VipShop\target\classes started by 邓宁宁 in D:\JetBrains\workspace\VipShop)
+2020-06-18 19:36:25.164 INFO  hhxy.dn.wph.WphApplication - No active profile set, falling back to default profiles: default
+2020-06-18 19:36:25.241 INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-18 19:36:25.241 INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-06-18 19:36:26.404 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-18 19:36:26.406 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-18 19:36:26.455 INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33ms. Found 0 repository interfaces.
+2020-06-18 19:36:26.915 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a2d8ff60] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-18 19:36:27.610 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8088 (http)
+2020-06-18 19:36:27.769 INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-06-18 19:36:27.777 INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-06-18 19:36:27.778 INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.12
+2020-06-18 19:36:27.786 INFO  org.apache.catalina.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\Java\jdk1.8.0_121\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;D:\Python27\;D:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\apache-maven-3.2.3\bin;D:\nodejs\;D:\Git\cmd;D:\Redis\;D:\MySQL\bin;C:\Users\邓宁宁\AppData\Local\Microsoft\WindowsApps;D:\JetBrains\IntelliJ IDEA 2019.2.3\bin;D:\nodejs\node_global;C:\Users\邓宁宁\AppData\Local\Microsoft\WindowsApps;D:\JetBrains\IntelliJ IDEA 2019.2.3\bin;;D:\nodejs\node_global;;.]
+2020-06-18 19:36:27.934 INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/wph] - Initializing Spring embedded WebApplicationContext
+2020-06-18 19:36:27.935 INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2693 ms
+2020-06-18 19:36:28.008 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet statViewServlet mapped to [/druid/*]
+2020-06-18 19:36:28.010 INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2020-06-18 19:36:28.015 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-06-18 19:36:28.015 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-06-18 19:36:28.015 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'formContentFilter' to: [/*]
+2020-06-18 19:36:28.015 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2020-06-18 19:36:28.016 INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webStatFilter' to urls: [/*]
+2020-06-18 19:36:28.087 INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-18 19:36:28.462 INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-18 19:36:29.152 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-18 19:36:29.585 INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-18 19:36:29.618 INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-06-18 19:36:29.627 INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-06-18 19:36:29.643 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8088 (http) with context path '/wph'
+2020-06-18 19:36:29.645 INFO  hhxy.dn.wph.WphApplication - Started WphApplication in 5.292 seconds (JVM running for 6.383)
+2020-06-18 19:42:56.385 INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/wph] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-18 19:42:56.385 INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-18 19:42:56.394 INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 9 ms
+2020-06-18 19:42:56.551 INFO  hhxy.dn.wph.acpect.HttpAspect - url = http://localhost:8088/wph/user/sendCode
+2020-06-18 19:42:56.551 INFO  hhxy.dn.wph.acpect.HttpAspect - action = POST
+2020-06-18 19:42:56.552 INFO  hhxy.dn.wph.acpect.HttpAspect - ip = 127.0.0.1
+2020-06-18 19:42:56.553 INFO  hhxy.dn.wph.acpect.HttpAspect - method = hhxy.dn.wph.controller.UserController.userSendCode
+2020-06-18 19:42:56.553 INFO  hhxy.dn.wph.acpect.HttpAspect - params = User{id=null, userNo='null', nickname='null', telephone='13333713719', password='null', telephoneCode='null', name='null', sex='null', birthday='null', email='null', vip='null', headImage='null', status=null, created='null'}
+2020-06-18 19:42:56.700 INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-06-18 19:42:56.701 INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-18 19:42:57.808 INFO  hhxy.dn.wph.acpect.HttpAspect - userSendCode结束
+2020-06-18 19:42:57.809 INFO  hhxy.dn.wph.acpect.HttpAspect - response = hhxy.dn.wph.entity.Result@3054040e

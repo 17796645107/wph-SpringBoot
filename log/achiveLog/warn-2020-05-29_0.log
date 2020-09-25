@@ -1,0 +1,115 @@
+2020-05-29 22:59:25.180 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cartController': Unsatisfied dependency expressed through field 'goodCartService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'goodCartServiceImpl': Unsatisfied dependency expressed through field 'goodCartMapper'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cartMapper' defined in file [D:\JetBrains\workspace\VipShop\target\classes\hhxy\dn\wph\mapper\CartMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [com/alibaba/druid/spring/boot/autoconfigure/DruidDataSourceAutoConfigure.class]: Invocation of init method failed; nested exception is com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2020-05-29 23:06:25.107 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:06:31.700 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:06:36.344 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:06:38.941 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:06:41.099 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:07:06.957 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:07:47.352 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:08:04.327 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:08:07.195 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:08:34.743 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:08:37.024 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:08:58.951 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:09:22.220 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:09:36.488 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.builder.BuilderException: Error invoking SqlProvider method (hhxy.dn.wph.mapper.provider.ProductProvider.updateProductNum).  Cause: java.lang.IllegalArgumentException: argument type mismatch]
+2020-05-29 23:11:29.254 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.builder.BuilderException: Error invoking SqlProvider method (hhxy.dn.wph.mapper.provider.ProductProvider.updateProductNum).  Cause: java.lang.IllegalArgumentException: argument type mismatch]
+2020-05-29 23:17:31.695 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.builder.BuilderException: Error invoking SqlProvider method (hhxy.dn.wph.mapper.provider.ProductProvider.updateProductNum).  Cause: java.lang.IllegalArgumentException: argument type mismatch]
+2020-05-29 23:17:31.696 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Failure in @ExceptionHandler public hhxy.dn.wph.entity.Result hhxy.dn.wph.handle.ExceptionHandle.handle(java.lang.Exception)
+org.apache.catalina.connector.ClientAbortException: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:298)
+	at org.apache.catalina.connector.OutputBuffer.flush(OutputBuffer.java:261)
+	at org.apache.catalina.connector.CoyoteOutputStream.flush(CoyoteOutputStream.java:118)
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.flush(UTF8JsonGenerator.java:1100)
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:915)
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:287)
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:103)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:289)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:180)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:82)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:119)
+	at org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.doResolveHandlerMethodException(ExceptionHandlerExceptionResolver.java:408)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodExceptionResolver.doResolveException(AbstractHandlerMethodExceptionResolver.java:61)
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:136)
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80)
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1297)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1109)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1055)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:998)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:901)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:875)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:124)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:770)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:51)
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93)
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:471)
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:134)
+	at org.apache.tomcat.util.net.NioBlockingSelector.write(NioBlockingSelector.java:101)
+	at org.apache.tomcat.util.net.NioSelectorPool.write(NioSelectorPool.java:157)
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1223)
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:743)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flushBlocking(SocketWrapperBase.java:696)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flush(SocketWrapperBase.java:686)
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.flush(Http11OutputBuffer.java:553)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.flush(ChunkedOutputFilter.java:157)
+	at org.apache.coyote.http11.Http11OutputBuffer.flush(Http11OutputBuffer.java:216)
+	at org.apache.coyote.http11.Http11Processor.flush(Http11Processor.java:1147)
+	at org.apache.coyote.AbstractProcessor.action(AbstractProcessor.java:376)
+	at org.apache.coyote.Response.action(Response.java:209)
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:294)
+	... 63 common frames omitted
+2020-05-29 23:20:39.277 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.builder.BuilderException: Error invoking SqlProvider method (hhxy.dn.wph.mapper.provider.ProductProvider.updateProductNum).  Cause: java.lang.IllegalArgumentException: argument type mismatch]
+2020-05-29 23:24:48.705 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:24:52.917 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:29:08.246 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:29:19.219 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:29:41.253 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:29:41.847 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:29:54.387 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
+2020-05-29 23:29:54.417 WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [hhxy.dn.wph.exception.GeneralException: 没有查询到信息]
